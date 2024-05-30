@@ -6,10 +6,19 @@
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended"
   ],
-  "plugins": ["simple-import-sort", "react", "react-hooks", "jsx-a11y"],
+  "plugins": [
+    "simple-import-sort",
+    "react",
+    "react-hooks",
+    "jsx-a11y",
+    "prettier"
+  ],
   "rules": {
     "simple-import-sort/imports": "error",
     "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "jsx-a11y/heading-has-content": "off",
+    "prettier/prettier": "error",
     "no-unused-vars": [
       "warn",
       {
