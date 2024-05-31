@@ -57,6 +57,9 @@ const nextAuthOptions: NextAuthOptions = {
 
       return session;
     }
+  },
+  session: {
+    maxAge: 60 * 60 * 12
   }
 };
 
