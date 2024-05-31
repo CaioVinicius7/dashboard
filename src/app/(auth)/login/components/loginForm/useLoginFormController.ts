@@ -13,13 +13,13 @@ export function useLoginFormController() {
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<FormData>({
     resolver: zodResolver(schema)
   });
 
   const handleSubmit = hookFormHandleSubmit(async ({ email, password }) => {
-    const response = await fetch("/api/login", {
+    await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -29,15 +29,12 @@ export function useLoginFormController() {
         password
       })
     });
-
-    const data = await response.json();
-
-    console.log(JSON.stringify(data, null, 2));
   });
 
   return {
     register,
     handleSubmit,
-    errors
+    errors,
+    isSubmitting
   };
 }

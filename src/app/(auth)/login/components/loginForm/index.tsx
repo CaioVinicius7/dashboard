@@ -9,7 +9,8 @@ import { Input } from "@/components/ui/input";
 import { useLoginFormController } from "./useLoginFormController";
 
 export function LoginForm() {
-  const { register, handleSubmit, errors } = useLoginFormController();
+  const { register, handleSubmit, errors, isSubmitting } =
+    useLoginFormController();
 
   return (
     <form onSubmit={handleSubmit}>
@@ -54,7 +55,7 @@ export function LoginForm() {
       </CardContent>
 
       <CardFooter className="mt-2">
-        <Button type="submit" className="w-full">
+        <Button type="submit" disabled={isSubmitting} className="w-full">
           Entrar
         </Button>
       </CardFooter>
