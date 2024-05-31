@@ -1,12 +1,8 @@
 import { compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-import { env } from "@/env";
 import { prisma } from "@/lib/prisma";
-
-const { JWT_SECRET } = env;
 
 const loginBodySchema = z.object({
   email: z.string().email(),
@@ -49,18 +45,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const token = sign({}, JWT_SECRET, {
-      subject: userFromEmail.id,
-      expiresIn: "1d"
-    });
-
-    const response = NextResponse.json({});
-
-    response.cookies.set("@dashboard-auth-token", token, {
-      httpOnly: true,
-      sameSite: "strict",
-      expires: 60 * 60 * 24, // 1d
-      path: "/"
+    const response = NextResponse.json({
+      user: {
+        id: userFromEmail.id,
+        name: userFromEmail.name,
+        email: userFromEmail.email
+      }
     });
 
     return response;

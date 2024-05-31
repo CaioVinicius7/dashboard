@@ -4,10 +4,12 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
-    JWT_SECRET: z.string()
+    NEXTAUTH_URL: z.string().url(),
+    NEXTAUTH_SECRET: z.string()
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
-    JWT_SECRET: process.env.JWT_SECRET
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET
   }
 });

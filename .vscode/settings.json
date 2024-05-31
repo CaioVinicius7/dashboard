@@ -3,6 +3,8 @@
     "clsx",
     "esnext",
     "hookform",
+    "nextauth",
+    "NEXTAUTH",
     "nextjs",
     "Parens",
     "tailwindcss"

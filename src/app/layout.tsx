@@ -5,6 +5,7 @@ import { Inter as FontSans } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
+import { NextAuthSessionProvider } from "@/providers/sessionProvider";
 import { ThemeProvider } from "@/providers/themeProvider";
 
 const fontSans = FontSans({
@@ -36,7 +37,7 @@ export default function RootLayout({
           storageKey="@dashboard-theme"
           enableSystem
         >
-          {children}
+          <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
         </ThemeProvider>
       </body>
     </html>
