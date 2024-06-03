@@ -1,32 +1,36 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
-interface NavLinkProps {
+interface ActionButtonProps {
   children: ReactNode;
-  text: string;
-  href: string;
   sideNavIsOpen: boolean;
+  text: string;
+  action: () => void;
 }
 
-export function NavLink({ children, text, href, sideNavIsOpen }: NavLinkProps) {
+export function ActionButton({
+  children,
+  sideNavIsOpen,
+  text,
+  action
+}: ActionButtonProps) {
   return (
     <Tooltip delayDuration={0}>
       <TooltipTrigger asChild>
-        <Link
-          href={`${href}`}
-          className="flex cursor-pointer items-center gap-3 overflow-hidden rounded-md p-2 hover:backdrop-brightness-150"
+        <button
+          onClick={action}
+          className="flex cursor-pointer gap-3 overflow-hidden rounded-md p-2 hover:backdrop-brightness-150"
         >
-          <div className="size-6">{children}</div>
+          {children}
 
           <span className="whitespace-nowrap">{text}</span>
-        </Link>
+        </button>
       </TooltipTrigger>
 
       {!sideNavIsOpen && (
         <TooltipContent>
-          <p>{text}</p>
+          <p>Expandir menu</p>
         </TooltipContent>
       )}
     </Tooltip>

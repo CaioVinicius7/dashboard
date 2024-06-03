@@ -10,12 +10,8 @@ import {
   Users
 } from "lucide-react";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from "../ui/tooltip";
+import { TooltipProvider } from "../ui/tooltip";
+import { ActionButton } from "./actionButton";
 import { NavLink } from "./navLink";
 import { useSideNavController } from "./useSideNavController";
 
@@ -64,73 +60,47 @@ export function SideNav() {
         initial="close"
         className="flex h-screen flex-col border-r bg-primary-foreground px-4 py-6"
       >
-        <Tooltip delayDuration={0}>
-          <TooltipTrigger asChild>
-            <button
-              onClick={handleToggleSideNavVisibility}
-              className="flex cursor-pointer gap-3 overflow-hidden rounded-md p-2 hover:backdrop-brightness-150"
-            >
-              <motion.div
-                variants={arrowVariants}
-                animate={isOpen ? "open" : "close"}
-                transition={{
-                  duration: 0.5,
-                  ease: "easeInOut"
-                }}
-                className="flex size-6 items-center gap-3"
-              >
-                <ArrowRight />
-              </motion.div>
-
-              <span className="whitespace-nowrap">Fechar menu</span>
-            </button>
-          </TooltipTrigger>
-
-          {!isOpen && (
-            <TooltipContent>
-              <p>Expandir menu</p>
-            </TooltipContent>
-          )}
-        </Tooltip>
+        <ActionButton
+          sideNavIsOpen={isOpen}
+          text="Fechar menu"
+          action={handleToggleSideNavVisibility}
+        >
+          <motion.div
+            variants={arrowVariants}
+            animate={isOpen ? "open" : "close"}
+            transition={{
+              duration: 0.5,
+              ease: "easeInOut"
+            }}
+            className="flex size-6 items-center gap-3"
+          >
+            <ArrowRight />
+          </motion.div>
+        </ActionButton>
 
         <nav className="mt-10 flex flex-1 flex-col gap-2">
-          <NavLink text="Página inicial" href="/" isOpen={isOpen}>
+          <NavLink text="Página inicial" href="/" sideNavIsOpen={isOpen}>
             <Home />
           </NavLink>
 
-          <NavLink text="Vendas" href="/sales" isOpen={isOpen}>
+          <NavLink text="Vendas" href="/sales" sideNavIsOpen={isOpen}>
             <BadgeDollarSign />
           </NavLink>
 
-          <NavLink text="Estoque" href="/stock" isOpen={isOpen}>
+          <NavLink text="Estoque" href="/stock" sideNavIsOpen={isOpen}>
             <Blocks />
           </NavLink>
 
-          <NavLink text="Funcionários" href="/employees" isOpen={isOpen}>
+          <NavLink text="Funcionários" href="/employees" sideNavIsOpen={isOpen}>
             <Users />
           </NavLink>
         </nav>
 
-        <Tooltip delayDuration={0}>
-          <TooltipTrigger asChild>
-            <button
-              onClick={logout}
-              className="flex cursor-pointer gap-3 overflow-hidden rounded-md p-2 hover:backdrop-brightness-150"
-            >
-              <div>
-                <LogOut className="size-6 text-red-500" />
-              </div>
-
-              <span className="whitespace-nowrap">Sair</span>
-            </button>
-          </TooltipTrigger>
-
-          {!isOpen && (
-            <TooltipContent>
-              <span className="whitespace-nowrap">Sair</span>
-            </TooltipContent>
-          )}
-        </Tooltip>
+        <ActionButton sideNavIsOpen={isOpen} text="Sair" action={logout}>
+          <div>
+            <LogOut className="size-6 text-red-500" />
+          </div>
+        </ActionButton>
       </motion.div>
     </TooltipProvider>
   );
