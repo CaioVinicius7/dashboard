@@ -36,7 +36,7 @@ const containerVariants = {
 
 const arrowVariants = {
   close: {
-    rotate: 360,
+    rotate: 0,
     transition: {
       type: "spring",
       damping: 15,
