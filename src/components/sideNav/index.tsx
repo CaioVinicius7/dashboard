@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 "use client";
@@ -11,7 +12,6 @@ import {
   LogOut,
   Users
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -72,7 +72,7 @@ export function SideNav() {
         variants={containerVariants}
         animate={containerControls}
         initial="close"
-        className="flex h-screen flex-col bg-primary-foreground px-4 py-6"
+        className="flex h-screen flex-col border-r bg-primary-foreground px-4 py-6"
       >
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
