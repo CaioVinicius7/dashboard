@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import type { ReactNode } from "react";
 
+import { SideNav } from "@/components/sideNav";
+
 import { nextAuthOptions } from "../api/auth/[...nextauth]/route";
 
 interface DashboardLayoutProps {
@@ -17,5 +19,11 @@ export default async function DashboardLayout({
     redirect("/login");
   }
 
-  return <>{children}</>;
+  return (
+    <div className="flex">
+      <SideNav />
+
+      <main className="flex-1">{children}</main>
+    </div>
+  );
 }
