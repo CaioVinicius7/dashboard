@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import type { ReactNode } from "react";
 
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { NextAuthSessionProvider } from "@/providers/sessionProvider";
 import { ThemeProvider } from "@/providers/themeProvider";
@@ -38,6 +39,7 @@ export default function RootLayout({
           enableSystem
         >
           <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

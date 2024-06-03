@@ -4,6 +4,8 @@ import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useToast } from "@/components/ui/use-toast";
+
 const schema = z.object({
   email: z.string().email("O campo deve conter um e-mail válido."),
   password: z.string().min(8, "A senha deve conter no mínimo 8 caracteres.")
@@ -13,6 +15,7 @@ type FormData = z.infer<typeof schema>;
 
 export function useLoginFormController() {
   const router = useRouter();
+  const { toast } = useToast();
 
   const {
     register,
@@ -29,7 +32,12 @@ export function useLoginFormController() {
       redirect: false
     });
 
-    if (result?.error) {
+    if (!!result?.error) {
+      toast({
+        description: "Dados de acesso incorretos.",
+        variant: "destructive"
+      });
+
       return;
     }
 

@@ -1,11 +1,6 @@
-import { getServerSession } from "next-auth";
-
-import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ModeToggle } from "@/components/themeToggle";
 
-export default async function Home() {
-  const session = await getServerSession(nextAuthOptions);
-
+export default function Home() {
   return (
     <>
       <header className="flex items-center justify-between p-4">
@@ -13,8 +8,6 @@ export default async function Home() {
 
         <ModeToggle />
       </header>
-
-      <pre>{JSON.stringify(session, null, 2)}</pre>
     </>
   );
 }
