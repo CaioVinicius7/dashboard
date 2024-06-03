@@ -1,9 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 "use client";
 
-import { motion, useAnimationControls } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   BadgeDollarSign,
@@ -12,8 +9,6 @@ import {
   LogOut,
   Users
 } from "lucide-react";
-import { signOut } from "next-auth/react";
-import { useEffect, useState } from "react";
 
 import {
   Tooltip,
@@ -58,31 +53,26 @@ const arrowVariants = {
 };
 
 export function SideNav() {
-  const {
-    handleToggleSideNavVisibility,
-    logout,
-    isOpen,
-    containerControls,
-    arrowControls
-  } = useSideNavController();
+  const { handleToggleSideNavVisibility, logout, isOpen } =
+    useSideNavController();
 
   return (
     <TooltipProvider>
       <motion.div
         variants={containerVariants}
-        animate={containerControls}
+        animate={isOpen ? "open" : "close"}
         initial="close"
         className="flex h-screen flex-col border-r bg-primary-foreground px-4 py-6"
       >
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
-            <div
+            <button
               onClick={handleToggleSideNavVisibility}
               className="flex cursor-pointer gap-3 overflow-hidden rounded-md p-2 hover:backdrop-brightness-150"
             >
-              <motion.button
+              <motion.div
                 variants={arrowVariants}
-                animate={arrowControls}
+                animate={isOpen ? "open" : "close"}
                 transition={{
                   duration: 0.5,
                   ease: "easeInOut"
@@ -90,10 +80,10 @@ export function SideNav() {
                 className="flex size-6 items-center gap-3"
               >
                 <ArrowRight />
-              </motion.button>
+              </motion.div>
 
               <span className="whitespace-nowrap">Fechar menu</span>
-            </div>
+            </button>
           </TooltipTrigger>
 
           {!isOpen && (
@@ -123,16 +113,16 @@ export function SideNav() {
 
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
-            <div
+            <button
               onClick={logout}
               className="flex cursor-pointer gap-3 overflow-hidden rounded-md p-2 hover:backdrop-brightness-150"
             >
-              <button>
+              <div>
                 <LogOut className="size-6 text-red-500" />
-              </button>
+              </div>
 
               <span className="whitespace-nowrap">Sair</span>
-            </div>
+            </button>
           </TooltipTrigger>
 
           {!isOpen && (
