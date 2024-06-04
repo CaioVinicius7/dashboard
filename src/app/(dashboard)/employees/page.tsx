@@ -2,9 +2,12 @@ import { Pencil, Trash2, UserPlus } from "lucide-react";
 
 import { DatePicker } from "@/components/DatePicker";
 import { Header } from "@/components/Header";
+import { InputCurrency } from "@/components/InputCurrency";
+import { InputMask } from "@/components/InputMask";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -83,7 +86,10 @@ export default function Employees() {
                     <div className="space-y-2">
                       <Label>Telefone</Label>
 
-                      <Input placeholder="(35) 9 9999-9999" />
+                      <InputMask
+                        mask="(99) 9 9999-9999"
+                        placeholder="(35) 9 9999-9999"
+                      />
                     </div>
                   </div>
                 </div>
@@ -96,13 +102,15 @@ export default function Employees() {
 
                   <div className="w-1/2 space-y-2">
                     <Label>Salário</Label>
-                    <Input />
+                    <InputCurrency />
                   </div>
                 </div>
               </form>
 
               <div className="mt-6 flex justify-end gap-4">
-                <Button variant="ghost">Cancelar</Button>
+                <DialogClose asChild>
+                  <Button variant="ghost">Cancelar</Button>
+                </DialogClose>
 
                 <Button variant="secondary">Enviar</Button>
               </div>
