@@ -1,6 +1,6 @@
+import { format } from "date-fns";
 import { Pencil, Trash2, UserPlus } from "lucide-react";
 
-import { DatePicker } from "@/components/DatePicker";
 import { Header } from "@/components/Header";
 import { InputCurrency } from "@/components/InputCurrency";
 import { InputMask } from "@/components/InputMask";
@@ -97,7 +97,11 @@ export default function Employees() {
                 <div className="flex gap-4">
                   <div className="w-1/2 space-y-2">
                     <Label>Data de ingressão</Label>
-                    <DatePicker className="w-full" />
+
+                    <InputMask
+                      mask="99/99/9999"
+                      placeholder={format(new Date(), "dd/LL/y")}
+                    />
                   </div>
 
                   <div className="w-1/2 space-y-2">
