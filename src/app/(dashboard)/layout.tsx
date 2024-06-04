@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import type { ReactNode } from "react";
 
-import { SideNav } from "@/components/sideNav";
+import { SideNav } from "@/components/SideNav";
 
 import { nextAuthOptions } from "../api/auth/[...nextauth]/route";
 

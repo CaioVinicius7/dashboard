@@ -1,7 +1,25 @@
 import { Pencil, Trash2, UserPlus } from "lucide-react";
 
+import { DatePicker } from "@/components/DatePicker";
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -18,10 +36,78 @@ export default function Employees() {
 
       <main className="space-y-4 p-4">
         <div>
-          <Button variant="outline" className="ml-auto flex items-center gap-2">
-            <UserPlus className="size-6" />
-            Adicionar
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant="outline"
+                className="ml-auto flex items-center gap-2"
+              >
+                <UserPlus className="size-6" />
+                Adicionar
+              </Button>
+            </DialogTrigger>
+
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Adicionar funcionário</DialogTitle>
+                <DialogDescription>
+                  Preencha os dados do funcionário que deseja cadastrar.
+                </DialogDescription>
+              </DialogHeader>
+
+              <form className="mt-4 space-y-6">
+                <div className="space-y-2">
+                  <Label>Nome</Label>
+                  <Input />
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="w-1/2 space-y-2">
+                    <Label>Cargo</Label>
+
+                    <div className="w-full">
+                      <Select>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="escolha o cargo" />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectItem value="serrador">Serrador</SelectItem>
+                          <SelectItem value="motorista">Motorista</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="w-1/2">
+                    <div className="space-y-2">
+                      <Label>Telefone</Label>
+
+                      <Input placeholder="(35) 9 9999-9999" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="w-1/2 space-y-2">
+                    <Label>Data de ingressão</Label>
+                    <DatePicker className="w-full" />
+                  </div>
+
+                  <div className="w-1/2 space-y-2">
+                    <Label>Salário</Label>
+                    <Input />
+                  </div>
+                </div>
+              </form>
+
+              <div className="mt-6 flex justify-end gap-4">
+                <Button variant="ghost">Cancelar</Button>
+
+                <Button variant="secondary">Enviar</Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div>
