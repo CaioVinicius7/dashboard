@@ -6,6 +6,7 @@ interface ActionButtonProps {
   children: ReactNode;
   sideNavIsOpen: boolean;
   text: string;
+  tooltipText: string;
   action: () => void;
 }
 
@@ -13,6 +14,7 @@ export function ActionButton({
   children,
   sideNavIsOpen,
   text,
+  tooltipText,
   action
 }: ActionButtonProps) {
   return (
@@ -30,7 +32,7 @@ export function ActionButton({
 
       {!sideNavIsOpen && (
         <TooltipContent>
-          <p>Expandir menu</p>
+          <p>{tooltipText}</p>
         </TooltipContent>
       )}
     </Tooltip>

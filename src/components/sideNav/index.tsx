@@ -58,11 +58,12 @@ export function SideNav() {
         variants={containerVariants}
         animate={isOpen ? "open" : "close"}
         initial="close"
-        className="hidden h-screen flex-col border-r bg-primary-foreground px-4 py-6 xlg:flex"
+        className="sticky top-0 hidden h-screen flex-col border-r bg-primary-foreground px-4 py-6 xlg:flex"
       >
         <ActionButton
           sideNavIsOpen={isOpen}
           text="Fechar menu"
+          tooltipText="Expandir menu"
           action={handleToggleSideNavVisibility}
         >
           <motion.div
@@ -96,7 +97,12 @@ export function SideNav() {
           </NavLink>
         </nav>
 
-        <ActionButton sideNavIsOpen={isOpen} text="Sair" action={logout}>
+        <ActionButton
+          sideNavIsOpen={isOpen}
+          text="Sair"
+          tooltipText="Sair"
+          action={logout}
+        >
           <div>
             <LogOut className="size-6 text-red-500" />
           </div>
