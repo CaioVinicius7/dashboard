@@ -31,7 +31,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export function useCreateEmployeeModalController() {
+export function useRegisterEmployeeModalController() {
   const {
     register,
     handleSubmit: hookFormHandleSubmit,

@@ -27,9 +27,9 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
-import { useCreateEmployeeModalController } from "./useCreateEmployeeModalController";
+import { useRegisterEmployeeModalController } from "./useRegisterEmployeeModalController";
 
-export function CreateEmployeeModal() {
+export function RegisterEmployeeModal() {
   const {
     register,
     handleSubmit,
@@ -38,7 +38,7 @@ export function CreateEmployeeModal() {
     control,
     ROLES,
     resetFormOnClose
-  } = useCreateEmployeeModalController();
+  } = useRegisterEmployeeModalController();
 
   return (
     <Dialog onOpenChange={resetFormOnClose}>

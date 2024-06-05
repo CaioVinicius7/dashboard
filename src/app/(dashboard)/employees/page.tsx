@@ -11,7 +11,7 @@ import {
   TableRow
 } from "@/components/ui/table";
 
-import { CreateEmployeeModal } from "./components/CreateEmployeeModal";
+import { RegisterEmployeeModal } from "./components/RegisterEmployeeModal";
 
 export default async function Employees() {
   await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -21,7 +21,7 @@ export default async function Employees() {
       <Header title="Funcionários" />
 
       <main className="space-y-4 p-4">
-        <CreateEmployeeModal />
+        <RegisterEmployeeModal />
 
         <Table className="min-w-[1000px]">
           <TableHeader>
