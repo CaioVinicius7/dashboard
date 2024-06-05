@@ -2,9 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { ROLES } from "@/utils/constants";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
-
-const ROLES = ["serrador", "motorista"] as const;
 
 const rolesSchema = z.enum(ROLES, {
   required_error: "Selecione o cargo"

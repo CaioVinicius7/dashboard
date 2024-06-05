@@ -1,0 +1,95 @@
+import { parse } from "date-fns";
+import { type NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+import { z, ZodError } from "zod";
+
+import { env } from "@/env";
+import { prisma } from "@/lib/prisma";
+import { ROLES } from "@/utils/constants";
+
+const { NEXTAUTH_SECRET } = env;
+
+const rolesSchema = z.enum(ROLES, {
+  required_error: "Cargo inexistente."
+});
+
+const registerEmployeeBodySchema = z.object({
+  name: z.string().min(1, "O campo nome precisa ter no mínimo 1 caractere"),
+  role: rolesSchema,
+  phone: z
+    .string()
+    .min(16, "O campo telefone precisa ser preenchido corretamente"),
+  entryDate: z
+    .string()
+    .min(10, "O campo data de ingressão precisa ser preenchido corretamente"),
+  salary: z.number({
+    required_error: "O campo salário precisa ser informado",
+    invalid_type_error: "O campo salário precisa ser do tipo numérico"
+  })
+});
+
+export async function POST(request: NextRequest) {
+  try {
+    const token = await getToken({
+      req: request,
+      secret: NEXTAUTH_SECRET
+    });
+
+    if (!token) {
+      return NextResponse.json(
+        {
+          message: "Token inválido ou inexistente. "
+        },
+        {
+          status: 401
+        }
+      );
+    }
+
+    const body = await request.json();
+
+    const { name, role, phone, entryDate, salary } =
+      registerEmployeeBodySchema.parse(body);
+
+    const salaryInCents = Math.round(salary * 100);
+
+    const dateObject = parse(entryDate, "dd/MM/yyyy", new Date());
+
+    await prisma.employee.create({
+      data: {
+        name,
+        role,
+        phone,
+        entryDate: dateObject,
+        salary: salaryInCents
+      }
+    });
+
+    const response = NextResponse.json(null, {
+      status: 201
+    });
+
+    return response;
+  } catch (error: any) {
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        {
+          message: "Validation error.",
+          errors: error.flatten().fieldErrors
+        },
+        {
+          status: 400
+        }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        message: error.message
+      },
+      {
+        status: 500
+      }
+    );
+  }
+}
