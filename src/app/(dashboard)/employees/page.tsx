@@ -13,7 +13,9 @@ import {
 
 import { CreateEmployeeModal } from "./components/CreateEmployeeModal";
 
-export default function Employees() {
+export default async function Employees() {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
   return (
     <>
       <Header title="Funcionários" />
