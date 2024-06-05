@@ -10,11 +10,12 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
+import { employeesService } from "@/services/employees";
 
 import { RegisterEmployeeModal } from "./components/RegisterEmployeeModal";
 
 export default async function Employees() {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  const { employees } = await employeesService.list();
 
   return (
     <>
@@ -28,7 +29,7 @@ export default async function Employees() {
             <TableRow>
               <TableHead>Nome</TableHead>
               <TableHead className="w-[100px]">Cargo</TableHead>
-              <TableHead className="w-[150px]">Contato</TableHead>
+              <TableHead className="w-[175px]">Contato</TableHead>
               <TableHead className="w-[175px]">Data de ingressão</TableHead>
               <TableHead className="w-[150px]">Salário</TableHead>
               <TableHead className="w-[150px]" />
@@ -36,31 +37,31 @@ export default async function Employees() {
           </TableHeader>
 
           <TableBody>
-            <TableRow>
-              <TableCell className="font-medium">
-                Ellen Cristina Pimentel Diógenes de Carvalho
-              </TableCell>
-              <TableCell>Serrador</TableCell>
-              <TableCell>(12) 9 4002-8922</TableCell>
-              <TableCell>03/06/2024</TableCell>
-              <TableCell>R$ 1250.00</TableCell>
+            {employees.map((employee) => (
+              <TableRow key={employee.id}>
+                <TableCell className="font-medium">{employee.name}</TableCell>
+                <TableCell>{employee.role}</TableCell>
+                <TableCell>{employee.phone}</TableCell>
+                <TableCell>{employee.entryDate}</TableCell>
+                <TableCell>R$ {employee.salary}</TableCell>
 
-              <TableCell className="flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  className="flex items-center justify-center"
-                >
-                  <Pencil className="size-5" />
-                </Button>
+                <TableCell className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    className="flex items-center justify-center"
+                  >
+                    <Pencil className="size-5" />
+                  </Button>
 
-                <Button
-                  variant="ghost"
-                  className="flex items-center justify-center"
-                >
-                  <Trash2 className="size-5" />
-                </Button>
-              </TableCell>
-            </TableRow>
+                  <Button
+                    variant="ghost"
+                    className="flex items-center justify-center"
+                  >
+                    <Trash2 className="size-5" />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </main>
