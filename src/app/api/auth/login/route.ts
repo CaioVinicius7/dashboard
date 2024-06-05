@@ -1,6 +1,6 @@
 import { compare } from "bcryptjs";
 import { type NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 
 import { prisma } from "@/lib/prisma";
 
@@ -55,6 +55,18 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error: any) {
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        {
+          message: "Validation error.",
+          errors: error.flatten().fieldErrors
+        },
+        {
+          status: 400
+        }
+      );
+    }
+
     return NextResponse.json(
       {
         message: error.message
