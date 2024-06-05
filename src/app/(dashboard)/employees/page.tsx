@@ -38,184 +38,128 @@ export default function Employees() {
       <Header title="Funcionários" />
 
       <main className="space-y-4 p-4">
-        <div>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                className="ml-auto flex items-center gap-2"
-              >
-                <UserPlus className="size-6" />
-                Adicionar
-              </Button>
-            </DialogTrigger>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant="outline"
+              className="ml-auto flex items-center gap-2"
+            >
+              <UserPlus className="size-6" />
+              Adicionar
+            </Button>
+          </DialogTrigger>
 
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Adicionar funcionário</DialogTitle>
-                <DialogDescription>
-                  Preencha os dados do funcionário que deseja cadastrar.
-                </DialogDescription>
-              </DialogHeader>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Adicionar funcionário</DialogTitle>
+              <DialogDescription>
+                Preencha os dados do funcionário que deseja cadastrar.
+              </DialogDescription>
+            </DialogHeader>
 
-              <form className="mt-4 space-y-6">
-                <div className="space-y-2">
-                  <Label>Nome</Label>
-                  <Input />
-                </div>
+            <form className="mt-4 space-y-6">
+              <div className="space-y-2">
+                <Label>Nome</Label>
+                <Input />
+              </div>
 
-                <div className="flex gap-4">
-                  <div className="w-1/2 space-y-2">
-                    <Label>Cargo</Label>
+              <div className="flex gap-4">
+                <div className="w-1/2 space-y-2">
+                  <Label>Cargo</Label>
 
-                    <div className="w-full">
-                      <Select>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="escolha o cargo" />
-                        </SelectTrigger>
+                  <div className="w-full">
+                    <Select>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="escolha o cargo" />
+                      </SelectTrigger>
 
-                        <SelectContent>
-                          <SelectItem value="serrador">Serrador</SelectItem>
-                          <SelectItem value="motorista">Motorista</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  <div className="w-1/2">
-                    <div className="space-y-2">
-                      <Label>Telefone</Label>
-
-                      <InputMask
-                        mask="(99) 9 9999-9999"
-                        placeholder="(35) 9 9999-9999"
-                      />
-                    </div>
+                      <SelectContent>
+                        <SelectItem value="serrador">Serrador</SelectItem>
+                        <SelectItem value="motorista">Motorista</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <div className="w-1/2 space-y-2">
-                    <Label>Data de ingressão</Label>
+                <div className="w-1/2">
+                  <div className="space-y-2">
+                    <Label>Telefone</Label>
 
                     <InputMask
-                      mask="99/99/9999"
-                      placeholder={format(new Date(), "dd/LL/y")}
+                      mask="(99) 9 9999-9999"
+                      placeholder="(35) 9 9999-9999"
                     />
                   </div>
-
-                  <div className="w-1/2 space-y-2">
-                    <Label>Salário</Label>
-                    <InputCurrency />
-                  </div>
                 </div>
-              </form>
-
-              <div className="mt-6 flex justify-end gap-4">
-                <DialogClose asChild>
-                  <Button variant="ghost">Cancelar</Button>
-                </DialogClose>
-
-                <Button variant="secondary">Enviar</Button>
               </div>
-            </DialogContent>
-          </Dialog>
-        </div>
 
-        <div>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Nome</TableHead>
-                <TableHead className="w-[100px]">Cargo</TableHead>
-                <TableHead className="w-[150px]">Contato</TableHead>
-                <TableHead className="w-[175px]">Data de ingressão</TableHead>
-                <TableHead className="w-[150px]">Salário</TableHead>
-                <TableHead className="w-[150px]" />
-              </TableRow>
-            </TableHeader>
+              <div className="flex gap-4">
+                <div className="w-1/2 space-y-2">
+                  <Label>Data de ingressão</Label>
 
-            <TableBody>
-              <TableRow>
-                <TableCell className="font-medium">
-                  Ellen Cristina Pimentel Diógenes de Carvalho
-                </TableCell>
-                <TableCell>Serrador</TableCell>
-                <TableCell>(12) 9 4002-8922</TableCell>
-                <TableCell>03/06/2024</TableCell>
-                <TableCell>R$ 1250.00</TableCell>
+                  <InputMask
+                    mask="99/99/9999"
+                    placeholder={format(new Date(), "dd/LL/y")}
+                  />
+                </div>
 
-                <TableCell className="flex items-center gap-2">
-                  <Button
-                    variant="ghost"
-                    className="flex items-center justify-center"
-                  >
-                    <Pencil className="size-5" />
-                  </Button>
+                <div className="w-1/2 space-y-2">
+                  <Label>Salário</Label>
+                  <InputCurrency />
+                </div>
+              </div>
+            </form>
 
-                  <Button
-                    variant="ghost"
-                    className="flex items-center justify-center"
-                  >
-                    <Trash2 className="size-5" />
-                  </Button>
-                </TableCell>
-              </TableRow>
+            <div className="mt-6 flex justify-end gap-4">
+              <DialogClose asChild>
+                <Button variant="ghost">Cancelar</Button>
+              </DialogClose>
 
-              <TableRow>
-                <TableCell className="font-medium">
-                  Ellen Cristina Pimentel Diógenes de Carvalho
-                </TableCell>
-                <TableCell>Serrador</TableCell>
-                <TableCell>(12) 9 4002-8922</TableCell>
-                <TableCell>03/06/2024</TableCell>
-                <TableCell>R$ 1250.00</TableCell>
+              <Button variant="secondary">Enviar</Button>
+            </div>
+          </DialogContent>
+        </Dialog>
 
-                <TableCell className="flex items-center gap-2">
-                  <Button
-                    variant="ghost"
-                    className="flex items-center justify-center"
-                  >
-                    <Pencil className="size-5" />
-                  </Button>
+        <Table className="min-w-[1000px]">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Nome</TableHead>
+              <TableHead className="w-[100px]">Cargo</TableHead>
+              <TableHead className="w-[150px]">Contato</TableHead>
+              <TableHead className="w-[175px]">Data de ingressão</TableHead>
+              <TableHead className="w-[150px]">Salário</TableHead>
+              <TableHead className="w-[150px]" />
+            </TableRow>
+          </TableHeader>
 
-                  <Button
-                    variant="ghost"
-                    className="flex items-center justify-center"
-                  >
-                    <Trash2 className="size-5" />
-                  </Button>
-                </TableCell>
-              </TableRow>
+          <TableBody>
+            <TableRow>
+              <TableCell className="font-medium">
+                Ellen Cristina Pimentel Diógenes de Carvalho
+              </TableCell>
+              <TableCell>Serrador</TableCell>
+              <TableCell>(12) 9 4002-8922</TableCell>
+              <TableCell>03/06/2024</TableCell>
+              <TableCell>R$ 1250.00</TableCell>
 
-              <TableRow>
-                <TableCell className="font-medium">
-                  Ellen Cristina Pimentel Diógenes de Carvalho
-                </TableCell>
-                <TableCell>Serrador</TableCell>
-                <TableCell>(12) 9 4002-8922</TableCell>
-                <TableCell>03/06/2024</TableCell>
-                <TableCell>R$ 1250.00</TableCell>
+              <TableCell className="flex items-center gap-2">
+                <Button
+                  variant="ghost"
+                  className="flex items-center justify-center"
+                >
+                  <Pencil className="size-5" />
+                </Button>
 
-                <TableCell className="flex items-center gap-2">
-                  <Button
-                    variant="ghost"
-                    className="flex items-center justify-center"
-                  >
-                    <Pencil className="size-5" />
-                  </Button>
-
-                  <Button
-                    variant="ghost"
-                    className="flex items-center justify-center"
-                  >
-                    <Trash2 className="size-5" />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
+                <Button
+                  variant="ghost"
+                  className="flex items-center justify-center"
+                >
+                  <Trash2 className="size-5" />
+                </Button>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </main>
     </>
   );

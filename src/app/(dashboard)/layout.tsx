@@ -20,10 +20,10 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="flex">
+    <div className="flex w-screen">
       <SideNav />
 
-      <main className="flex-1">{children}</main>
+      <div className="w-full">{children}</div>
     </div>
   );
 }
