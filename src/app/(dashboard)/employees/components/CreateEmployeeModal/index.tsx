@@ -1,6 +1,10 @@
+"use client";
+
 import { format } from "date-fns";
 import { UserPlus } from "lucide-react";
+import { Controller } from "react-hook-form";
 
+import { Input } from "@/components/Input";
 import { InputCurrency } from "@/components/InputCurrency";
 import { InputMask } from "@/components/InputMask";
 import { Button } from "@/components/ui/button";
@@ -13,7 +17,6 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -22,10 +25,23 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+
+import { useCreateEmployeeModalController } from "./useCreateEmployeeModalController";
 
 export function CreateEmployeeModal() {
+  const {
+    register,
+    handleSubmit,
+    errors,
+    isSubmitting,
+    control,
+    ROLES,
+    resetFormOnClose
+  } = useCreateEmployeeModalController();
+
   return (
-    <Dialog>
+    <Dialog onOpenChange={resetFormOnClose}>
       <DialogTrigger asChild>
         <Button variant="outline" className="ml-auto flex items-center gap-2">
           <UserPlus className="size-6" />
@@ -41,27 +57,57 @@ export function CreateEmployeeModal() {
           </DialogDescription>
         </DialogHeader>
 
-        <form id="CreateEmployeeForm" className="mt-4 space-y-6">
+        <form
+          id="CreateEmployeeForm"
+          onSubmit={handleSubmit}
+          className="mt-4 space-y-6"
+        >
           <div className="space-y-2">
             <Label htmlFor="name">Nome</Label>
-            <Input id="name" />
+            <Input
+              id="name"
+              autoComplete="off"
+              error={errors.name?.message}
+              {...register("name")}
+            />
           </div>
 
           <div className="flex gap-4">
             <div className="w-1/2 space-y-2">
               <Label htmlFor="role">Cargo</Label>
 
-              <div className="w-full">
-                <Select>
-                  <SelectTrigger id="role" className="w-full">
-                    <SelectValue placeholder="escolha o cargo" />
-                  </SelectTrigger>
+              <div className="w-full space-y-2">
+                <Controller
+                  control={control}
+                  name="role"
+                  render={({ field: { onChange } }) => (
+                    <Select onValueChange={onChange}>
+                      <SelectTrigger
+                        id="role"
+                        className={cn(
+                          "w-full",
+                          !!errors.role?.message && "border-red-400"
+                        )}
+                      >
+                        <SelectValue placeholder="escolha o cargo" />
+                      </SelectTrigger>
 
-                  <SelectContent>
-                    <SelectItem value="serrador">Serrador</SelectItem>
-                    <SelectItem value="motorista">Motorista</SelectItem>
-                  </SelectContent>
-                </Select>
+                      <SelectContent>
+                        {ROLES.map((role) => (
+                          <SelectItem key={role} value={role}>
+                            {role}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+
+                {!!errors.role?.message && (
+                  <span className="text-xs text-red-400">
+                    {errors.role?.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -69,10 +115,20 @@ export function CreateEmployeeModal() {
               <div className="space-y-2">
                 <Label htmlFor="phone">Telefone</Label>
 
-                <InputMask
-                  id="phone"
-                  mask="(99) 9 9999-9999"
-                  placeholder="(35) 9 9999-9999"
+                <Controller
+                  control={control}
+                  name="phone"
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <InputMask
+                      id="phone"
+                      mask="(99) 9 9999-9999"
+                      placeholder="(35) 9 9999-9999"
+                      value={value}
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      error={errors.phone?.message}
+                    />
+                  )}
                 />
               </div>
             </div>
@@ -82,16 +138,38 @@ export function CreateEmployeeModal() {
             <div className="w-1/2 space-y-2">
               <Label htmlFor="entryDate">Data de ingressão</Label>
 
-              <InputMask
-                id="entryDate"
-                mask="99/99/9999"
-                placeholder={format(new Date(), "dd/LL/y")}
+              <Controller
+                control={control}
+                name="entryDate"
+                render={({ field: { value, onChange, onBlur } }) => (
+                  <InputMask
+                    id="entryDate"
+                    mask="99/99/9999"
+                    placeholder={format(new Date(), "dd/LL/y")}
+                    value={value}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    error={errors.entryDate?.message}
+                  />
+                )}
               />
             </div>
 
             <div className="w-1/2 space-y-2">
               <Label htmlFor="salary">Salário</Label>
-              <InputCurrency id="salary" />
+
+              <Controller
+                control={control}
+                name="salary"
+                render={({ field: { value, onChange } }) => (
+                  <InputCurrency
+                    id="salary"
+                    value={value}
+                    onChange={onChange}
+                    error={errors.salary?.message}
+                  />
+                )}
+              />
             </div>
           </div>
         </form>
@@ -101,7 +179,11 @@ export function CreateEmployeeModal() {
             <Button variant="ghost">Cancelar</Button>
           </DialogClose>
 
-          <Button variant="secondary" form="CreateEmployeeForm">
+          <Button
+            variant="secondary"
+            form="CreateEmployeeForm"
+            disabled={isSubmitting}
+          >
             Enviar
           </Button>
         </div>
