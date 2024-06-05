@@ -29,7 +29,7 @@ export default async function Employees() {
           <TableHeader>
             <TableRow>
               <TableHead>Nome</TableHead>
-              <TableHead className="w-[100px]">Cargo</TableHead>
+              <TableHead className="w-[175px]">Cargo</TableHead>
               <TableHead className="w-[175px]">Contato</TableHead>
               <TableHead className="w-[175px]">Data de ingressão</TableHead>
               <TableHead className="w-[150px]">Salário</TableHead>

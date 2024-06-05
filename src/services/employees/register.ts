@@ -1,5 +1,5 @@
 import { env } from "@/env";
-import { ROLES } from "@/utils/constants";
+import { ROLES, rolesToDB } from "@/utils/constants";
 
 interface RegisterEmployeeParams {
   name: string;
@@ -18,17 +18,22 @@ export async function register({
   entryDate,
   salary
 }: RegisterEmployeeParams) {
-  await fetch(`${NEXT_PUBLIC_APP_API_URL}/employees/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      name,
-      role,
-      phone,
-      entryDate,
-      salary
-    })
-  });
+  const response = await fetch(
+    `${NEXT_PUBLIC_APP_API_URL}/employees/register`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        role: rolesToDB[role],
+        phone,
+        entryDate,
+        salary
+      })
+    }
+  );
+
+  return response.ok;
 }

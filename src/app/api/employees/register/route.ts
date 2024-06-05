@@ -5,11 +5,11 @@ import { z, ZodError } from "zod";
 
 import { env } from "@/env";
 import { prisma } from "@/lib/prisma";
-import { ROLES } from "@/utils/constants";
+import { ROLES_IN_DB } from "@/utils/constants";
 
 const { NEXTAUTH_SECRET } = env;
 
-const rolesSchema = z.enum(ROLES, {
+const rolesSchema = z.enum(ROLES_IN_DB, {
   required_error: "Cargo inexistente."
 });
 

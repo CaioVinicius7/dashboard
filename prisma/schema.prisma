@@ -18,8 +18,13 @@ model User {
 }
 
 enum Role {
-  serrador
-  motorista
+  Lider
+  Auxiliar
+  Mecanico
+  Motorista
+  Encarregado
+  Afiador
+  RH
 }
 
 model Employee {

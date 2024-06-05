@@ -53,10 +53,19 @@ export function useRegisterEmployeeModalController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await employeesService.register({
+      const hasSuccess = await employeesService.register({
         ...data,
         salary: currencyStringToNumber(data.salary)
       });
+
+      if (!hasSuccess) {
+        toast({
+          description: "Ocorreu um erro ao registar o funcionário.",
+          variant: "destructive"
+        });
+
+        return;
+      }
 
       reset();
 

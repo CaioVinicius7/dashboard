@@ -4,6 +4,7 @@ import { getToken } from "next-auth/jwt";
 
 import { env } from "@/env";
 import { prisma } from "@/lib/prisma";
+import { rolesToApp } from "@/utils/constants";
 
 const { NEXTAUTH_SECRET } = env;
 
@@ -29,6 +30,7 @@ export async function GET(request: NextRequest) {
 
     const formattedEmployees = employees.map((employee) => ({
       ...employee,
+      role: rolesToApp[employee.role],
       entryDate: format(new Date(employee.entryDate), "dd/MM/yyyy"),
       salary: employee.salary / 100
     }));
