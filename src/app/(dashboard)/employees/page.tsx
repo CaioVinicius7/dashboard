@@ -11,6 +11,7 @@ import {
   TableRow
 } from "@/components/ui/table";
 import { employeesService } from "@/services/employees";
+import { formatCurrency } from "@/utils/formatCurrency";
 
 import { RegisterEmployeeModal } from "./components/RegisterEmployeeModal";
 
@@ -43,7 +44,7 @@ export default async function Employees() {
                 <TableCell>{employee.role}</TableCell>
                 <TableCell>{employee.phone}</TableCell>
                 <TableCell>{employee.entryDate}</TableCell>
-                <TableCell>R$ {employee.salary}</TableCell>
+                <TableCell>{formatCurrency(employee.salary)}</TableCell>
 
                 <TableCell className="flex items-center gap-2">
                   <Button
