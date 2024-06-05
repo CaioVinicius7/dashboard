@@ -2,6 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useToast } from "@/components/ui/use-toast";
+import { employeesService } from "@/services/employees";
 import { ROLES } from "@/utils/constants";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 
@@ -32,6 +34,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function useRegisterEmployeeModalController() {
+  const { toast } = useToast();
+
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
@@ -47,17 +51,24 @@ export function useRegisterEmployeeModalController() {
     }
   });
 
-  const handleSubmit = hookFormHandleSubmit((data) => {
-    console.log(
-      JSON.stringify(
-        {
-          ...data,
-          salary: currencyStringToNumber(data.salary)
-        },
-        null,
-        2
-      )
-    );
+  const handleSubmit = hookFormHandleSubmit(async (data) => {
+    try {
+      await employeesService.register({
+        ...data,
+        salary: currencyStringToNumber(data.salary)
+      });
+
+      reset();
+
+      toast({
+        description: "Funcionário registrado com sucesso!"
+      });
+    } catch {
+      toast({
+        description: "Ocorreu um erro ao registar o funcionário.",
+        variant: "destructive"
+      });
+    }
   });
 
   function resetFormOnClose(isOpen: boolean) {
