@@ -2,9 +2,9 @@
 
 import { Label } from "@radix-ui/react-label";
 
+import { Input } from "@/components/Input";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 
 import { useLoginFormController } from "./useLoginFormController";
 
@@ -22,16 +22,9 @@ export function LoginForm() {
             id="email"
             placeholder="exemplo@gmail.com"
             autoComplete="off"
-            data-error={!!errors.email}
-            className="data-[error=true]:border-red-400"
+            error={errors.email?.message}
             {...register("email")}
           />
-
-          {errors.email && (
-            <span className="block text-sm text-red-400">
-              {errors.email.message}
-            </span>
-          )}
         </div>
 
         <div className="space-y-2">
@@ -41,16 +34,9 @@ export function LoginForm() {
             id="password"
             placeholder="********"
             type="password"
-            data-error={!!errors.password}
-            className="data-[error=true]:border-red-400"
+            error={errors.password?.message}
             {...register("password")}
           />
-
-          {errors.password && (
-            <span className="block text-sm text-red-400">
-              {errors.password.message}
-            </span>
-          )}
         </div>
       </CardContent>
 
