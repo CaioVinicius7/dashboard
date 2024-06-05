@@ -1,22 +1,28 @@
 "use client";
 
+import { useId } from "react";
 import { NumericFormat } from "react-number-format";
 
 import { cn } from "@/lib/utils";
 
 interface InputCurrencyProps {
+  id?: string;
   value?: string | number;
   onChange?: (value: string) => void;
   className?: string;
 }
 
 export function InputCurrency({
+  id: customId,
   value,
   onChange,
   className
 }: InputCurrencyProps) {
+  const id = useId();
+
   return (
     <NumericFormat
+      id={customId ?? id}
       thousandSeparator="."
       decimalSeparator=","
       prefix="R$"
