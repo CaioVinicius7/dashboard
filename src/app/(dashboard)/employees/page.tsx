@@ -1,4 +1,4 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,7 @@ import { employeesService } from "@/services/employees";
 import { formatCurrency } from "@/utils/formatCurrency";
 
 import { RegisterEmployeeModal } from "./components/RegisterEmployeeModal";
+import { RemoveEmployeeModal } from "./components/RemoveEmployeeModal";
 
 export default async function Employees() {
   const { employees } = await employeesService.list();
@@ -54,12 +55,7 @@ export default async function Employees() {
                     <Pencil className="size-5" />
                   </Button>
 
-                  <Button
-                    variant="ghost"
-                    className="flex items-center justify-center"
-                  >
-                    <Trash2 className="size-5" />
-                  </Button>
+                  <RemoveEmployeeModal />
                 </TableCell>
               </TableRow>
             ))}
