@@ -1,4 +1,6 @@
-import { Trash2 } from "lucide-react";
+"use client";
+
+import { LoaderCircle, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +13,16 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 
-export function RemoveEmployeeModal() {
+import { useRemoveEmployeeModalController } from "./useRemoveEmployeeModalController";
+
+interface RemoveEmployeeModalProps {
+  employeeId: string;
+}
+
+export function RemoveEmployeeModal({ employeeId }: RemoveEmployeeModalProps) {
+  const { handleRemoveEmployee, isLoading } =
+    useRemoveEmployeeModalController();
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -35,7 +46,17 @@ export function RemoveEmployeeModal() {
             <Button variant="ghost">Cancelar</Button>
           </DialogClose>
 
-          <Button variant="destructive">Excluir</Button>
+          <Button
+            variant="destructive"
+            onClick={() => handleRemoveEmployee(employeeId)}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <LoaderCircle className="size-4 w-11 animate-spin" />
+            ) : (
+              "Excluir"
+            )}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

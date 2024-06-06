@@ -55,7 +55,7 @@ export default async function Employees() {
                     <Pencil className="size-5" />
                   </Button>
 
-                  <RemoveEmployeeModal />
+                  <RemoveEmployeeModal employeeId={employee.id} />
                 </TableCell>
               </TableRow>
             ))}
