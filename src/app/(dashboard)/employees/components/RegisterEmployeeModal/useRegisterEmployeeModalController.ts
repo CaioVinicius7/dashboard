@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -35,6 +36,7 @@ type FormData = z.infer<typeof schema>;
 
 export function useRegisterEmployeeModalController() {
   const { toast } = useToast();
+  const router = useRouter();
 
   const {
     register,
@@ -72,6 +74,8 @@ export function useRegisterEmployeeModalController() {
       toast({
         description: "Funcionário registrado com sucesso!"
       });
+
+      router.refresh();
     } catch {
       toast({
         description: "Ocorreu um erro ao registar o funcionário.",
