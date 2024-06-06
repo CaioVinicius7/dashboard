@@ -31,19 +31,24 @@ import { useRegisterEmployeeModalController } from "./useRegisterEmployeeModalCo
 
 export function RegisterEmployeeModal() {
   const {
+    isOpen,
+    handleChangeModalVisibility,
     register,
     handleSubmit,
     errors,
     isSubmitting,
     control,
-    ROLES,
-    resetFormOnClose
+    ROLES
   } = useRegisterEmployeeModalController();
 
   return (
-    <Dialog onOpenChange={resetFormOnClose}>
+    <Dialog open={isOpen} onOpenChange={handleChangeModalVisibility}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="ml-auto flex items-center gap-2">
+        <Button
+          variant="outline"
+          onClick={handleChangeModalVisibility}
+          className="ml-auto flex items-center gap-2"
+        >
           <UserPlus className="size-6" />
           Adicionar
         </Button>
@@ -176,7 +181,9 @@ export function RegisterEmployeeModal() {
 
         <div className="mt-6 flex justify-end gap-4">
           <DialogClose asChild>
-            <Button variant="ghost">Cancelar</Button>
+            <Button variant="ghost" onClick={handleChangeModalVisibility}>
+              Cancelar
+            </Button>
           </DialogClose>
 
           <Button

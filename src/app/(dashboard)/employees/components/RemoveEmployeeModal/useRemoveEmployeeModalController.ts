@@ -12,8 +12,12 @@ export function useRemoveEmployeeModalController() {
 
   const { toast } = useToast();
 
-  function handleToggleModalVisibility() {
-    setIsOpen((state) => !state);
+  function handleChangeModalVisibility() {
+    if (isOpen) {
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+    }
   }
 
   async function handleRemoveEmployee(employeeId: string) {
@@ -33,7 +37,7 @@ export function useRemoveEmployeeModalController() {
         return;
       }
 
-      handleToggleModalVisibility();
+      handleChangeModalVisibility();
 
       toast({
         description: "Funcionário removido com sucesso!"
@@ -52,7 +56,7 @@ export function useRemoveEmployeeModalController() {
 
   return {
     isOpen,
-    handleToggleModalVisibility,
+    handleChangeModalVisibility,
     handleRemoveEmployee,
     isLoading
   };

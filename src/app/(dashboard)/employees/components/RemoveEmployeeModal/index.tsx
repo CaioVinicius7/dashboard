@@ -22,15 +22,19 @@ interface RemoveEmployeeModalProps {
 export function RemoveEmployeeModal({ employeeId }: RemoveEmployeeModalProps) {
   const {
     isOpen,
-    handleToggleModalVisibility,
+    handleChangeModalVisibility,
     handleRemoveEmployee,
     isLoading
   } = useRemoveEmployeeModalController();
 
   return (
-    <Dialog open={isOpen}>
-      <DialogTrigger onClick={handleToggleModalVisibility} asChild>
-        <Button variant="ghost" className="flex items-center justify-center">
+    <Dialog open={isOpen} onOpenChange={handleChangeModalVisibility}>
+      <DialogTrigger asChild>
+        <Button
+          variant="ghost"
+          className="flex items-center justify-center"
+          onClick={handleChangeModalVisibility}
+        >
           <Trash2 className="size-5" />
         </Button>
       </DialogTrigger>
@@ -47,7 +51,9 @@ export function RemoveEmployeeModal({ employeeId }: RemoveEmployeeModalProps) {
 
         <div className="mt-6 flex justify-end gap-4">
           <DialogClose asChild>
-            <Button variant="ghost">Cancelar</Button>
+            <Button variant="ghost" onClick={handleChangeModalVisibility}>
+              Cancelar
+            </Button>
           </DialogClose>
 
           <Button

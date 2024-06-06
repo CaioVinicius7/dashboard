@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -35,8 +36,20 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function useRegisterEmployeeModalController() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const { toast } = useToast();
+
   const router = useRouter();
+
+  function handleChangeModalVisibility() {
+    if (isOpen) {
+      setIsOpen(false);
+    } else {
+      reset();
+      setIsOpen(true);
+    }
+  }
 
   const {
     register,
@@ -71,6 +84,8 @@ export function useRegisterEmployeeModalController() {
 
       reset();
 
+      handleChangeModalVisibility();
+
       toast({
         description: "Funcionário registrado com sucesso!"
       });
@@ -84,19 +99,14 @@ export function useRegisterEmployeeModalController() {
     }
   });
 
-  function resetFormOnClose(isOpen: boolean) {
-    if (!isOpen) {
-      reset();
-    }
-  }
-
   return {
+    isOpen,
+    handleChangeModalVisibility,
     register,
     handleSubmit,
     errors,
     isSubmitting,
     control,
-    resetFormOnClose,
     ROLES
   };
 }
