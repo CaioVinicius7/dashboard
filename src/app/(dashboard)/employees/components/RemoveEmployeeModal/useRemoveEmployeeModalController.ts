@@ -1,21 +1,48 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { useToast } from "@/components/ui/use-toast";
+import { employeesService } from "@/services/employees";
+
 export function useRemoveEmployeeModalController() {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
+  const { toast } = useToast();
+
   async function handleRemoveEmployee(employeeId: string) {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    // call service
+      await await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+      const hasSuccess = await employeesService.remove({
+        id: employeeId
+      });
 
-    router.refresh();
+      if (!hasSuccess) {
+        toast({
+          description: "Ocorreu um erro ao remover o funcionário.",
+          variant: "destructive"
+        });
 
-    setIsLoading(false);
+        return;
+      }
+
+      toast({
+        description: "Funcionário removido com sucesso!"
+      });
+
+      router.refresh();
+    } catch {
+      toast({
+        description: "Ocorreu um erro ao remover o funcionário.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return { handleRemoveEmployee, isLoading };
