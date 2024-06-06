@@ -1,13 +1,9 @@
 import { parse } from "date-fns";
 import { type NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
 import { z, ZodError } from "zod";
 
-import { env } from "@/env";
 import { prisma } from "@/lib/prisma";
 import { ROLES_IN_DB } from "@/utils/constants";
-
-const { NEXTAUTH_SECRET } = env;
 
 const rolesSchema = z.enum(ROLES_IN_DB, {
   required_error: "Cargo inexistente."
@@ -30,22 +26,6 @@ const registerEmployeeBodySchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const token = await getToken({
-      req: request,
-      secret: NEXTAUTH_SECRET
-    });
-
-    if (!token) {
-      return NextResponse.json(
-        {
-          message: "Token inválido ou inexistente. "
-        },
-        {
-          status: 401
-        }
-      );
-    }
-
     const body = await request.json();
 
     const { name, role, phone, entryDate, salary } =
