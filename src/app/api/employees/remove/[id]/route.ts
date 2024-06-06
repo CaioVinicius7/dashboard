@@ -24,7 +24,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Params }) {
     if (!employeeFromId) {
       return NextResponse.json(
         {
-          message: "Employee not found."
+          message: "Funcionário não encontrado."
         },
         {
           status: 400
