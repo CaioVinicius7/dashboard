@@ -31,6 +31,23 @@ export async function POST(request: NextRequest) {
     const { name, role, phone, entryDate, salary } =
       registerEmployeeBodySchema.parse(body);
 
+    const employeeFromPhone = await prisma.employee.findUnique({
+      where: {
+        phone
+      }
+    });
+
+    if (!!employeeFromPhone) {
+      return NextResponse.json(
+        {
+          message: "Esse número de telefone já está em uso."
+        },
+        {
+          status: 409
+        }
+      );
+    }
+
     const salaryInCents = Math.round(salary * 100);
 
     const dateObject = parse(entryDate, "dd/MM/yyyy", new Date());
