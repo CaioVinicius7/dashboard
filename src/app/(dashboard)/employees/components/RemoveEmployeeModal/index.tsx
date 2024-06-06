@@ -20,12 +20,16 @@ interface RemoveEmployeeModalProps {
 }
 
 export function RemoveEmployeeModal({ employeeId }: RemoveEmployeeModalProps) {
-  const { handleRemoveEmployee, isLoading } =
-    useRemoveEmployeeModalController();
+  const {
+    isOpen,
+    handleToggleModalVisibility,
+    handleRemoveEmployee,
+    isLoading
+  } = useRemoveEmployeeModalController();
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <Dialog open={isOpen}>
+      <DialogTrigger onClick={handleToggleModalVisibility} asChild>
         <Button variant="ghost" className="flex items-center justify-center">
           <Trash2 className="size-5" />
         </Button>

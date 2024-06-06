@@ -5,17 +5,20 @@ import { useToast } from "@/components/ui/use-toast";
 import { employeesService } from "@/services/employees";
 
 export function useRemoveEmployeeModalController() {
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const { toast } = useToast();
 
+  function handleToggleModalVisibility() {
+    setIsOpen((state) => !state);
+  }
+
   async function handleRemoveEmployee(employeeId: string) {
     try {
       setIsLoading(true);
-
-      await await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const hasSuccess = await employeesService.remove({
         id: employeeId
@@ -29,6 +32,8 @@ export function useRemoveEmployeeModalController() {
 
         return;
       }
+
+      handleToggleModalVisibility();
 
       toast({
         description: "Funcionário removido com sucesso!"
@@ -45,5 +50,10 @@ export function useRemoveEmployeeModalController() {
     }
   }
 
-  return { handleRemoveEmployee, isLoading };
+  return {
+    isOpen,
+    handleToggleModalVisibility,
+    handleRemoveEmployee,
+    isLoading
+  };
 }
