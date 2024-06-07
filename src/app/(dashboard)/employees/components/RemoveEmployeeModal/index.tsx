@@ -36,6 +36,7 @@ export function RemoveEmployeeModal({ employeeId }: RemoveEmployeeModalProps) {
           onClick={handleChangeModalVisibility}
         >
           <Trash2 className="size-5" />
+          <span className="sr-only">Remover funcionário</span>
         </Button>
       </DialogTrigger>
 

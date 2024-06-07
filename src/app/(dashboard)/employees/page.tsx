@@ -1,7 +1,4 @@
-import { Pencil } from "lucide-react";
-
 import { Header } from "@/components/Header";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -13,6 +10,7 @@ import {
 import { employeesService } from "@/services/employees";
 import { formatCurrency } from "@/utils/formatCurrency";
 
+import { EditEmployeeModal } from "./components/EditEmployeeModal";
 import { RegisterEmployeeModal } from "./components/RegisterEmployeeModal";
 import { RemoveEmployeeModal } from "./components/RemoveEmployeeModal";
 
@@ -48,12 +46,7 @@ export default async function Employees() {
                 <TableCell>{formatCurrency(employee.salary)}</TableCell>
 
                 <TableCell className="flex items-center gap-2">
-                  <Button
-                    variant="ghost"
-                    className="flex items-center justify-center"
-                  >
-                    <Pencil className="size-5" />
-                  </Button>
+                  <EditEmployeeModal employee={employee} />
 
                   <RemoveEmployeeModal employeeId={employee.id} />
                 </TableCell>
