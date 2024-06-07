@@ -74,7 +74,7 @@ export function EditEmployeeModal({ employee }: EditEmployeeModalProps) {
         </DialogHeader>
 
         <form
-          id="CreateEmployeeForm"
+          id="editEmployeeForm"
           onSubmit={handleSubmit}
           className="mt-4 space-y-6"
         >
@@ -202,7 +202,7 @@ export function EditEmployeeModal({ employee }: EditEmployeeModalProps) {
 
           <Button
             variant="secondary"
-            form="CreateEmployeeForm"
+            form="editEmployeeForm"
             disabled={isSubmitting}
           >
             Enviar

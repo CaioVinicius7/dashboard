@@ -63,7 +63,7 @@ export function RegisterEmployeeModal() {
         </DialogHeader>
 
         <form
-          id="CreateEmployeeForm"
+          id="registerEmployeeForm"
           onSubmit={handleSubmit}
           className="mt-4 space-y-6"
         >
@@ -188,7 +188,7 @@ export function RegisterEmployeeModal() {
 
           <Button
             variant="secondary"
-            form="CreateEmployeeForm"
+            form="registerEmployeeForm"
             disabled={isSubmitting}
           >
             Enviar
