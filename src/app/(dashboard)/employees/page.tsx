@@ -1,6 +1,7 @@
 import { SearchX } from "lucide-react";
 
 import { Header } from "@/components/Header";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -26,38 +27,44 @@ export default async function Employees() {
       <main className="space-y-4 p-4">
         <RegisterEmployeeModal />
 
-        <Table className="min-w-[1000px]">
-          <TableHeader>
-            <TableRow>
-              <TableHead>Nome</TableHead>
-              <TableHead className="w-[175px]">Cargo</TableHead>
-              <TableHead className="w-[175px]">Contato</TableHead>
-              <TableHead className="w-[175px]">Data de ingressão</TableHead>
-              <TableHead className="w-[150px]">Salário</TableHead>
-              <TableHead className="w-[150px]" />
-            </TableRow>
-          </TableHeader>
+        <ScrollArea className="h-[calc(100vh-170px)]">
+          <Table className="min-w-[1000px]">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Nome</TableHead>
+                <TableHead className="w-[175px]">Cargo</TableHead>
+                <TableHead className="w-[175px]">Contato</TableHead>
+                <TableHead className="w-[175px]">Data de ingressão</TableHead>
+                <TableHead className="w-[150px]">Salário</TableHead>
+                <TableHead className="w-[150px]" />
+              </TableRow>
+            </TableHeader>
 
-          {!!employees && (
-            <TableBody>
-              {employees.map((employee) => (
-                <TableRow key={employee.id}>
-                  <TableCell className="font-medium">{employee.name}</TableCell>
-                  <TableCell>{employee.role}</TableCell>
-                  <TableCell>{employee.phone}</TableCell>
-                  <TableCell>{employee.entryDate}</TableCell>
-                  <TableCell>{formatCurrency(employee.salary)}</TableCell>
+            {!!employees && (
+              <TableBody>
+                {employees.map((employee) => (
+                  <TableRow key={employee.id}>
+                    <TableCell className="font-medium">
+                      {employee.name}
+                    </TableCell>
+                    <TableCell>{employee.role}</TableCell>
+                    <TableCell>{employee.phone}</TableCell>
+                    <TableCell>{employee.entryDate}</TableCell>
+                    <TableCell>{formatCurrency(employee.salary)}</TableCell>
 
-                  <TableCell className="flex items-center gap-2">
-                    <EditEmployeeModal employee={employee} />
+                    <TableCell className="flex items-center gap-2">
+                      <EditEmployeeModal employee={employee} />
 
-                    <RemoveEmployeeModal employeeId={employee.id} />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          )}
-        </Table>
+                      <RemoveEmployeeModal employeeId={employee.id} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            )}
+          </Table>
+
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
 
         {employees.length === 0 && (
           <div className="flex flex-col items-center justify-center gap-4 px-3 pt-16">
