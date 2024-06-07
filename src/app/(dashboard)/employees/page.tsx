@@ -1,3 +1,5 @@
+import { SearchX } from "lucide-react";
+
 import { Header } from "@/components/Header";
 import {
   Table,
@@ -36,24 +38,41 @@ export default async function Employees() {
             </TableRow>
           </TableHeader>
 
-          <TableBody>
-            {employees.map((employee) => (
-              <TableRow key={employee.id}>
-                <TableCell className="font-medium">{employee.name}</TableCell>
-                <TableCell>{employee.role}</TableCell>
-                <TableCell>{employee.phone}</TableCell>
-                <TableCell>{employee.entryDate}</TableCell>
-                <TableCell>{formatCurrency(employee.salary)}</TableCell>
+          {!!employees && (
+            <TableBody>
+              {employees.map((employee) => (
+                <TableRow key={employee.id}>
+                  <TableCell className="font-medium">{employee.name}</TableCell>
+                  <TableCell>{employee.role}</TableCell>
+                  <TableCell>{employee.phone}</TableCell>
+                  <TableCell>{employee.entryDate}</TableCell>
+                  <TableCell>{formatCurrency(employee.salary)}</TableCell>
 
-                <TableCell className="flex items-center gap-2">
-                  <EditEmployeeModal employee={employee} />
+                  <TableCell className="flex items-center gap-2">
+                    <EditEmployeeModal employee={employee} />
 
-                  <RemoveEmployeeModal employeeId={employee.id} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+                    <RemoveEmployeeModal employeeId={employee.id} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          )}
         </Table>
+
+        {employees.length === 0 && (
+          <div className="flex flex-col items-center justify-center gap-4 px-3 pt-16">
+            <SearchX className="size-16" />
+
+            <div className="max-w-[550px] space-y-2 text-center">
+              <h2 className="text-2xl">Nenhum Funcionário Registrado</h2>
+
+              <p className="text-sm">
+                Ainda não há funcionários cadastrados. Por favor, adicione novos
+                registros para começar a visualizá-los aqui.
+              </p>
+            </div>
+          </div>
+        )}
       </main>
     </>
   );
