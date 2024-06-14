@@ -1,9 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
+import { employeesService } from "@/services/employees";
 import { ROLES } from "@/utils/constants";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 
@@ -54,6 +56,8 @@ export function useEditEmployeeModalController({
 
   const { toast } = useToast();
 
+  const router = useRouter();
+
   function handleChangeModalVisibility() {
     if (isOpen) {
       setIsOpen(false);
@@ -82,7 +86,32 @@ export function useEditEmployeeModalController({
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      console.log(JSON.stringify(data, null, 2));
+      const hasSuccess = await employeesService.edit({
+        id: employee.id,
+        data: {
+          ...data,
+          salary: currencyStringToNumber(data.salary)
+        }
+      });
+
+      if (!hasSuccess) {
+        toast({
+          description: "Ocorreu um erro ao editar os dados do funcionário.",
+          variant: "destructive"
+        });
+
+        return;
+      }
+
+      reset();
+
+      handleChangeModalVisibility();
+
+      toast({
+        description: "Funcionário registrado com sucesso!"
+      });
+
+      router.refresh();
     } catch {
       toast({
         description: "Ocorreu um erro ao editar os dados do funcionário.",
