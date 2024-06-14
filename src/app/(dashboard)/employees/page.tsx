@@ -18,18 +18,21 @@ import { RemoveEmployeeModal } from "./components/RemoveEmployeeModal";
 
 export default async function Employees() {
   const { employees } = await employeesService.list();
+
+  const hasEmployees = employees.length !== 0;
+
   return (
     <>
       <Header title="Funcionários" />
 
       <main className="space-y-4 p-4">
         <div className="flex items-center">
-          <RegisterEmployeeModal />
+          <RegisterEmployeeModal buttonShouldPulse={!hasEmployees} />
         </div>
 
-        {employees.length === 0 && <EmptyView />}
+        {!hasEmployees && <EmptyView />}
 
-        {!!employees && employees.length !== 0 && (
+        {hasEmployees && (
           <ScrollArea className="h-[calc(100vh-170px)]">
             <Table className="min-w-[1000px]">
               <TableHeader>

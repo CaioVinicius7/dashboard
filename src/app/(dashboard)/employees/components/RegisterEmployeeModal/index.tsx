@@ -29,7 +29,13 @@ import { cn } from "@/lib/utils";
 
 import { useRegisterEmployeeModalController } from "./useRegisterEmployeeModalController";
 
-export function RegisterEmployeeModal() {
+interface RegisterEmployeeModalProps {
+  buttonShouldPulse: boolean;
+}
+
+export function RegisterEmployeeModal({
+  buttonShouldPulse
+}: RegisterEmployeeModalProps) {
   const {
     isOpen,
     handleChangeModalVisibility,
@@ -47,7 +53,8 @@ export function RegisterEmployeeModal() {
         <Button
           variant="outline"
           onClick={handleChangeModalVisibility}
-          className="ml-auto flex items-center gap-2"
+          data-pulse={buttonShouldPulse}
+          className="ml-auto flex items-center gap-2 data-[pulse=true]:animate-pulse"
         >
           <UserPlus className="size-6" />
           Adicionar
