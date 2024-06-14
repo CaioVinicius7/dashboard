@@ -11,7 +11,7 @@ const removeEmployeeParamsSchema = z.object({
   id: z.string()
 });
 
-export async function DELETE(req: NextRequest, { params }: { params: Params }) {
+export async function DELETE(_: NextRequest, { params }: { params: Params }) {
   try {
     const { id } = removeEmployeeParamsSchema.parse(params);
 
