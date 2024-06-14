@@ -3,18 +3,15 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow
 } from "@/components/ui/table";
 import { employeesService } from "@/services/employees";
-import { formatCurrency } from "@/utils/formatCurrency";
 
-import { EditEmployeeModal } from "./components/EditEmployeeModal";
+import { EmployeeRow } from "./components/EmployeeRow";
 import { EmptyView } from "./components/EmptyView";
 import { RegisterEmployeeModal } from "./components/RegisterEmployeeModal";
-import { RemoveEmployeeModal } from "./components/RemoveEmployeeModal";
 
 export default async function Employees() {
   const { employees } = await employeesService.list();
@@ -26,9 +23,7 @@ export default async function Employees() {
       <Header title="Funcionários" />
 
       <main className="space-y-4 p-4">
-        <div className="flex items-center">
-          <RegisterEmployeeModal buttonShouldPulse={!hasEmployees} />
-        </div>
+        <RegisterEmployeeModal buttonShouldPulse={!hasEmployees} />
 
         {!hasEmployees && <EmptyView />}
 
@@ -48,21 +43,7 @@ export default async function Employees() {
 
               <TableBody>
                 {employees.map((employee) => (
-                  <TableRow key={employee.id}>
-                    <TableCell className="font-medium">
-                      {employee.name}
-                    </TableCell>
-                    <TableCell>{employee.role}</TableCell>
-                    <TableCell>{employee.phone}</TableCell>
-                    <TableCell>{employee.entryDate}</TableCell>
-                    <TableCell>{formatCurrency(employee.salary)}</TableCell>
-
-                    <TableCell className="flex items-center gap-2">
-                      <EditEmployeeModal employee={employee} />
-
-                      <RemoveEmployeeModal employeeId={employee.id} />
-                    </TableCell>
-                  </TableRow>
+                  <EmployeeRow key={employee.id} employee={employee} />
                 ))}
               </TableBody>
             </Table>
