@@ -1,4 +1,4 @@
-import { parse } from "date-fns";
+import { isValid, parse } from "date-fns";
 import { type NextRequest, NextResponse } from "next/server";
 import { z, ZodError } from "zod";
 
@@ -51,6 +51,19 @@ export async function POST(request: NextRequest) {
     const salaryInCents = Math.round(salary * 100);
 
     const dateObject = parse(entryDate, "dd/MM/yyyy", new Date());
+
+    const isValidDate = isValid(dateObject);
+
+    if (!isValidDate) {
+      return NextResponse.json(
+        {
+          message: "A data de ingressão é uma data inválida."
+        },
+        {
+          status: 400
+        }
+      );
+    }
 
     await prisma.employee.create({
       data: {

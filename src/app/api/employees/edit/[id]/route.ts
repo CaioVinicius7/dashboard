@@ -1,4 +1,4 @@
-import { parse } from "date-fns";
+import { isValid, parse } from "date-fns";
 import { type NextRequest, NextResponse } from "next/server";
 import { z, ZodError } from "zod";
 
@@ -87,6 +87,23 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
       }
     }
 
+    const dateObject = !!entryDate
+      ? parse(entryDate, "dd/MM/yyyy", new Date())
+      : undefined;
+
+    const isValidDate = isValid(dateObject);
+
+    if (!!entryDate && !isValidDate) {
+      return NextResponse.json(
+        {
+          message: "A data de ingressão é uma data inválida."
+        },
+        {
+          status: 400
+        }
+      );
+    }
+
     await prisma.employee.update({
       where: {
         id
@@ -95,9 +112,7 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
         name,
         role,
         phone,
-        entryDate: entryDate
-          ? parse(entryDate, "dd/MM/yyyy", new Date())
-          : undefined,
+        entryDate: dateObject,
         salary: salary ? Math.round(salary * 100) : undefined
       }
     });
