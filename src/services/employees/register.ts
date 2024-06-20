@@ -1,4 +1,4 @@
-import { env } from "@/env";
+import { httpClient } from "@/lib/ky";
 import { ROLES, rolesToDB } from "@/utils/constants";
 
 interface RegisterEmployeeParams {
@@ -9,8 +9,6 @@ interface RegisterEmployeeParams {
   salary: number;
 }
 
-const { NEXT_PUBLIC_APP_API_URL } = env;
-
 export async function register({
   name,
   role,
@@ -18,22 +16,15 @@ export async function register({
   entryDate,
   salary
 }: RegisterEmployeeParams) {
-  const response = await fetch(
-    `${NEXT_PUBLIC_APP_API_URL}/employees/register`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name,
-        role: rolesToDB[role],
-        phone,
-        entryDate,
-        salary
-      })
+  const response = await httpClient.post("employees/register", {
+    json: {
+      name,
+      role: rolesToDB[role],
+      phone,
+      entryDate,
+      salary
     }
-  );
+  });
 
   return response.ok;
 }

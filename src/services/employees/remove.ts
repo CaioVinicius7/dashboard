@@ -1,18 +1,11 @@
-import { env } from "@/env";
+import { httpClient } from "@/lib/ky";
 
 interface RemoveEmployeeParams {
   id: string;
 }
 
-const { NEXT_PUBLIC_APP_API_URL } = env;
-
 export async function remove({ id }: RemoveEmployeeParams) {
-  const response = await fetch(
-    `${NEXT_PUBLIC_APP_API_URL}/employees/remove/${id}`,
-    {
-      method: "DELETE"
-    }
-  );
+  const response = await httpClient.delete(`employees/remove/${id}`);
 
   return response.ok;
 }

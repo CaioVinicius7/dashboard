@@ -1,11 +1,5 @@
-"use server";
-
-import { cookies } from "next/headers";
-
-import { env } from "@/env";
-import { type ROLES } from "@/utils/constants";
-
-const { NEXTAUTH_URL } = env;
+import { httpClient } from "@/lib/ky";
+import type { ROLES } from "@/utils/constants";
 
 interface Employee {
   id: string;
@@ -21,19 +15,9 @@ interface ListAllEmployeesResponse {
 }
 
 export async function list() {
-  const cookieStore = cookies();
-
-  const token = cookieStore.get("next-auth.session-token");
-
-  const response = await fetch(`${NEXTAUTH_URL}/api/employees/list`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token?.value}`
-    },
-    cache: "no-store"
-  });
-
-  const { employees }: ListAllEmployeesResponse = await response.json();
+  const { employees } = await httpClient
+    .get("employees/list")
+    .json<ListAllEmployeesResponse>();
 
   return {
     employees
