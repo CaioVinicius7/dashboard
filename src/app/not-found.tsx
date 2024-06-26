@@ -1,3 +1,16 @@
+import Link from "next/link";
+
 export default function NotFound() {
-  return <h1>Página não encontrada!</h1>;
+  return (
+    <div className="flex h-screen flex-col items-center justify-center gap-2">
+      <h1 className="text-4xl font-bold">Página não encontrada</h1>
+
+      <p className="text-accent-foreground">
+        Voltar para o{" "}
+        <Link href="/" className="text-sky-600 dark:text-slate-400">
+          Dashboard
+        </Link>
+      </p>
+    </div>
+  );
 }
