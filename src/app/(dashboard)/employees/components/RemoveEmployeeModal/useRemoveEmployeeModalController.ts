@@ -1,3 +1,4 @@
+import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -24,18 +25,9 @@ export function useRemoveEmployeeModalController() {
     try {
       setIsLoading(true);
 
-      const hasSuccess = await employeesService.remove({
+      await employeesService.remove({
         id: employeeId
       });
-
-      if (!hasSuccess) {
-        toast({
-          description: "Ocorreu um erro ao remover o funcionário.",
-          variant: "destructive"
-        });
-
-        return;
-      }
 
       handleChangeModalVisibility();
 
@@ -44,7 +36,18 @@ export function useRemoveEmployeeModalController() {
       });
 
       router.refresh();
-    } catch {
+    } catch (error) {
+      if (error instanceof HTTPError) {
+        const { message } = await error.response.json();
+
+        toast({
+          description: message,
+          variant: "destructive"
+        });
+
+        return;
+      }
+
       toast({
         description: "Ocorreu um erro ao remover o funcionário.",
         variant: "destructive"

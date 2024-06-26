@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -68,19 +69,10 @@ export function useRegisterEmployeeModalController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      const hasSuccess = await employeesService.register({
+      await employeesService.register({
         ...data,
         salary: currencyStringToNumber(data.salary)
       });
-
-      if (!hasSuccess) {
-        toast({
-          description: "Ocorreu um erro ao registar o funcionário.",
-          variant: "destructive"
-        });
-
-        return;
-      }
 
       reset();
 
@@ -91,7 +83,18 @@ export function useRegisterEmployeeModalController() {
       });
 
       router.refresh();
-    } catch {
+    } catch (error) {
+      if (error instanceof HTTPError) {
+        const { message } = await error.response.json();
+
+        toast({
+          description: message,
+          variant: "destructive"
+        });
+
+        return;
+      }
+
       toast({
         description: "Ocorreu um erro ao registar o funcionário.",
         variant: "destructive"

@@ -16,7 +16,7 @@ export async function register({
   entryDate,
   salary
 }: RegisterEmployeeParams) {
-  const response = await httpClient.post("employees/register", {
+  await httpClient.post("employees/register", {
     json: {
       name,
       role: rolesToDB[role],
@@ -25,6 +25,4 @@ export async function register({
       salary
     }
   });
-
-  return response.ok;
 }

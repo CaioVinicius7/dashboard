@@ -5,7 +5,5 @@ interface RemoveEmployeeParams {
 }
 
 export async function remove({ id }: RemoveEmployeeParams) {
-  const response = await httpClient.delete(`employees/remove/${id}`);
-
-  return response.ok;
+  await httpClient.delete(`employees/remove/${id}`);
 }

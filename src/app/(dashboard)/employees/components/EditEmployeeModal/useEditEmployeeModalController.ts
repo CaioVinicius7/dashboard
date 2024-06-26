@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -86,22 +87,13 @@ export function useEditEmployeeModalController({
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      const hasSuccess = await employeesService.edit({
+      await employeesService.edit({
         id: employee.id,
         data: {
           ...data,
           salary: currencyStringToNumber(data.salary)
         }
       });
-
-      if (!hasSuccess) {
-        toast({
-          description: "Ocorreu um erro ao editar os dados do funcionário.",
-          variant: "destructive"
-        });
-
-        return;
-      }
 
       reset();
 
@@ -112,7 +104,18 @@ export function useEditEmployeeModalController({
       });
 
       router.refresh();
-    } catch {
+    } catch (error) {
+      if (error instanceof HTTPError) {
+        const { message } = await error.response.json();
+
+        toast({
+          description: message,
+          variant: "destructive"
+        });
+
+        return;
+      }
+
       toast({
         description: "Ocorreu um erro ao editar os dados do funcionário.",
         variant: "destructive"

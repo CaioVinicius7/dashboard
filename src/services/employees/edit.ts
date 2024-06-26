@@ -16,7 +16,7 @@ export async function edit({
   id,
   data: { name, role, phone, entryDate, salary }
 }: RegisterEmployeeParams) {
-  const response = await httpClient.put(`employees/edit/${id}`, {
+  await httpClient.put(`employees/edit/${id}`, {
     json: {
       name,
       role: role ? rolesToDB[role] : undefined,
@@ -25,6 +25,4 @@ export async function edit({
       salary
     }
   });
-
-  return response.ok;
 }
