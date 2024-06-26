@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { Header } from "@/components/Header";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -12,6 +14,10 @@ import { employeesService } from "@/services/employees";
 import { EmployeeRow } from "./components/EmployeeRow";
 import { EmptyView } from "./components/EmptyView";
 import { RegisterEmployeeModal } from "./components/RegisterEmployeeModal";
+
+export const metadata: Metadata = {
+  title: "Funcionários"
+};
 
 export default async function EmployeesPage() {
   const { employees } = await employeesService.list();

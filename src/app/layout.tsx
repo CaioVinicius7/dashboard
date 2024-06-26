@@ -15,7 +15,10 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "Dashboard",
+  title: {
+    template: "Dashboard | %s",
+    default: "Dashboard"
+  },
   description: "Dashboard"
 };
 
