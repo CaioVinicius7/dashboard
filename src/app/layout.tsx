@@ -36,6 +36,7 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="dark"
           storageKey="@dashboard-theme"
+          disableTransitionOnChange
           enableSystem
         >
           <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
