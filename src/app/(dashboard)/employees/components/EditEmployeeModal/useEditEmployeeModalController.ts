@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { isValid, parse } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -18,7 +19,21 @@ const schema = z.object({
   name: z.string().min(1, "Preencha o nome do funcionário"),
   role: rolesSchema,
   phone: z.string().min(16, "Preencha o telefone corretamente"),
-  entryDate: z.string().min(10, "Preencha a data corretamente"),
+  entryDate: z
+    .string()
+    .min(10, "Preencha a data corretamente")
+    .refine(
+      (value) => {
+        const dateObject = parse(value, "dd/MM/yyyy", new Date());
+
+        const isValidDate = isValid(dateObject);
+
+        return isValidDate;
+      },
+      {
+        message: "A data é inválida."
+      }
+    ),
   salary: z.union([
     z
       .string()
