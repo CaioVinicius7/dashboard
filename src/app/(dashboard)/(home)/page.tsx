@@ -1,6 +1,6 @@
 import { ModeToggle } from "@/components/ThemeToggle";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       <header className="flex items-center justify-between p-4">

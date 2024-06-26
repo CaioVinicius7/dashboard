@@ -13,7 +13,7 @@ import { EmployeeRow } from "./components/EmployeeRow";
 import { EmptyView } from "./components/EmptyView";
 import { RegisterEmployeeModal } from "./components/RegisterEmployeeModal";
 
-export default async function Employees() {
+export default async function EmployeesPage() {
   const { employees } = await employeesService.list();
 
   const hasEmployees = employees.length !== 0;
