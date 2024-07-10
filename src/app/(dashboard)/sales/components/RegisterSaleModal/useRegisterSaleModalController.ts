@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
@@ -23,7 +23,14 @@ const schema = z.object({
       {
         message: "O valor mínimo é R$1"
       }
+    ),
+  saleReceiptUrls: z
+    .array(
+      z.object({
+        url: z.string().url("Preencha com uma URL válida")
+      })
     )
+    .optional()
 });
 
 type FormData = z.infer<typeof schema>;
@@ -36,6 +43,7 @@ export function useRegisterSaleModalController() {
       setIsOpen(false);
     } else {
       reset();
+      removeSaleReceiptField();
       setIsOpen(true);
     }
   }
@@ -50,6 +58,21 @@ export function useRegisterSaleModalController() {
     resolver: zodResolver(schema)
   });
 
+  const {
+    fields: saleReceiptUrlsFields,
+    append,
+    remove: removeSaleReceiptField
+  } = useFieldArray({
+    name: "saleReceiptUrls",
+    control
+  });
+
+  function appendSaleReceiptField() {
+    append({
+      url: ""
+    });
+  }
+
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     console.log(JSON.stringify(data, null, 2));
   });
@@ -61,6 +84,9 @@ export function useRegisterSaleModalController() {
     handleSubmit,
     errors,
     isSubmitting,
-    control
+    control,
+    saleReceiptUrlsFields,
+    appendSaleReceiptField,
+    removeSaleReceiptField
   };
 }

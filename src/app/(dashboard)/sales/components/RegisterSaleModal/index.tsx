@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { Controller } from "react-hook-form";
 
 import { DatePicker } from "@/components/DatePicker";
@@ -29,7 +29,10 @@ export function RegisterSaleModal() {
     handleSubmit,
     errors,
     isSubmitting,
-    control
+    control,
+    saleReceiptUrlsFields,
+    appendSaleReceiptField,
+    removeSaleReceiptField
   } = useRegisterSaleModalController();
 
   return (
@@ -111,9 +114,45 @@ export function RegisterSaleModal() {
               />
             </div>
           </div>
+
+          {saleReceiptUrlsFields.length >= 1 && (
+            <div className="space-y-2">
+              <Label>URLs dos comprovantes de venda</Label>
+
+              {saleReceiptUrlsFields.map((field, index) => (
+                <div key={field.id} className="flex gap-2">
+                  <Input
+                    placeholder="https://exemplo.com/comprovante"
+                    error={errors.saleReceiptUrls?.[index]?.url?.message}
+                    {...register(`saleReceiptUrls.${index}.url`)}
+                  />
+
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    type="button"
+                    onClick={() => removeSaleReceiptField(index)}
+                  >
+                    <Trash2 className="size-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <Button
+            variant="ghost"
+            size="sm"
+            type="button"
+            onClick={appendSaleReceiptField}
+            className="gap-1"
+          >
+            <Plus className="size-4" />
+            Adicionar comprovante
+          </Button>
         </form>
 
-        <div className="mt-6 flex justify-end gap-4">
+        <div className="mt-2 flex justify-end gap-4">
           <DialogClose asChild>
             <Button variant="ghost" onClick={handleChangeModalVisibility}>
               Cancelar

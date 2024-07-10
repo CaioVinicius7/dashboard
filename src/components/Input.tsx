@@ -10,7 +10,7 @@ interface InputProps extends ComponentProps<"input"> {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ error, className, ...props }, ref) => (
-    <div className="space-y-2">
+    <div className="w-full space-y-2">
       <BaseInput
         className={cn(!!error && "border-red-400", className)}
         ref={ref}
