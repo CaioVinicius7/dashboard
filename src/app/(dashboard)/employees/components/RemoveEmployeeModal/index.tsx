@@ -32,7 +32,7 @@ export function RemoveEmployeeModal({ employeeId }: RemoveEmployeeModalProps) {
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className="flex items-center justify-center"
+          size="icon"
           onClick={handleChangeModalVisibility}
         >
           <Trash2 className="size-5" />

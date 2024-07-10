@@ -58,7 +58,7 @@ export function EditEmployeeModal({ employee }: EditEmployeeModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={handleChangeModalVisibility}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="flex items-center justify-center">
+        <Button variant="ghost" size="icon">
           <Pencil className="size-5" />
           <span className="sr-only">Editar funcionário</span>
         </Button>

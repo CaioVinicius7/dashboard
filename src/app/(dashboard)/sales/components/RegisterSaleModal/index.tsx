@@ -129,11 +129,11 @@ export function RegisterSaleModal() {
 
                   <Button
                     variant="destructive"
-                    size="icon"
                     type="button"
                     onClick={() => removeSaleReceiptField(index)}
+                    className="flex items-center justify-center"
                   >
-                    <Trash2 className="size-4" />
+                    <Trash2 className="size-5" />
                   </Button>
                 </div>
               ))}
