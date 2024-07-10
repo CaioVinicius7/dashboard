@@ -1,9 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isBefore, isSameDay } from "date-fns";
+import { HTTPError } from "ky";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useToast } from "@/components/ui/use-toast";
+import { SalesService } from "@/services/sales";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 
 const schema = z.object({
@@ -50,6 +54,10 @@ type FormData = z.infer<typeof schema>;
 export function useRegisterSaleModalController() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const { toast } = useToast();
+
+  const router = useRouter();
+
   function handleChangeModalVisibility() {
     if (isOpen) {
       setIsOpen(false);
@@ -86,7 +94,41 @@ export function useRegisterSaleModalController() {
   }
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
-    console.log(JSON.stringify(data, null, 2));
+    try {
+      await SalesService.register({
+        ...data,
+        value: currencyStringToNumber(data.value),
+        saleReceiptUrls: data.saleReceiptUrls?.map(
+          (saleReceiptUrl) => saleReceiptUrl.url
+        )
+      });
+
+      reset();
+
+      handleChangeModalVisibility();
+
+      toast({
+        description: "Venda registrada com sucesso!"
+      });
+
+      router.refresh();
+    } catch (error) {
+      if (error instanceof HTTPError) {
+        const { message } = await error.response.json();
+
+        toast({
+          description: message,
+          variant: "destructive"
+        });
+
+        return;
+      }
+
+      toast({
+        description: "Ocorreu um erro ao registar o funcionário.",
+        variant: "destructive"
+      });
+    }
   });
 
   return {
