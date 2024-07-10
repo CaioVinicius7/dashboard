@@ -12,7 +12,7 @@ import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 interface DatePickerProps {
-  className: string;
+  className?: string;
 }
 
 export function DatePicker({ className }: DatePickerProps) {

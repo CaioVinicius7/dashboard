@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/table";
 import { formatCurrency } from "@/utils/formatCurrency";
 
+import { RegisterSaleModal } from "./components/RegisterSaleModal";
+
 export const metadata: Metadata = {
   title: "Vendas"
 };
@@ -37,6 +39,8 @@ export default function SalesPage() {
       <Header title="Vendas" />
 
       <main className="space-y-4 p-4">
+        <RegisterSaleModal />
+
         <ScrollArea className="h-[calc(100vh-170px)]">
           <Table className="min-w-[1000px]">
             <TableHeader>
