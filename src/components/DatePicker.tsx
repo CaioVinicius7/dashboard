@@ -12,11 +12,18 @@ import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 interface DatePickerProps {
+  value?: Date;
+  onChange?: (date: Date) => void;
   className?: string;
 }
 
-export function DatePicker({ className }: DatePickerProps) {
-  const [date, setDate] = useState<Date>();
+export function DatePicker({ value, onChange, className }: DatePickerProps) {
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(value);
+
+  function handleChangeDate(date: Date) {
+    onChange?.(date);
+    setSelectedDate(date);
+  }
 
   return (
     <Popover>
@@ -25,13 +32,13 @@ export function DatePicker({ className }: DatePickerProps) {
           variant={"outline"}
           className={cn(
             "w-[280px] justify-start text-left font-normal",
-            !date && "text-muted-foreground",
+            !selectedDate && "text-muted-foreground",
             className
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? (
-            format(date, "PPP", {
+          {selectedDate ? (
+            format(selectedDate, "PPP", {
               locale: ptBR
             })
           ) : (
@@ -42,8 +49,8 @@ export function DatePicker({ className }: DatePickerProps) {
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
-          selected={date}
-          onSelect={setDate}
+          selected={value}
+          onDayClick={handleChangeDate}
           initialFocus
         />
       </PopoverContent>
