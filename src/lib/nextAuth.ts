@@ -1,9 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import { env } from "@/env";
-
-const { NEXTAUTH_URL } = env;
+import { authService } from "@/services/auth";
 
 export const nextAuthOptions: NextAuthOptions = {
   providers: [
@@ -20,20 +18,16 @@ export const nextAuthOptions: NextAuthOptions = {
         }
       },
       authorize: async (credentials, _req) => {
-        const response = await fetch(`${NEXTAUTH_URL}/api/auth/login`, {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json"
-          },
-          body: JSON.stringify({
-            email: credentials?.email,
-            password: credentials?.password
-          })
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
+
+        const { user } = await authService.signIn({
+          email: credentials.email,
+          password: credentials.password
         });
 
-        const { user } = await response.json();
-
-        if (user && response.ok) {
+        if (!!user) {
           return user;
         }
 
