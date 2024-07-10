@@ -7,7 +7,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
-import { SalesService } from "@/services/sales";
+import { salesService } from "@/services/sales";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 
 const schema = z.object({
@@ -95,7 +95,7 @@ export function useRegisterSaleModalController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await SalesService.register({
+      await salesService.register({
         ...data,
         value: currencyStringToNumber(data.value),
         saleReceiptUrls: data.saleReceiptUrls?.map(

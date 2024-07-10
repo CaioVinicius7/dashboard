@@ -1,5 +1,5 @@
 import { register } from "./register";
 
-export const SalesService = {
+export const salesService = {
   register
 };
