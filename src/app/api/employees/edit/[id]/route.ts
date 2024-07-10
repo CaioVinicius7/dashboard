@@ -1,4 +1,4 @@
-import { isValid, parse } from "date-fns";
+import { isBefore, isSameDay, isValid, parse } from "date-fns";
 import { type NextRequest, NextResponse } from "next/server";
 import { z, ZodError } from "zod";
 
@@ -102,6 +102,22 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
           status: 400
         }
       );
+    }
+
+    if (!!dateObject) {
+      const isBeforeOrSameDate =
+        isBefore(dateObject, new Date()) || isSameDay(dateObject, new Date());
+
+      if (!isBeforeOrSameDate) {
+        return NextResponse.json(
+          {
+            message: "A data deve ser igual ou anterior à data atual."
+          },
+          {
+            status: 400
+          }
+        );
+      }
     }
 
     await prisma.employee.update({

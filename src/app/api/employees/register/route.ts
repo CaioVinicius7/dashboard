@@ -1,4 +1,4 @@
-import { isValid, parse } from "date-fns";
+import { isBefore, isSameDay, isValid, parse } from "date-fns";
 import { type NextRequest, NextResponse } from "next/server";
 import { z, ZodError } from "zod";
 
@@ -58,6 +58,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           message: "A data de ingressão é uma data inválida."
+        },
+        {
+          status: 400
+        }
+      );
+    }
+
+    const isBeforeOrSameDate =
+      isBefore(dateObject, new Date()) || isSameDay(dateObject, new Date());
+
+    if (!isBeforeOrSameDate) {
+      return NextResponse.json(
+        {
+          message: "A data deve ser igual ou anterior à data atual."
         },
         {
           status: 400

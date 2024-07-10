@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { isValid, parse } from "date-fns";
+import { isBefore, isSameDay, isValid, parse } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -32,6 +32,17 @@ const schema = z.object({
       },
       {
         message: "A data é inválida."
+      }
+    )
+    .refine(
+      (value) => {
+        const currentDate = new Date();
+        const date = parse(value, "dd/MM/yyyy", new Date());
+
+        return isBefore(date, currentDate) || isSameDay(date, currentDate);
+      },
+      {
+        message: "A data deve ser igual ou anterior à data atual"
       }
     ),
   salary: z.union([

@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { isBefore, isSameDay } from "date-fns";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -7,9 +8,20 @@ import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 
 const schema = z.object({
   customer: z.string().min(1, "Preencha o nome do cliente"),
-  dateOfSale: z.date({
-    message: "Selecione a data da venda"
-  }),
+  dateOfSale: z
+    .date({
+      message: "Selecione a data da venda"
+    })
+    .refine(
+      (value) => {
+        const currentDate = new Date();
+
+        return isBefore(value, currentDate) || isSameDay(value, currentDate);
+      },
+      {
+        message: "A data deve ser igual ou anterior à data atual"
+      }
+    ),
   value: z
     .string({
       required_error: "Preencha o valor da venda"
