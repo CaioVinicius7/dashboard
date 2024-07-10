@@ -37,3 +37,15 @@ model Employee {
 
   @@map("employees")
 }
+
+model Sale {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  customer        String
+  value           Int
+  dateOfSale      DateTime @map("date_of_sale") @db.Date
+  saleReceiptUrls String[] @default([]) @map("sale_receipt_urls")
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt       DateTime @default(now()) @map("updated_at") @db.Timestamp
+
+  @@map("sales")
+}
