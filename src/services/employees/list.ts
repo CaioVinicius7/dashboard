@@ -10,14 +10,14 @@ interface Employee {
   salary: number;
 }
 
-interface ListAllEmployeesResponse {
+interface ListEmployeesResponse {
   employees: Employee[];
 }
 
 export async function list() {
   const { employees } = await httpClient
     .get("employees/list")
-    .json<ListAllEmployeesResponse>();
+    .json<ListEmployeesResponse>();
 
   return {
     employees
