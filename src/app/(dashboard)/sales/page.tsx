@@ -1,6 +1,8 @@
+import { Pencil, Trash2 } from "lucide-react";
 import type { Metadata } from "next";
 
 import { Header } from "@/components/Header";
+import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
@@ -10,6 +12,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
+import { salesService } from "@/services/sales";
 import { formatCurrency } from "@/utils/formatCurrency";
 
 import { RegisterSaleModal } from "./components/RegisterSaleModal";
@@ -18,22 +21,9 @@ export const metadata: Metadata = {
   title: "Vendas"
 };
 
-const sales = [
-  {
-    id: "926147c3-a67b-4a81-9203-bf3ec40b7e38",
-    customer: "Ricky Henderson",
-    value: 1000,
-    dateOfSale: "09/07/2024"
-  },
-  {
-    id: "1b18cee7-3251-4f23-81dc-2540afa6c5ab",
-    customer: "Norman Gill",
-    value: 2000,
-    dateOfSale: "09/07/2024"
-  }
-];
+export default async function SalesPage() {
+  const { sales } = await salesService.list();
 
-export default function SalesPage() {
   return (
     <>
       <Header title="Vendas" />
@@ -48,6 +38,8 @@ export default function SalesPage() {
                 <TableHead>Cliente</TableHead>
                 <TableHead className="w-[175px]">valor</TableHead>
                 <TableHead className="w-[175px]">Data da venda</TableHead>
+                <TableHead className="w-[175px]">Data da registro</TableHead>
+                <TableHead className="w-[175px]">Data da atualização</TableHead>
                 <TableHead className="w-[150px]" />
               </TableRow>
             </TableHeader>
@@ -58,8 +50,20 @@ export default function SalesPage() {
                   <TableCell className="font-medium">{sale.customer}</TableCell>
                   <TableCell>{formatCurrency(sale.value)}</TableCell>
                   <TableCell>{sale.dateOfSale}</TableCell>
+                  <TableCell>{sale.createdAt}</TableCell>
+                  <TableCell>{sale.updatedAt}</TableCell>
 
-                  <TableCell className="flex items-center gap-2"></TableCell>
+                  <TableCell className="flex items-center gap-2">
+                    <Button variant="ghost" size="icon">
+                      <Pencil className="size-5" />
+                      <span className="sr-only">Editar venda</span>
+                    </Button>
+
+                    <Button variant="ghost" size="icon">
+                      <Trash2 className="size-5" />
+                      <span className="sr-only">Remover venda</span>
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
