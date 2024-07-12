@@ -20,21 +20,13 @@ interface RemoveEmployeeModalProps {
 }
 
 export function RemoveEmployeeModal({ employeeId }: RemoveEmployeeModalProps) {
-  const {
-    isOpen,
-    handleChangeModalVisibility,
-    handleRemoveEmployee,
-    isLoading
-  } = useRemoveEmployeeModalController();
+  const { handleRemoveEmployee, isLoading } =
+    useRemoveEmployeeModalController();
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleChangeModalVisibility}>
+    <Dialog>
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleChangeModalVisibility}
-        >
+        <Button variant="ghost" size="icon">
           <Trash2 className="size-5" />
           <span className="sr-only">Remover funcionário</span>
         </Button>
@@ -52,9 +44,7 @@ export function RemoveEmployeeModal({ employeeId }: RemoveEmployeeModalProps) {
 
         <div className="mt-6 flex justify-end gap-4">
           <DialogClose asChild>
-            <Button variant="ghost" onClick={handleChangeModalVisibility}>
-              Cancelar
-            </Button>
+            <Button variant="ghost">Cancelar</Button>
           </DialogClose>
 
           <Button
