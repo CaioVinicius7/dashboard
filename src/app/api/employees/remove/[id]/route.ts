@@ -38,7 +38,7 @@ export async function DELETE(_: NextRequest, { params }: { params: Params }) {
       }
     });
 
-    return new NextResponse(null, {
+    return new NextResponse(undefined, {
       status: 204
     });
   } catch (error: any) {
