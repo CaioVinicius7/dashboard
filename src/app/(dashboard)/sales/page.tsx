@@ -1,4 +1,4 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 import type { Metadata } from "next";
 
 import { Header } from "@/components/Header";
@@ -16,6 +16,7 @@ import { salesService } from "@/services/sales";
 import { formatCurrency } from "@/utils/formatCurrency";
 
 import { RegisterSaleModal } from "./components/RegisterSaleModal";
+import { RemoveSaleModal } from "./components/RemoveSaleModal";
 
 export const metadata: Metadata = {
   title: "Vendas"
@@ -59,10 +60,7 @@ export default async function SalesPage() {
                       <span className="sr-only">Editar venda</span>
                     </Button>
 
-                    <Button variant="ghost" size="icon">
-                      <Trash2 className="size-5" />
-                      <span className="sr-only">Remover venda</span>
-                    </Button>
+                    <RemoveSaleModal saleId={sale.id} />
                   </TableCell>
                 </TableRow>
               ))}
