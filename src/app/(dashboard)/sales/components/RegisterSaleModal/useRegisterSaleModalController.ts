@@ -125,7 +125,7 @@ export function useRegisterSaleModalController() {
       }
 
       toast({
-        description: "Ocorreu um erro ao registar o funcionário.",
+        description: "Ocorreu um erro ao registar a venda.",
         variant: "destructive"
       });
     }
