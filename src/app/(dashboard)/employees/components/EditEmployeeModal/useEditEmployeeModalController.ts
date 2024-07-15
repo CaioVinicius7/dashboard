@@ -11,6 +11,7 @@ import type { Employee } from "@/entities/Employee";
 import { employeesService } from "@/services/employees";
 import { ROLES } from "@/utils/constants";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
+import { formatDate } from "@/utils/formatDate";
 
 const rolesSchema = z.enum(ROLES, {
   required_error: "Selecione o cargo"
@@ -100,7 +101,7 @@ export function useEditEmployeeModalController({
       name: employee.name,
       role: employee.role,
       phone: employee.role,
-      entryDate: employee.entryDate,
+      entryDate: formatDate(employee.entryDate),
       salary: employee.salary
     }
   });
