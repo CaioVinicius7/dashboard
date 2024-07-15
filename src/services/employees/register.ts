@@ -1,13 +1,8 @@
+import type { Employee } from "@/entities/Employee";
 import { httpClient } from "@/lib/ky";
-import { ROLES, rolesToDB } from "@/utils/constants";
+import { rolesToDB } from "@/utils/constants";
 
-interface RegisterEmployeeParams {
-  name: string;
-  role: (typeof ROLES)[number];
-  phone: string;
-  entryDate: string;
-  salary: number;
-}
+type RegisterEmployeeParams = Omit<Employee, "id">;
 
 export async function register({
   name,

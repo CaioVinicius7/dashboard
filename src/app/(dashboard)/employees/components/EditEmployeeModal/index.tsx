@@ -25,20 +25,13 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
+import type { Employee } from "@/entities/Employee";
 import { cn } from "@/lib/utils";
-import type { ROLES } from "@/utils/constants";
 
 import { useEditEmployeeModalController } from "./useEditEmployeeModalController";
 
 interface EditEmployeeModalProps {
-  employee: {
-    id: string;
-    name: string;
-    role: (typeof ROLES)[number];
-    phone: string;
-    entryDate: string;
-    salary: number;
-  };
+  employee: Employee;
 }
 
 export function EditEmployeeModal({ employee }: EditEmployeeModalProps) {

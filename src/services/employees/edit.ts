@@ -1,15 +1,10 @@
+import type { Employee } from "@/entities/Employee";
 import { httpClient } from "@/lib/ky";
-import { ROLES, rolesToDB } from "@/utils/constants";
+import { rolesToDB } from "@/utils/constants";
 
 interface RegisterEmployeeParams {
   id: string;
-  data: {
-    name?: string;
-    role?: (typeof ROLES)[number];
-    phone?: string;
-    entryDate?: string;
-    salary?: number;
-  };
+  data: Partial<Employee>;
 }
 
 export async function edit({

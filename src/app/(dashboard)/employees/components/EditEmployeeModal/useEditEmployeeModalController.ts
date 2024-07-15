@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
+import type { Employee } from "@/entities/Employee";
 import { employeesService } from "@/services/employees";
 import { ROLES } from "@/utils/constants";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
@@ -66,14 +67,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 interface useEditEmployeeModalControllerParams {
-  employee: {
-    id: string;
-    name: string;
-    role: (typeof ROLES)[number];
-    phone: string;
-    entryDate: string;
-    salary: number;
-  };
+  employee: Employee;
 }
 
 export function useEditEmployeeModalController({
