@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    const response = NextResponse.json(null, {
+    const response = NextResponse.json(undefined, {
       status: 201
     });
 
