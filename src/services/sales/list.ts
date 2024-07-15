@@ -5,7 +5,7 @@ interface Sale {
   customer: string;
   value: number;
   dateOfSale: string;
-  saleReceiptUrls: string[];
+  saleReceiptUrls?: string[];
   createdAt: string;
   updatedAt: string;
 }
