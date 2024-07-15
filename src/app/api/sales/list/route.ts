@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
@@ -9,10 +8,7 @@ export async function GET() {
 
     const formattedSales = sales.map((sale) => ({
       ...sale,
-      dateOfSale: format(new Date(sale.dateOfSale), "dd/MM/yyyy"),
-      value: sale.value / 100,
-      createdAt: format(new Date(sale.createdAt), "dd/MM/yyyy"),
-      updatedAt: format(new Date(sale.updatedAt), "dd/MM/yyyy")
+      value: sale.value / 100
     }));
 
     const response = NextResponse.json(
