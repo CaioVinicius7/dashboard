@@ -50,9 +50,9 @@ export default async function SalesPage() {
                 <TableRow key={sale.id}>
                   <TableCell className="font-medium">{sale.customer}</TableCell>
                   <TableCell>{formatCurrency(sale.value)}</TableCell>
-                  <TableCell>{sale.dateOfSale}</TableCell>
-                  <TableCell>{sale.createdAt}</TableCell>
-                  <TableCell>{sale.updatedAt}</TableCell>
+                  <TableCell>{formatDate(sale.dateOfSale)}</TableCell>
+                  <TableCell>{formatDate(sale.createdAt)}</TableCell>
+                  <TableCell>{formatDate(sale.updatedAt)}</TableCell>
 
                   <TableCell className="flex items-center gap-2">
                     <Button variant="ghost" size="icon">
