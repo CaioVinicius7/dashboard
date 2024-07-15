@@ -58,9 +58,10 @@ export default async function SalesPage() {
                   <TableCell className="flex items-center gap-2">
                     <EditSaleModal
                       sale={{
+                        id: sale.id,
                         customer: sale.customer,
-                        dateOfSale: new Date(sale.dateOfSale), // TODO: Refatorar (ver melhor maneira)
-                        value: String(sale.value), // TODO: Refatorar (ver melhor maneira)
+                        dateOfSale: sale.dateOfSale,
+                        value: sale.value,
                         saleReceiptUrls: sale.saleReceiptUrls
                       }}
                     />
