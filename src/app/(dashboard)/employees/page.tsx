@@ -1,3 +1,4 @@
+import { Users } from "lucide-react";
 import type { Metadata } from "next";
 
 import { Header } from "@/components/Header";
@@ -26,7 +27,7 @@ export default async function EmployeesPage() {
 
   return (
     <>
-      <Header title="Funcionários" />
+      <Header title="Funcionários" icon={<Users />} />
 
       <main className="space-y-4 p-4">
         <RegisterEmployeeModal buttonShouldPulse={!hasEmployees} />

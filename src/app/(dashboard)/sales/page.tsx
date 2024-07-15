@@ -1,8 +1,7 @@
-import { Pencil } from "lucide-react";
+import { BadgeDollarSign } from "lucide-react";
 import type { Metadata } from "next";
 
 import { Header } from "@/components/Header";
-import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
@@ -14,7 +13,9 @@ import {
 } from "@/components/ui/table";
 import { salesService } from "@/services/sales";
 import { formatCurrency } from "@/utils/formatCurrency";
+import { formatDate } from "@/utils/formatDate";
 
+import { EditSaleModal } from "./components/EditSaleModal";
 import { RegisterSaleModal } from "./components/RegisterSaleModal";
 import { RemoveSaleModal } from "./components/RemoveSaleModal";
 
@@ -27,7 +28,7 @@ export default async function SalesPage() {
 
   return (
     <>
-      <Header title="Vendas" />
+      <Header title="Vendas" icon={<BadgeDollarSign />} />
 
       <main className="space-y-4 p-4">
         <RegisterSaleModal />
@@ -55,10 +56,14 @@ export default async function SalesPage() {
                   <TableCell>{formatDate(sale.updatedAt)}</TableCell>
 
                   <TableCell className="flex items-center gap-2">
-                    <Button variant="ghost" size="icon">
-                      <Pencil className="size-5" />
-                      <span className="sr-only">Editar venda</span>
-                    </Button>
+                    <EditSaleModal
+                      sale={{
+                        customer: sale.customer,
+                        dateOfSale: new Date(sale.dateOfSale), // TODO: Refatorar (ver melhor maneira)
+                        value: String(sale.value), // TODO: Refatorar (ver melhor maneira)
+                        saleReceiptUrls: sale.saleReceiptUrls
+                      }}
+                    />
 
                     <RemoveSaleModal saleId={sale.id} />
                   </TableCell>
