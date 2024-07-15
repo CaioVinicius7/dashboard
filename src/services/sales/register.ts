@@ -1,11 +1,8 @@
+import type { Sale } from "@/entities/Sale";
 import { httpClient } from "@/lib/ky";
+import type { OmitTyped } from "@/utils/typeUtils";
 
-interface RegisterSaleParams {
-  customer: string;
-  dateOfSale: Date;
-  value: number;
-  saleReceiptUrls?: string[];
-}
+type RegisterSaleParams = OmitTyped<Sale, "id" | "createdAt" | "updatedAt">;
 
 export async function register({
   customer,

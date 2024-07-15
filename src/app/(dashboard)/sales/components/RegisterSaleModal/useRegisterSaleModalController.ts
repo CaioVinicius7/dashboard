@@ -97,6 +97,7 @@ export function useRegisterSaleModalController() {
     try {
       await salesService.register({
         ...data,
+        dateOfSale: data.dateOfSale.toISOString(),
         value: currencyStringToNumber(data.value),
         saleReceiptUrls: data.saleReceiptUrls?.map(
           (saleReceiptUrl) => saleReceiptUrl.url

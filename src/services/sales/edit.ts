@@ -1,13 +1,10 @@
+import type { Sale } from "@/entities/Sale";
 import { httpClient } from "@/lib/ky";
+import type { OmitTyped } from "@/utils/typeUtils";
 
 interface EditSaleParams {
   id: string;
-  data: {
-    customer: string;
-    dateOfSale: string;
-    value: number;
-    saleReceiptUrls?: string[];
-  };
+  data: Partial<OmitTyped<Sale, "id" | "createdAt" | "updatedAt">>;
 }
 
 export async function edit({

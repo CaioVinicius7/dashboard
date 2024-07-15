@@ -17,18 +17,14 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import type { Sale } from "@/entities/Sale";
 import { cn } from "@/lib/utils";
+import type { OmitTyped } from "@/utils/typeUtils";
 
 import { useEditSaleModalController } from "./useEditSaleModalController";
 
 interface EditSaleModalProps {
-  sale: {
-    id: string;
-    customer: string;
-    dateOfSale: string;
-    value: number;
-    saleReceiptUrls?: string[];
-  };
+  sale: OmitTyped<Sale, "createdAt" | "updatedAt">;
 }
 
 export function EditSaleModal({ sale }: EditSaleModalProps) {

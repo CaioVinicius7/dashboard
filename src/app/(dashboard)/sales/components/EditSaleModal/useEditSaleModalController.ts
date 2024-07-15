@@ -7,8 +7,10 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
+import type { Sale } from "@/entities/Sale";
 import { salesService } from "@/services/sales";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
+import type { OmitTyped } from "@/utils/typeUtils";
 
 const schema = z.object({
   customer: z.string().min(1, "Preencha o nome do cliente"),
@@ -56,13 +58,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 interface UseEditSaleModalControllerParams {
-  sale: {
-    id: string;
-    customer: string;
-    dateOfSale: string;
-    value: number;
-    saleReceiptUrls?: string[];
-  };
+  sale: OmitTyped<Sale, "createdAt" | "updatedAt">;
 }
 
 export function useEditSaleModalController({
