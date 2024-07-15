@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
@@ -11,7 +10,6 @@ export async function GET() {
     const formattedEmployees = employees.map((employee) => ({
       ...employee,
       role: rolesToApp[employee.role],
-      entryDate: format(new Date(employee.entryDate), "dd/MM/yyyy"),
       salary: employee.salary / 100
     }));
 
