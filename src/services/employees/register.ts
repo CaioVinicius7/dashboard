@@ -1,8 +1,9 @@
 import type { Employee } from "@/entities/Employee";
 import { httpClient } from "@/lib/ky";
 import { rolesToDB } from "@/utils/constants";
+import type { OmitTyped } from "@/utils/typeUtils";
 
-type RegisterEmployeeParams = Omit<Employee, "id">;
+type RegisterEmployeeParams = OmitTyped<Employee, "id">;
 
 export async function register({
   name,
