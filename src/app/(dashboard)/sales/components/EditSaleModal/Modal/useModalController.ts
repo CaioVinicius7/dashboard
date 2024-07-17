@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { isBefore, isSameDay } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -57,34 +56,24 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-interface UseEditSaleModalControllerParams {
+interface UseModalControllerParams {
   sale: OmitTyped<Sale, "createdAt" | "updatedAt">;
+  closeModal: () => void;
 }
 
-export function useEditSaleModalController({
-  sale
-}: UseEditSaleModalControllerParams) {
-  const [isOpen, setIsOpen] = useState(false);
-
+export function useModalController({
+  sale,
+  closeModal
+}: UseModalControllerParams) {
   const { toast } = useToast();
 
   const router = useRouter();
-
-  function handleChangeModalVisibility() {
-    if (isOpen) {
-      setIsOpen(false);
-    } else {
-      reset();
-      setIsOpen(true);
-    }
-  }
 
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
     formState: { errors, isSubmitting },
-    control,
-    reset
+    control
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -124,15 +113,13 @@ export function useEditSaleModalController({
         }
       });
 
-      reset();
-
-      handleChangeModalVisibility();
-
       toast({
         description: "Venda editada com sucesso!"
       });
 
       router.refresh();
+
+      closeModal();
     } catch (error) {
       if (error instanceof HTTPError) {
         const { message } = await error.response.json();
@@ -153,8 +140,6 @@ export function useEditSaleModalController({
   });
 
   return {
-    isOpen,
-    handleChangeModalVisibility,
     register,
     handleSubmit,
     errors,
