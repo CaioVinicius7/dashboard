@@ -28,6 +28,13 @@
         "varsIgnorePattern": "^_",
         "argsIgnorePattern": "^_"
       }
+    ],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": ["PascalCase"]
+      }
     ]
   },
   "overrides": [
