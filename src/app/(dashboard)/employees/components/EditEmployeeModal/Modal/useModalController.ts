@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { isBefore, isSameDay, isValid, parse } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -67,34 +66,24 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-interface useEditEmployeeModalControllerParams {
+interface UseModalControllerParams {
   employee: Employee;
+  closeModal: () => void;
 }
 
-export function useEditEmployeeModalController({
-  employee
-}: useEditEmployeeModalControllerParams) {
-  const [isOpen, setIsOpen] = useState(false);
-
+export function useModalController({
+  employee,
+  closeModal
+}: UseModalControllerParams) {
   const { toast } = useToast();
 
   const router = useRouter();
-
-  function handleChangeModalVisibility() {
-    if (isOpen) {
-      setIsOpen(false);
-    } else {
-      reset();
-      setIsOpen(true);
-    }
-  }
 
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
     formState: { errors, isSubmitting },
-    control,
-    reset
+    control
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -116,9 +105,7 @@ export function useEditEmployeeModalController({
         }
       });
 
-      reset();
-
-      handleChangeModalVisibility();
+      closeModal();
 
       toast({
         description: "Funcionário registrado com sucesso!"
@@ -145,8 +132,6 @@ export function useEditEmployeeModalController({
   });
 
   return {
-    isOpen,
-    handleChangeModalVisibility,
     register,
     handleSubmit,
     errors,
