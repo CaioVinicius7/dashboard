@@ -89,11 +89,9 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    const response = NextResponse.json(null, {
+    return new NextResponse(null, {
       status: 201
     });
-
-    return response;
   } catch (error: any) {
     if (error instanceof ZodError) {
       return NextResponse.json(
