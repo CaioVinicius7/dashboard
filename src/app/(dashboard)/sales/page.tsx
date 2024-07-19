@@ -1,5 +1,6 @@
 import { BadgeDollarSign } from "lucide-react";
 import type { Metadata } from "next";
+import { z } from "zod";
 
 import { Header } from "@/components/Header";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -18,13 +19,31 @@ import { formatDate } from "@/utils/formatDate";
 import { EditSaleModal } from "./components/EditSaleModal";
 import { RegisterSaleModal } from "./components/RegisterSaleModal";
 import { RemoveSaleModal } from "./components/RemoveSaleModal";
+import { Pagination } from "./Pagination";
 
 export const metadata: Metadata = {
   title: "Vendas"
 };
 
-export default async function SalesPage() {
-  const { sales } = await salesService.list();
+interface SearchProps {
+  searchParams: {
+    page?: string;
+    perPage?: string;
+  };
+}
+
+const searchParamsSchema = z.object({
+  page: z.coerce.number().default(1),
+  perPage: z.coerce.number().default(8)
+});
+
+export default async function SalesPage({ searchParams }: SearchProps) {
+  const { page, perPage } = searchParamsSchema.parse(searchParams);
+
+  const { sales, meta } = await salesService.list({
+    page,
+    perPage
+  });
 
   return (
     <>
@@ -33,7 +52,7 @@ export default async function SalesPage() {
       <main className="space-y-4 p-4">
         <RegisterSaleModal />
 
-        <ScrollArea className="h-[calc(100vh-170px)]">
+        <ScrollArea className="h-[calc(100vh-317px)]">
           <Table className="min-w-[1000px]">
             <TableHeader>
               <TableRow>
@@ -75,6 +94,12 @@ export default async function SalesPage() {
 
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
+
+        <Pagination
+          page={page}
+          totalCount={meta.totalCount}
+          perPage={meta.perPage}
+        />
       </main>
     </>
   );
