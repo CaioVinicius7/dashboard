@@ -5,6 +5,7 @@ import { formatDate } from "@/utils/formatDate";
 
 import { EditSaleModal } from "./EditSaleModal";
 import { RemoveSaleModal } from "./RemoveSaleModal";
+import { SaleReceiptsModal } from "./SaleReceiptsModal";
 
 interface SaleRowProps {
   sale: Sale;
@@ -18,6 +19,10 @@ export function SaleRow({ sale }: SaleRowProps) {
       <TableCell>{formatDate(sale.dateOfSale)}</TableCell>
       <TableCell>{formatDate(sale.createdAt)}</TableCell>
       <TableCell>{formatDate(sale.updatedAt)}</TableCell>
+
+      <TableCell>
+        <SaleReceiptsModal saleReceiptsUrl={sale.saleReceiptUrls} />
+      </TableCell>
 
       <TableCell className="flex items-center gap-2">
         <EditSaleModal
