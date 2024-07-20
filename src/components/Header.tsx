@@ -1,5 +1,7 @@
 import type { ReactElement } from "react";
 
+import { ModeToggle } from "./ThemeToggle";
+
 export interface HeaderProps {
   title: string;
   icon: ReactElement;
@@ -14,7 +16,7 @@ export function Header({ title, icon }: HeaderProps) {
         <h2 className="text-xl">{title}</h2>
       </div>
 
-      <div />
+      <ModeToggle />
     </header>
   );
 }
