@@ -7,10 +7,15 @@ interface NavLinkProps {
   children: ReactNode;
   text: string;
   href: string;
-  sideNavIsOpen: boolean;
+  sideMenuIsOpen: boolean;
 }
 
-export function NavLink({ children, text, href, sideNavIsOpen }: NavLinkProps) {
+export function NavLink({
+  children,
+  text,
+  href,
+  sideMenuIsOpen
+}: NavLinkProps) {
   return (
     <Tooltip delayDuration={0}>
       <TooltipTrigger asChild>
@@ -24,7 +29,7 @@ export function NavLink({ children, text, href, sideNavIsOpen }: NavLinkProps) {
         </Link>
       </TooltipTrigger>
 
-      {!sideNavIsOpen && (
+      {!sideMenuIsOpen && (
         <TooltipContent>
           <p>{text}</p>
         </TooltipContent>

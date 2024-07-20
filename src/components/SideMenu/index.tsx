@@ -13,7 +13,7 @@ import {
 import { TooltipProvider } from "../ui/tooltip";
 import { ActionButton } from "./ActionButton";
 import { NavLink } from "./NavLink";
-import { useSideNavController } from "./useSideNavController";
+import { useSideMenuController } from "./useSideMenuController";
 
 const containerVariants = {
   close: {
@@ -48,9 +48,9 @@ const arrowVariants = {
   }
 };
 
-export function SideNav() {
-  const { handleToggleSideNavVisibility, logout, isOpen } =
-    useSideNavController();
+export function SideMenu() {
+  const { handleToggleSideMenuVisibility, logout, isOpen } =
+    useSideMenuController();
 
   return (
     <TooltipProvider>
@@ -61,10 +61,10 @@ export function SideNav() {
         className="sticky top-0 hidden h-screen flex-col border-r bg-primary-foreground px-4 py-6 xlg:flex"
       >
         <ActionButton
-          sideNavIsOpen={isOpen}
+          sideMenuIsOpen={isOpen}
           text="Fechar menu"
           tooltipText="Expandir menu"
-          action={handleToggleSideNavVisibility}
+          action={handleToggleSideMenuVisibility}
         >
           <motion.div
             variants={arrowVariants}
@@ -80,25 +80,29 @@ export function SideNav() {
         </ActionButton>
 
         <nav className="mt-10 flex flex-1 flex-col gap-2">
-          <NavLink text="Página inicial" href="/" sideNavIsOpen={isOpen}>
+          <NavLink text="Página inicial" href="/" sideMenuIsOpen={isOpen}>
             <Home />
           </NavLink>
 
-          <NavLink text="Vendas" href="/sales" sideNavIsOpen={isOpen}>
+          <NavLink text="Vendas" href="/sales" sideMenuIsOpen={isOpen}>
             <BadgeDollarSign />
           </NavLink>
 
-          <NavLink text="Estoque" href="/stock" sideNavIsOpen={isOpen}>
+          <NavLink text="Estoque" href="/stock" sideMenuIsOpen={isOpen}>
             <Blocks />
           </NavLink>
 
-          <NavLink text="Funcionários" href="/employees" sideNavIsOpen={isOpen}>
+          <NavLink
+            text="Funcionários"
+            href="/employees"
+            sideMenuIsOpen={isOpen}
+          >
             <Users />
           </NavLink>
         </nav>
 
         <ActionButton
-          sideNavIsOpen={isOpen}
+          sideMenuIsOpen={isOpen}
           text="Sair"
           tooltipText="Sair"
           action={logout}

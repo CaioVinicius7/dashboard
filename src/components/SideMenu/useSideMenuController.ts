@@ -2,12 +2,12 @@ import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 
-export function useSideNavController() {
+export function useSideMenuController() {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
 
-  function handleToggleSideNavVisibility() {
+  function handleToggleSideMenuVisibility() {
     setIsOpen((state) => !state);
   }
 
@@ -20,7 +20,7 @@ export function useSideNavController() {
   }
 
   return {
-    handleToggleSideNavVisibility,
+    handleToggleSideMenuVisibility,
     logout,
     isOpen
   };

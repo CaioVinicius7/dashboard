@@ -4,7 +4,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 interface ActionButtonProps {
   children: ReactNode;
-  sideNavIsOpen: boolean;
+  sideMenuIsOpen: boolean;
   text: string;
   tooltipText: string;
   action: () => void;
@@ -12,7 +12,7 @@ interface ActionButtonProps {
 
 export function ActionButton({
   children,
-  sideNavIsOpen,
+  sideMenuIsOpen,
   text,
   tooltipText,
   action
@@ -30,7 +30,7 @@ export function ActionButton({
         </button>
       </TooltipTrigger>
 
-      {!sideNavIsOpen && (
+      {!sideMenuIsOpen && (
         <TooltipContent>
           <p>{tooltipText}</p>
         </TooltipContent>
