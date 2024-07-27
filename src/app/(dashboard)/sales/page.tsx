@@ -8,19 +8,15 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow
 } from "@/components/ui/table";
 import { salesService } from "@/services/sales";
-import { formatCurrency } from "@/utils/formatCurrency";
-import { formatDate } from "@/utils/formatDate";
 
-import { EditSaleModal } from "./components/EditSaleModal";
 import { EmptyView } from "./components/EmptyView";
 import { RegisterSaleModal } from "./components/RegisterSaleModal";
-import { RemoveSaleModal } from "./components/RemoveSaleModal";
+import { SaleRow } from "./components/SaleRow";
 
 export const metadata: Metadata = {
   title: "Vendas"
@@ -75,29 +71,7 @@ export default async function SalesPage({ searchParams }: SearchProps) {
 
               <TableBody>
                 {sales.map((sale) => (
-                  <TableRow key={sale.id}>
-                    <TableCell className="font-medium">
-                      {sale.customer}
-                    </TableCell>
-                    <TableCell>{formatCurrency(sale.value)}</TableCell>
-                    <TableCell>{formatDate(sale.dateOfSale)}</TableCell>
-                    <TableCell>{formatDate(sale.createdAt)}</TableCell>
-                    <TableCell>{formatDate(sale.updatedAt)}</TableCell>
-
-                    <TableCell className="flex items-center gap-2">
-                      <EditSaleModal
-                        sale={{
-                          id: sale.id,
-                          customer: sale.customer,
-                          dateOfSale: sale.dateOfSale,
-                          value: sale.value,
-                          saleReceiptUrls: sale.saleReceiptUrls
-                        }}
-                      />
-
-                      <RemoveSaleModal saleId={sale.id} />
-                    </TableCell>
-                  </TableRow>
+                  <SaleRow key={sale.id} sale={sale} />
                 ))}
               </TableBody>
             </Table>
