@@ -4,10 +4,8 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import type { ReactNode } from "react";
 
-import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
-import { NextAuthSessionProvider } from "@/providers/sessionProvider";
-import { ThemeProvider } from "@/providers/themeProvider";
+import { Providers } from "@/providers";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -35,16 +33,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          storageKey="@dashboard-theme"
-          disableTransitionOnChange
-          enableSystem
-        >
-          <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
-          <Toaster />
-        </ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
