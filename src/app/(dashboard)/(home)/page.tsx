@@ -1,16 +1,7 @@
-import { DollarSign } from "lucide-react";
-
 import { ModeToggle } from "@/components/ThemeToggle";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
 import { metricsService } from "@/services/metrics";
 
-import { RevenueChart } from "./RevenueChart";
+import { RevenueChart } from "./components/RevenueChart";
 
 export default async function HomePage() {
   const { data: chartData } = await metricsService.getDailyReceiptInPeriod({
