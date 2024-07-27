@@ -29,13 +29,7 @@ import { cn } from "@/lib/utils";
 
 import { useRegisterEmployeeModalController } from "./useRegisterEmployeeModalController";
 
-interface RegisterEmployeeModalProps {
-  buttonShouldPulse: boolean;
-}
-
-export function RegisterEmployeeModal({
-  buttonShouldPulse
-}: RegisterEmployeeModalProps) {
+export function RegisterEmployeeModal() {
   const {
     isOpen,
     handleChangeModalVisibility,
@@ -50,11 +44,7 @@ export function RegisterEmployeeModal({
   return (
     <Dialog open={isOpen} onOpenChange={handleChangeModalVisibility}>
       <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          data-pulse={buttonShouldPulse}
-          className="ml-auto flex items-center gap-2 data-[pulse=true]:animate-pulse"
-        >
+        <Button variant="outline" className="ml-auto flex items-center gap-2">
           <UserPlus className="size-6" />
           Adicionar
         </Button>

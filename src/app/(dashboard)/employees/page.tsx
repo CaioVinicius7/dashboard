@@ -49,7 +49,7 @@ export default async function EmployeesPage({ searchParams }: SearchProps) {
       <Header title="Funcionários" icon={<Users />} />
 
       <main className="space-y-4 p-4">
-        <RegisterEmployeeModal buttonShouldPulse={!hasEmployees} />
+        <RegisterEmployeeModal />
 
         {!hasEmployees && <EmptyView />}
 
