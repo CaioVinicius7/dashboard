@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { z } from "zod";
 
 import { Header } from "@/components/Header";
+import { Pagination } from "@/components/Pagination";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
@@ -19,7 +20,6 @@ import { formatDate } from "@/utils/formatDate";
 import { EditSaleModal } from "./components/EditSaleModal";
 import { RegisterSaleModal } from "./components/RegisterSaleModal";
 import { RemoveSaleModal } from "./components/RemoveSaleModal";
-import { Pagination } from "./Pagination";
 
 export const metadata: Metadata = {
   title: "Vendas"
@@ -99,6 +99,7 @@ export default async function SalesPage({ searchParams }: SearchProps) {
           page={page}
           totalCount={meta.totalCount}
           perPage={meta.perPage}
+          pageName="sales"
         />
       </main>
     </>

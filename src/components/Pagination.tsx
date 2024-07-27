@@ -13,9 +13,15 @@ interface PaginationProps {
   totalCount: number;
   page: number;
   perPage: number;
+  pageName: string;
 }
 
-export function Pagination({ totalCount, page, perPage }: PaginationProps) {
+export function Pagination({
+  totalCount,
+  page,
+  perPage,
+  pageName
+}: PaginationProps) {
   const pages = Math.ceil(totalCount / perPage) || 1;
 
   return (
@@ -32,7 +38,7 @@ export function Pagination({ totalCount, page, perPage }: PaginationProps) {
         <PaginationRoot>
           <PaginationContent>
             <PaginationItem>
-              <PaginationLink href="sales?page=1" disabled={page <= 1}>
+              <PaginationLink href={`${pageName}?page=1`} disabled={page <= 1}>
                 <ChevronsLeft className="size-4" />
                 <span className="sr-only">Primeira página</span>
               </PaginationLink>
@@ -40,20 +46,20 @@ export function Pagination({ totalCount, page, perPage }: PaginationProps) {
 
             <PaginationItem>
               <PaginationPrevious
-                href={`sales?page=${page - 1}`}
+                href={`${pageName}?page=${page - 1}`}
                 disabled={page <= 1}
               />
             </PaginationItem>
 
             <PaginationItem>
               <PaginationNext
-                href={`sales?page=${page + 1}`}
+                href={`${pageName}?page=${page + 1}`}
                 disabled={page >= pages}
               />
             </PaginationItem>
 
             <PaginationLink
-              href={`sales?page=${pages}`}
+              href={`${pageName}?page=${pages}`}
               disabled={page >= pages}
             >
               <ChevronsRight className="size-4" />
