@@ -1,15 +1,13 @@
 "use client";
 
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  XAxis,
-  YAxis
-} from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import colors from "tailwindcss/colors";
 
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent
+} from "@/components/ui/chart";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 
@@ -22,7 +20,7 @@ interface RevenueChartProps {
 
 export function RevenueChart({ chartData }: RevenueChartProps) {
   return (
-    <ResponsiveContainer width="100%" height={240}>
+    <ChartContainer config={{}} className="h-[240px] w-full">
       <LineChart
         data={chartData}
         style={{
@@ -53,7 +51,17 @@ export function RevenueChart({ chartData }: RevenueChartProps) {
           strokeWidth={2}
           stroke={colors["blue"][500]}
         />
+
+        <ChartTooltip
+          content={
+            <ChartTooltipContent
+              formatter={(value) => formatCurrency(Number(value))}
+              labelClassName="text-muted-foreground"
+              labelFormatter={formatDate}
+            />
+          }
+        />
       </LineChart>
-    </ResponsiveContainer>
+    </ChartContainer>
   );
 }
