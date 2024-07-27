@@ -1,3 +1,5 @@
+import { Users } from "lucide-react";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -12,7 +14,11 @@ export default function Loading() {
   return (
     <>
       <header className="flex items-center justify-between border-b p-4">
-        <h2 className="text-xl">Funcionários</h2>
+        <div className="flex items-center gap-2">
+          <Users />
+
+          <h2 className="text-xl">Funcionários</h2>
+        </div>
 
         <Skeleton className="size-10 rounded-md" />
       </header>
