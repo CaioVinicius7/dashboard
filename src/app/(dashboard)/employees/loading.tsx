@@ -33,29 +33,31 @@ export default function Loading() {
           </TableHeader>
 
           <TableBody>
-            <TableRow>
-              <TableCell className="font-medium">
-                <Skeleton className="h-5 w-72" />
-              </TableCell>
-              <TableCell>
-                <Skeleton className="h-5 w-16" />
-              </TableCell>
-              <TableCell>
-                <Skeleton className="h-5 w-28" />
-              </TableCell>
-              <TableCell>
-                <Skeleton className="h-5 w-20" />
-              </TableCell>
-              <TableCell>
-                <Skeleton className="h-5 w-20" />
-              </TableCell>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <TableRow key={i}>
+                <TableCell className="font-medium">
+                  <Skeleton className="h-5 w-72" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-5 w-16" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-5 w-28" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-5 w-20" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-5 w-20" />
+                </TableCell>
 
-              <TableCell className="flex items-center gap-2">
-                <Skeleton className="h-10 w-12" />
+                <TableCell className="flex items-center gap-2">
+                  <Skeleton className="h-10 w-12" />
 
-                <Skeleton className="h-10 w-12" />
-              </TableCell>
-            </TableRow>
+                  <Skeleton className="h-10 w-12" />
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </main>

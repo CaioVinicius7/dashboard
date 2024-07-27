@@ -6,11 +6,12 @@ export function EmptyView() {
       <SearchX className="size-16" />
 
       <div className="max-w-[550px] space-y-2 text-center">
-        <h2 className="text-2xl">Nenhum Funcionário Registrado</h2>
+        <h2 className="text-2xl">Nenhum Funcionário Encontrado</h2>
 
         <p className="text-sm">
-          Ainda não há funcionários cadastrados. Por favor, adicione novos
-          registros para começar a visualizá-los aqui.
+          Nenhum funcionário foi encontrado com os filtros atuais. Por favor,
+          altere os filtros ou cadastre novos funcionários para começar a
+          visualizá-los aqui.
         </p>
       </div>
     </div>

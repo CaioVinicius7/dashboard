@@ -1,7 +1,9 @@
 import { Users } from "lucide-react";
 import type { Metadata } from "next";
+import { z } from "zod";
 
 import { Header } from "@/components/Header";
+import { Pagination } from "@/components/Pagination";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
@@ -20,8 +22,25 @@ export const metadata: Metadata = {
   title: "Funcionários"
 };
 
-export default async function EmployeesPage() {
-  const { employees } = await employeesService.list();
+interface SearchProps {
+  searchParams: {
+    page?: string;
+    perPage?: string;
+  };
+}
+
+const searchParamsSchema = z.object({
+  page: z.coerce.number().default(1),
+  perPage: z.coerce.number().default(8)
+});
+
+export default async function EmployeesPage({ searchParams }: SearchProps) {
+  const { page, perPage } = searchParamsSchema.parse(searchParams);
+
+  const { employees, meta } = await employeesService.list({
+    page,
+    perPage
+  });
 
   const hasEmployees = employees.length !== 0;
 
@@ -35,7 +54,7 @@ export default async function EmployeesPage() {
         {!hasEmployees && <EmptyView />}
 
         {hasEmployees && (
-          <ScrollArea className="h-[calc(100vh-170px)]">
+          <ScrollArea className="h-[calc(100vh-317px)]">
             <Table className="min-w-[1000px]">
               <TableHeader>
                 <TableRow>
@@ -57,6 +76,15 @@ export default async function EmployeesPage() {
 
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
+        )}
+
+        {hasEmployees && (
+          <Pagination
+            page={page}
+            totalCount={meta.totalCount}
+            perPage={meta.perPage}
+            pageName="employees"
+          />
         )}
       </main>
     </>
