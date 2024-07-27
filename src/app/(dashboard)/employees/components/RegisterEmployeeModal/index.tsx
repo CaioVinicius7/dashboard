@@ -52,7 +52,6 @@ export function RegisterEmployeeModal({
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          onClick={handleChangeModalVisibility}
           data-pulse={buttonShouldPulse}
           className="ml-auto flex items-center gap-2 data-[pulse=true]:animate-pulse"
         >
@@ -188,9 +187,7 @@ export function RegisterEmployeeModal({
 
         <div className="mt-6 flex justify-end gap-4">
           <DialogClose asChild>
-            <Button variant="ghost" onClick={handleChangeModalVisibility}>
-              Cancelar
-            </Button>
+            <Button variant="ghost">Cancelar</Button>
           </DialogClose>
 
           <Button

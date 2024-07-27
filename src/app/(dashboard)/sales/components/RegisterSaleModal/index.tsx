@@ -38,11 +38,7 @@ export function RegisterSaleModal() {
   return (
     <Dialog open={isOpen} onOpenChange={handleChangeModalVisibility}>
       <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          onClick={handleChangeModalVisibility}
-          className="ml-auto flex items-center gap-2"
-        >
+        <Button variant="outline" className="ml-auto flex items-center gap-2">
           <Plus className="size-6" />
           Adicionar
         </Button>
@@ -154,9 +150,7 @@ export function RegisterSaleModal() {
 
         <div className="mt-2 flex justify-end gap-4">
           <DialogClose asChild>
-            <Button variant="ghost" onClick={handleChangeModalVisibility}>
-              Cancelar
-            </Button>
+            <Button variant="ghost">Cancelar</Button>
           </DialogClose>
 
           <Button

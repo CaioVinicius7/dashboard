@@ -150,9 +150,7 @@ export function Modal({ isOpen, onClose, sale }: ModalProps) {
 
         <div className="mt-2 flex justify-end gap-4">
           <DialogClose asChild>
-            <Button variant="ghost" onClick={onClose}>
-              Cancelar
-            </Button>
+            <Button variant="ghost">Cancelar</Button>
           </DialogClose>
 
           <Button
