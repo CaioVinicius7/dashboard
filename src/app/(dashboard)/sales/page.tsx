@@ -18,6 +18,7 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 
 import { EditSaleModal } from "./components/EditSaleModal";
+import { EmptyView } from "./components/EmptyView";
 import { RegisterSaleModal } from "./components/RegisterSaleModal";
 import { RemoveSaleModal } from "./components/RemoveSaleModal";
 
@@ -45,6 +46,8 @@ export default async function SalesPage({ searchParams }: SearchProps) {
     perPage
   });
 
+  const hasSales = sales.length !== 0;
+
   return (
     <>
       <Header title="Vendas" icon={<BadgeDollarSign />} />
@@ -52,55 +55,65 @@ export default async function SalesPage({ searchParams }: SearchProps) {
       <main className="space-y-4 p-4">
         <RegisterSaleModal />
 
-        <ScrollArea className="h-[calc(100vh-317px)]">
-          <Table className="min-w-[1000px]">
-            <TableHeader>
-              <TableRow>
-                <TableHead>Cliente</TableHead>
-                <TableHead className="w-[175px]">valor</TableHead>
-                <TableHead className="w-[175px]">Data da venda</TableHead>
-                <TableHead className="w-[175px]">Data da registro</TableHead>
-                <TableHead className="w-[175px]">Data da atualização</TableHead>
-                <TableHead className="w-[150px]" />
-              </TableRow>
-            </TableHeader>
+        {!hasSales && <EmptyView />}
 
-            <TableBody>
-              {sales.map((sale) => (
-                <TableRow key={sale.id}>
-                  <TableCell className="font-medium">{sale.customer}</TableCell>
-                  <TableCell>{formatCurrency(sale.value)}</TableCell>
-                  <TableCell>{formatDate(sale.dateOfSale)}</TableCell>
-                  <TableCell>{formatDate(sale.createdAt)}</TableCell>
-                  <TableCell>{formatDate(sale.updatedAt)}</TableCell>
-
-                  <TableCell className="flex items-center gap-2">
-                    <EditSaleModal
-                      sale={{
-                        id: sale.id,
-                        customer: sale.customer,
-                        dateOfSale: sale.dateOfSale,
-                        value: sale.value,
-                        saleReceiptUrls: sale.saleReceiptUrls
-                      }}
-                    />
-
-                    <RemoveSaleModal saleId={sale.id} />
-                  </TableCell>
+        {hasSales && (
+          <ScrollArea className="h-[calc(100vh-317px)]">
+            <Table className="min-w-[1000px]">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Cliente</TableHead>
+                  <TableHead className="w-[175px]">valor</TableHead>
+                  <TableHead className="w-[175px]">Data da venda</TableHead>
+                  <TableHead className="w-[175px]">Data da registro</TableHead>
+                  <TableHead className="w-[175px]">
+                    Data da atualização
+                  </TableHead>
+                  <TableHead className="w-[150px]" />
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
 
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+              <TableBody>
+                {sales.map((sale) => (
+                  <TableRow key={sale.id}>
+                    <TableCell className="font-medium">
+                      {sale.customer}
+                    </TableCell>
+                    <TableCell>{formatCurrency(sale.value)}</TableCell>
+                    <TableCell>{formatDate(sale.dateOfSale)}</TableCell>
+                    <TableCell>{formatDate(sale.createdAt)}</TableCell>
+                    <TableCell>{formatDate(sale.updatedAt)}</TableCell>
 
-        <Pagination
-          page={page}
-          totalCount={meta.totalCount}
-          perPage={meta.perPage}
-          pageName="sales"
-        />
+                    <TableCell className="flex items-center gap-2">
+                      <EditSaleModal
+                        sale={{
+                          id: sale.id,
+                          customer: sale.customer,
+                          dateOfSale: sale.dateOfSale,
+                          value: sale.value,
+                          saleReceiptUrls: sale.saleReceiptUrls
+                        }}
+                      />
+
+                      <RemoveSaleModal saleId={sale.id} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        )}
+
+        {hasSales && (
+          <Pagination
+            page={page}
+            totalCount={meta.totalCount}
+            perPage={meta.perPage}
+            pageName="sales"
+          />
+        )}
       </main>
     </>
   );
