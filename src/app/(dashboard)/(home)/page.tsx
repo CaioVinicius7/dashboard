@@ -1,3 +1,5 @@
+import { DollarSign } from "lucide-react";
+
 import { ModeToggle } from "@/components/ThemeToggle";
 import {
   Card,
@@ -24,20 +26,8 @@ export default async function HomePage() {
         <ModeToggle />
       </header>
 
-      <div className="w-full px-4 py-2 sm:py-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base font-medium">
-              Receita do mês
-            </CardTitle>
-
-            <CardDescription>Receita diária do mês atual</CardDescription>
-          </CardHeader>
-
-          <CardContent>
-            <RevenueChart chartData={chartData} />
-          </CardContent>
-        </Card>
+      <div className="w-full space-y-4 px-4 py-2 sm:py-6">
+        <RevenueChart chartData={chartData} />
       </div>
     </>
   );
