@@ -54,7 +54,7 @@ export default async function EmployeesPage({ searchParams }: SearchProps) {
         {!hasEmployees && <EmptyView />}
 
         {hasEmployees && (
-          <ScrollArea className="h-[calc(100vh-317px)]">
+          <ScrollArea className="h-[calc(100vh-285px)]">
             <Table className="min-w-[1000px]">
               <TableHeader>
                 <TableRow>
