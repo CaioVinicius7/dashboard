@@ -3,6 +3,7 @@ import { Home } from "lucide-react";
 import { Header } from "@/components/Header";
 import { metricsService } from "@/services/metrics";
 
+import { MonthHighestSaleCard } from "./components/MonthHighestSaleCard";
 import { MonthSalesCountCard } from "./components/MonthSalesCountCard ";
 import { RevenueChart } from "./components/RevenueChart";
 
@@ -19,6 +20,8 @@ export default async function HomePage() {
       <div className="w-full space-y-4 px-4 py-2 sm:py-6">
         <div className="grid grid-cols-4 gap-4">
           <MonthSalesCountCard />
+
+          <MonthHighestSaleCard />
         </div>
 
         <RevenueChart chartData={chartData} />
