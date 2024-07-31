@@ -18,7 +18,7 @@ export default async function HomePage() {
     <>
       <Header title="Página inicial" icon={<Home />} />
 
-      <div className="w-full space-y-4 px-4 py-2 sm:py-6">
+      <main className="w-full space-y-4 px-4 py-2 sm:py-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <MonthSalesCountCard />
 
@@ -28,7 +28,7 @@ export default async function HomePage() {
         </div>
 
         <RevenueChart chartData={chartData} />
-      </div>
+      </main>
     </>
   );
 }
