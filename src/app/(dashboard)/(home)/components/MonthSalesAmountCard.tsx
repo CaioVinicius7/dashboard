@@ -30,7 +30,7 @@ export async function MonthSalesAmountCard() {
             </span>
           ) : (
             <span className="text-rose-500 dark:text-rose-400">
-              -{formatCurrency(diffFromPreviousMonth / 100)}
+              {formatCurrency(diffFromPreviousMonth / 100)}
             </span>
           )}{" "}
           em relação ao mês passado
