@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronLeftIcon, ChevronRightIcon, Filter } from "lucide-react";
+import { Controller } from "react-hook-form";
 
 import { Input } from "@/components/Input";
 import { Button } from "@/components/ui/button";
@@ -20,12 +21,20 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { MONTHS } from "@/utils/constants";
 
 import { useFiltersModalController } from "./useFiltersModalController";
 
 export function FiltersModal() {
-  const { selectedYear, handleChangeYear } = useFiltersModalController();
+  const {
+    register,
+    handleSubmit,
+    selectedYear,
+    handleChangeYear,
+    control,
+    errors
+  } = useFiltersModalController();
 
   return (
     <Dialog>
@@ -44,10 +53,20 @@ export function FiltersModal() {
           </DialogDescription>
         </DialogHeader>
 
-        <form id="applyFilters" className="mt-4 space-y-6">
+        <form
+          id="applyFilters"
+          onSubmit={handleSubmit}
+          className="mt-4 space-y-6"
+        >
           <div className="space-y-2">
-            <Label htmlFor="name">Cliente</Label>
-            <Input id="name" autoComplete="off" />
+            <Label htmlFor="customer">Cliente</Label>
+
+            <Input
+              id="customer"
+              autoComplete="off"
+              error={errors.customer?.message}
+              {...register("customer")}
+            />
           </div>
 
           <div className="mt-4 grid grid-cols-2">
@@ -80,22 +99,42 @@ export function FiltersModal() {
               </div>
             </div>
 
-            <div>
+            <div className="space-y-2">
               <Label>Mês</Label>
 
-              <Select>
-                <SelectTrigger id="role" className="mt-2 w-full">
-                  <SelectValue placeholder="escolha o mês" />
-                </SelectTrigger>
+              <div className="w-full space-y-2">
+                <Controller
+                  control={control}
+                  name="month"
+                  render={({ field: { onChange } }) => (
+                    <Select onValueChange={onChange}>
+                      <SelectTrigger
+                        id="role"
+                        className={cn(
+                          "w-full",
+                          !!errors.month?.message && "border-red-400"
+                        )}
+                      >
+                        <SelectValue placeholder="escolha o mês" />
+                      </SelectTrigger>
 
-                <SelectContent>
-                  {MONTHS.map((month) => (
-                    <SelectItem key={month} value={month}>
-                      {month}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                      <SelectContent>
+                        {MONTHS.map((month) => (
+                          <SelectItem key={month} value={month}>
+                            {month}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+
+                {!!errors.month?.message && (
+                  <span className="text-xs text-red-400">
+                    {errors.month?.message}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </form>
