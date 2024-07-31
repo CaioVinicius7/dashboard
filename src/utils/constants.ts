@@ -1,3 +1,18 @@
+export const MONTHS = [
+  "Janeiro",
+  "Fevereiro",
+  "Março",
+  "Abril",
+  "Maio",
+  "Junho",
+  "Julho",
+  "Agosto",
+  "Setembro",
+  "Outubro",
+  "Novembro",
+  "Dezembro"
+] as const;
+
 export const ROLES = [
   "Líder de produção",
   "Auxiliar de Produção",

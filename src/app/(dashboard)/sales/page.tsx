@@ -15,6 +15,7 @@ import {
 import { salesService } from "@/services/sales";
 
 import { EmptyView } from "./components/EmptyView";
+import { FiltersModal } from "./components/FiltersModal";
 import { RegisterSaleModal } from "./components/RegisterSaleModal";
 import { SaleRow } from "./components/SaleRow";
 
@@ -49,12 +50,16 @@ export default async function SalesPage({ searchParams }: SearchProps) {
       <Header title="Vendas" icon={<BadgeDollarSign />} />
 
       <main className="space-y-4 p-4">
-        <RegisterSaleModal />
+        <div className="flex items-center justify-between">
+          <FiltersModal />
+
+          <RegisterSaleModal />
+        </div>
 
         {!hasSales && <EmptyView />}
 
         {hasSales && (
-          <ScrollArea className="h-[calc(100vh-317px)]">
+          <ScrollArea className="h-[calc(100vh-285px)]">
             <Table className="min-w-[1000px]">
               <TableHeader>
                 <TableRow>
