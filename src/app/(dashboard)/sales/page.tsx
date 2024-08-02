@@ -71,6 +71,7 @@ export default async function SalesPage({ searchParams }: SearchProps) {
                     Data da atualização
                   </TableHead>
                   <TableHead className="w-[150px]" />
+                  <TableHead className="w-[150px]" />
                 </TableRow>
               </TableHeader>
 
