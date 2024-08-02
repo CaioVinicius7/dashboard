@@ -35,6 +35,7 @@ export default function Loading() {
               <TableHead className="w-[175px]">Data da registro</TableHead>
               <TableHead className="w-[175px]">Data da atualização</TableHead>
               <TableHead className="w-[150px]" />
+              <TableHead className="w-[150px]" />
             </TableRow>
           </TableHeader>
 
@@ -55,6 +56,10 @@ export default function Loading() {
                 </TableCell>
                 <TableCell>
                   <Skeleton className="h-5 w-20" />
+                </TableCell>
+
+                <TableCell>
+                  <Skeleton className="w-30 h-10" />
                 </TableCell>
 
                 <TableCell className="flex items-center gap-2">
