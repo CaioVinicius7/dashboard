@@ -39,7 +39,7 @@
   },
   "overrides": [
     {
-      "files": ["src/app/api/**/*.ts"],
+      "files": ["src/app/api/**/*.ts", "src/lib/nextAuth.ts"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off"
       }
