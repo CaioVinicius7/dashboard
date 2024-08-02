@@ -31,7 +31,7 @@ export function Pagination({
       </span>
 
       <div className="flex items-center gap-6 lg:gap-8">
-        <div className="text-sm font-medium">
+        <div className="hidden text-sm font-medium md:block">
           Página {page} de {pages}
         </div>
 
