@@ -5,6 +5,8 @@ import {
   CardTitle
 } from "@/components/ui/card";
 
+import { LoginForm } from "./components/LoginForm";
+
 export default function Login() {
   return (
     <div className="flex min-h-screen">
@@ -16,7 +18,7 @@ export default function Login() {
           </CardDescription>
         </CardHeader>
 
-        <h2>Login Form</h2>
+        <LoginForm />
       </Card>
     </div>
   );
