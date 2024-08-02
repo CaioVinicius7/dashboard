@@ -59,7 +59,7 @@ export default async function SalesPage({ searchParams }: SearchProps) {
         {!hasSales && <EmptyView />}
 
         {hasSales && (
-          <ScrollArea className="h-[calc(100vh-285px)]">
+          <ScrollArea className="h-[calc(100vh-230px)] md:h-[calc(100vh-317px)]">
             <Table className="min-w-[1000px]">
               <TableHeader>
                 <TableRow>
