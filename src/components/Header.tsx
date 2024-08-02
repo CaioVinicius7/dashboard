@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 
+import { MobileMenu } from "./MobileMenu";
 import { ModeToggle } from "./ThemeToggle";
 
 export interface HeaderProps {
@@ -17,6 +18,8 @@ export function Header({ title, icon }: HeaderProps) {
       </div>
 
       <ModeToggle />
+
+      <MobileMenu />
     </header>
   );
 }
