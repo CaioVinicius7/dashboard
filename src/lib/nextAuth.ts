@@ -1,6 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+import { env } from "@/env";
 import { authService } from "@/services/auth";
 
 export const nextAuthOptions: NextAuthOptions = {
@@ -38,6 +39,7 @@ export const nextAuthOptions: NextAuthOptions = {
   pages: {
     signIn: "/login"
   },
+  secret: env.NEXTAUTH_SECRET,
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
@@ -53,6 +55,6 @@ export const nextAuthOptions: NextAuthOptions = {
     }
   },
   session: {
-    maxAge: 60 * 60 * 12
+    maxAge: 60 * 60 * 12 // 12 Hours
   }
 };
