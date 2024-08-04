@@ -27,20 +27,30 @@ interface SearchProps {
   searchParams: {
     page?: string;
     perPage?: string;
+    customer?: string;
+    year?: string;
+    month?: string;
   };
 }
 
 const searchParamsSchema = z.object({
   page: z.coerce.number().default(1),
-  perPage: z.coerce.number().default(8)
+  perPage: z.coerce.number().optional(),
+  customer: z.string().optional(),
+  year: z.coerce.number().optional(),
+  month: z.coerce.number().optional()
 });
 
 export default async function SalesPage({ searchParams }: SearchProps) {
-  const { page, perPage } = searchParamsSchema.parse(searchParams);
+  const { page, perPage, customer, year, month } =
+    searchParamsSchema.parse(searchParams);
 
   const { sales, meta } = await salesService.list({
     page,
-    perPage
+    perPage,
+    customer,
+    year,
+    month
   });
 
   const hasSales = sales.length !== 0;

@@ -4,6 +4,9 @@ import { httpClient } from "@/lib/ky";
 interface ListSalesParams {
   page?: number;
   perPage?: number;
+  customer?: string;
+  year?: number;
+  month?: number;
 }
 
 interface ListSalesResponse {
@@ -15,13 +18,33 @@ interface ListSalesResponse {
   };
 }
 
-export async function list({ page = 1, perPage = 8 }: ListSalesParams) {
+export async function list({
+  page = 1,
+  perPage = 8,
+  customer,
+  year,
+  month
+}: ListSalesParams) {
+  const searchParams = new URLSearchParams({
+    page: page.toString(),
+    perPage: perPage.toString()
+  });
+
+  if (!!customer) {
+    searchParams.set("customer", customer);
+  }
+
+  if (!!year) {
+    searchParams.set("year", year.toString());
+  }
+
+  if (!!month) {
+    searchParams.set("month", month.toString());
+  }
+
   const { sales, meta } = await httpClient
     .get("sales/list", {
-      searchParams: {
-        page,
-        perPage
-      }
+      searchParams
     })
     .json<ListSalesResponse>();
 

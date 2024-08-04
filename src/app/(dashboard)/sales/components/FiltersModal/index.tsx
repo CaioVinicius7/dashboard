@@ -33,7 +33,8 @@ export function FiltersModal() {
     selectedYear,
     handleChangeYear,
     control,
-    errors
+    errors,
+    handleResetFilters
   } = useFiltersModalController();
 
   return (
@@ -119,8 +120,8 @@ export function FiltersModal() {
                       </SelectTrigger>
 
                       <SelectContent>
-                        {MONTHS.map((month) => (
-                          <SelectItem key={month} value={month}>
+                        {MONTHS.map((month, index) => (
+                          <SelectItem key={month} value={String(index + 1)}>
                             {month}
                           </SelectItem>
                         ))}
@@ -140,7 +141,9 @@ export function FiltersModal() {
         </form>
 
         <div className="mt-6 flex justify-end gap-4">
-          <Button variant="ghost">Limpar filtros</Button>
+          <Button type="button" variant="ghost" onClick={handleResetFilters}>
+            Limpar filtros
+          </Button>
 
           <Button variant="secondary" form="applyFilters">
             Aplicar filtros

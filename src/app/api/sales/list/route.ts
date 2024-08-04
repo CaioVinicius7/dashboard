@@ -1,3 +1,10 @@
+import {
+  endOfMonth,
+  endOfYear,
+  parse,
+  startOfMonth,
+  startOfYear
+} from "date-fns";
 import { type NextRequest, NextResponse } from "next/server";
 import { z, ZodError } from "zod";
 
@@ -7,28 +14,74 @@ const getSalesSearchParamsSchema = z.object({
   page: z.coerce
     .number()
     .transform(Math.abs)
-    .transform((value) => (value === 0 ? 1 : value)),
+    .transform((value) => (value === 0 ? 1 : value))
+    .default(1),
   perPage: z.coerce
     .number()
     .transform(Math.abs)
     .transform((value) => (value === 0 ? 1 : value))
+    .default(8),
+  customer: z
+    .string()
+    .optional()
+    .transform((value) => value?.toLocaleLowerCase()),
+  year: z.coerce
+    .number()
+    .max(
+      new Date().getFullYear(),
+      "O ano não pode ser maior do que o ano atual."
+    )
+    .default(new Date().getFullYear()),
+  month: z.coerce.number().optional()
 });
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = request.nextUrl;
 
-    const { page, perPage } = getSalesSearchParamsSchema.parse({
-      page: searchParams.get("page") ?? 1,
-      perPage: searchParams.get("perPage") ?? 8
-    });
+    const { page, perPage, customer, year, month } =
+      getSalesSearchParamsSchema.parse(
+        Object.fromEntries(searchParams.entries())
+      );
+
+    const parsedDate =
+      !!year && !!month
+        ? parse(`${year}-${month}-01`, "yyyy-MM-dd", new Date())
+        : parse(`${year}-01-01`, "yyyy-MM-dd", new Date());
+
+    const dateOfSaleFilter =
+      !!year && !!month
+        ? {
+            gte: startOfMonth(parsedDate),
+            lte: endOfMonth(parsedDate)
+          }
+        : {
+            gte: startOfYear(parsedDate),
+            lte: endOfYear(parsedDate)
+          };
 
     const [sales, totalCount] = await prisma.$transaction([
       prisma.sale.findMany({
         skip: (page - 1) * perPage,
-        take: perPage
+        take: perPage,
+        where: {
+          customer: {
+            contains: customer
+          },
+          dateOfSale: dateOfSaleFilter
+        },
+        orderBy: {
+          createdAt: "desc"
+        }
       }),
-      prisma.sale.count()
+      prisma.sale.count({
+        where: {
+          customer: {
+            contains: customer
+          },
+          dateOfSale: dateOfSaleFilter
+        }
+      })
     ]);
 
     const formattedSales = sales.map((sale) => ({
