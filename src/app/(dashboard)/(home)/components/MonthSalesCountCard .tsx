@@ -29,7 +29,7 @@ export async function MonthSalesCountCard() {
             </span>
           ) : (
             <span className="text-rose-500 dark:text-rose-400">
-              -{diffFromPreviousMonth}
+              {diffFromPreviousMonth}
             </span>
           )}{" "}
           em relação ao mês passado
