@@ -1,5 +1,6 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import type { Sale } from "@/entities/Sale";
+import { capitalizeFirstLetters } from "@/utils/capitalizeFirstLetters";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 
@@ -14,7 +15,9 @@ interface SaleRowProps {
 export function SaleRow({ sale }: SaleRowProps) {
   return (
     <TableRow>
-      <TableCell className="font-medium">{sale.customer}</TableCell>
+      <TableCell className="font-medium">
+        {capitalizeFirstLetters(sale.customer)}
+      </TableCell>
       <TableCell>{formatCurrency(sale.value)}</TableCell>
       <TableCell>{formatDate(sale.dateOfSale)}</TableCell>
       <TableCell>{formatDate(sale.createdAt)}</TableCell>
