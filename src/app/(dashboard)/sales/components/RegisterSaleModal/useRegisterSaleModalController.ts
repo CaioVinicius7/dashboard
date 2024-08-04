@@ -11,7 +11,7 @@ import { salesService } from "@/services/sales";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 
 const schema = z.object({
-  customer: z.string().min(1, "Preencha o nome do cliente"),
+  customer: z.string().min(3, "Preencha o nome do cliente"),
   dateOfSale: z
     .date({
       message: "Selecione a data da venda"

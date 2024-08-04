@@ -13,7 +13,10 @@ const editSaleParamsSchema = z.object({
 });
 
 const editSaleBodySchema = z.object({
-  customer: z.string().min(1, "O campo nome precisa ter no mínimo 1 caractere"),
+  customer: z
+    .string()
+    .min(3, "O campo nome precisa ter no mínimo 3 caractere")
+    .transform((value) => value.toLocaleLowerCase()),
   dateOfSale: z.coerce
     .date({
       required_error: "O campo é obrigatório"
