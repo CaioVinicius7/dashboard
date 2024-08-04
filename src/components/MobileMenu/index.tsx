@@ -1,15 +1,9 @@
-import {
-  BadgeDollarSign,
-  Blocks,
-  Home,
-  LogOut,
-  Menu,
-  Users2
-} from "lucide-react";
+import { BadgeDollarSign, Blocks, Home, Menu, Users2 } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "../ui/sheet";
+import { LogoutButton } from "./LogoutButton";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 
 export function MobileMenu() {
@@ -72,13 +66,7 @@ export function MobileMenu() {
         <div>
           <ThemeToggleButton />
 
-          <Button
-            variant="ghost"
-            className="flex w-full items-center justify-start gap-2"
-          >
-            <LogOut className="size-5 text-red-500" />
-            Sair
-          </Button>
+          <LogoutButton />
         </div>
       </SheetContent>
     </Sheet>
