@@ -31,7 +31,7 @@ export function RemoveSaleModal({ saleId }: RemoveSaleModalProps) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="w-5/6">
         <DialogHeader>
           <DialogTitle>Remover venda</DialogTitle>
           <DialogDescription>
