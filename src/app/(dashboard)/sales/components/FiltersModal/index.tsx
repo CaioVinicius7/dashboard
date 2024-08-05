@@ -46,7 +46,7 @@ export function FiltersModal() {
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="w-5/6">
         <DialogHeader>
           <DialogTitle>Aplicar Filtros</DialogTitle>
           <DialogDescription>
@@ -70,7 +70,7 @@ export function FiltersModal() {
             />
           </div>
 
-          <div className="mt-4 grid grid-cols-2">
+          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-0">
             <div>
               <Label>Ano</Label>
 
