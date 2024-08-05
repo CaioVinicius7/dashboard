@@ -43,7 +43,7 @@ export function Modal({ isOpen, onClose, sale }: ModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="w-5/6">
         <DialogHeader>
           <DialogTitle>Editar venda</DialogTitle>
           <DialogDescription>
@@ -67,8 +67,8 @@ export function Modal({ isOpen, onClose, sale }: ModalProps) {
             />
           </div>
 
-          <div className="flex gap-4">
-            <div className="w-1/2 space-y-2">
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="space-y-2 sm:w-1/2">
               <Label htmlFor="dateOfSale">Data da venda</Label>
 
               <Controller
@@ -93,7 +93,7 @@ export function Modal({ isOpen, onClose, sale }: ModalProps) {
               )}
             </div>
 
-            <div className="w-1/2 space-y-2">
+            <div className="space-y-2 sm:w-1/2">
               <Label htmlFor="value">Valor</Label>
 
               <Controller
