@@ -1,14 +1,12 @@
-"use client";
-
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { ExternalLink } from "lucide-react";
-import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTrigger
 } from "@/components/ui/dialog";
 
@@ -31,25 +29,29 @@ export function SaleReceiptsModal({ saleReceiptsUrl }: SaleReceiptsModalProps) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="w-fit">
-        <DialogTitle>Comprovantes de pagamento</DialogTitle>
-        <DialogDescription>
-          Clique em um dos links abaixo para visualizar o comprovante
-        </DialogDescription>
+      <DialogContent className="w-5/6">
+        <DialogHeader>
+          <DialogTitle>Comprovantes de pagamento</DialogTitle>
+          <DialogDescription>
+            Clique em um dos links abaixo para visualizar o comprovante
+          </DialogDescription>
+        </DialogHeader>
 
-        <ul className="mt-2 space-y-2">
+        <div className="mt-2 space-y-3 truncate">
           {hasSaleReceipts &&
             saleReceiptsUrl.map((url) => (
-              <li key={url}>
-                <Button variant="link" asChild>
-                  <Link href={url} target="_blank" className="flex gap-2 px-0">
-                    <ExternalLink className="size-5" />
-                    {url}
-                  </Link>
-                </Button>
-              </li>
+              <a
+                key={url}
+                href={url}
+                target="_blank"
+                className="flex max-w-full items-center gap-2 px-0 text-sm text-primary underline-offset-4 hover:underline"
+                rel="noreferrer"
+              >
+                <ExternalLink className="size-5 shrink-0" />
+                <span className="truncate">{url}</span>
+              </a>
             ))}
-        </ul>
+        </div>
       </DialogContent>
     </Dialog>
   );
