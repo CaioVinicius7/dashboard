@@ -18,9 +18,14 @@ export const httpClient = ky.create({
 
           cookieStore = serverCookies;
         }
-        const token = getCookie("next-auth.session-token", {
-          cookies: cookieStore
-        });
+        const token = getCookie(
+          process.env.NODE_ENV === "production"
+            ? "__Secure-next-auth.session-token"
+            : "next-auth.session-token",
+          {
+            cookies: cookieStore
+          }
+        );
 
         if (token) {
           request.headers.set("Authorization", `Bearer ${token}`);
