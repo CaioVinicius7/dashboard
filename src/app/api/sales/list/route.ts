@@ -28,7 +28,8 @@ const getSalesSearchParamsSchema = z.object({
     .transform((value) => value?.toLocaleLowerCase()),
   year: z.coerce
     .number()
-    .max(CURRENT_YEAR, "O ano não pode ser maior do que o ano atual."),
+    .max(CURRENT_YEAR, "O ano não pode ser maior do que o ano atual.")
+    .optional(),
   month: z.coerce.number().optional()
 });
 
@@ -46,8 +47,9 @@ export async function GET(request: NextRequest) {
         ? parse(`${year}-${month}-01`, "yyyy-MM-dd", new Date())
         : parse(`${year}-01-01`, "yyyy-MM-dd", new Date());
 
-    const dateOfSaleFilter =
-      !!year && !!month
+    const dateOfSaleFilter = !year
+      ? undefined
+      : !!month
         ? {
             gte: startOfMonth(parsedDate),
             lte: endOfMonth(parsedDate)
