@@ -50,7 +50,7 @@ export function RegisterEmployeeModal() {
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="w-[92%] px-4 sm:p-6">
         <DialogHeader>
           <DialogTitle>Adicionar funcionário</DialogTitle>
           <DialogDescription>
