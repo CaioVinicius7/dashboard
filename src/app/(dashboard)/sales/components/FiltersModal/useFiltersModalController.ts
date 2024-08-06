@@ -1,7 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { useToast } from "@/components/ui/use-toast";
 
 const schema = z.object({
   customer: z
@@ -20,18 +23,24 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function useFiltersModalController() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const monthIndex = searchParams.get("month");
 
+  function handleChangeModalVisibility() {
+    isOpen ? setIsOpen(false) : setIsOpen(true);
+  }
+
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
     watch,
     control,
-    reset,
     setValue,
     formState: { errors }
   } = useForm<FormData>({
@@ -68,16 +77,28 @@ export function useFiltersModalController() {
 
     newSearchParams.set("page", "1");
 
+    toast({
+      description: "Os filtros foram aplicados com sucesso."
+    });
+
+    handleChangeModalVisibility();
+
     router.push(`${pathname}?${newSearchParams}`);
   });
 
   function handleResetFilters() {
-    reset();
+    toast({
+      description: "Os filtros foram limpados com sucesso."
+    });
+
+    handleChangeModalVisibility();
 
     router.push(pathname);
   }
 
   return {
+    isOpen,
+    handleChangeModalVisibility,
     register,
     handleSubmit,
     selectedYear,

@@ -10,8 +10,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger
+  DialogTitle
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import {
@@ -28,6 +27,8 @@ import { useFiltersModalController } from "./useFiltersModalController";
 
 export function FiltersModal() {
   const {
+    isOpen,
+    handleChangeModalVisibility,
     register,
     handleSubmit,
     selectedYear,
@@ -39,13 +40,15 @@ export function FiltersModal() {
   } = useFiltersModalController();
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="flex items-center gap-2">
-          <Filter className="size-5" />
-          Filtros
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={handleChangeModalVisibility}>
+      <Button
+        variant="outline"
+        onClick={handleChangeModalVisibility}
+        className="flex items-center gap-2"
+      >
+        <Filter className="size-5" />
+        Filtros
+      </Button>
 
       <DialogContent className="w-5/6">
         <DialogHeader>
