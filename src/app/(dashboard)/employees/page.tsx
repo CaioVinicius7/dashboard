@@ -58,7 +58,7 @@ export default async function EmployeesPage({ searchParams }: SearchProps) {
             <Table className="min-w-[1000px]">
               <TableHeader>
                 <TableRow>
-                  <TableHead>Nome</TableHead>
+                  <TableHead className="min-w-[175px]">Nome</TableHead>
                   <TableHead className="w-[175px]">Cargo</TableHead>
                   <TableHead className="w-[175px]">Contato</TableHead>
                   <TableHead className="w-[175px]">Data de ingressão</TableHead>
