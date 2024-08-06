@@ -21,7 +21,7 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { MONTHS } from "@/utils/constants";
+import { CURRENT_YEAR, MONTHS } from "@/utils/constants";
 
 import { useFiltersModalController } from "./useFiltersModalController";
 
@@ -96,7 +96,7 @@ export function FiltersModal() {
                 <button
                   type="button"
                   onClick={() => handleChangeYear(1)}
-                  disabled={selectedYear === new Date().getFullYear()}
+                  disabled={selectedYear === CURRENT_YEAR}
                   className="flex h-12 w-12 items-center justify-center disabled:opacity-50"
                 >
                   <ChevronRightIcon className="h-6 w-6" />

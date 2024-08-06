@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
+import { CURRENT_YEAR } from "@/utils/constants";
 
 const schema = z.object({
   customer: z
@@ -13,10 +14,7 @@ const schema = z.object({
     .or(z.string().length(0)),
   year: z
     .number()
-    .max(
-      new Date().getFullYear(),
-      "O ano não pode ser maior do que o ano atual."
-    ),
+    .max(CURRENT_YEAR, "O ano não pode ser maior do que o ano atual."),
   month: z.coerce.number().optional()
 });
 
@@ -49,7 +47,7 @@ export function useFiltersModalController() {
       customer: searchParams.get("customer") ?? undefined,
       year: searchParams.get("year")
         ? Number(searchParams.get("year"))
-        : new Date().getFullYear(),
+        : CURRENT_YEAR,
       month: monthIndex ? Number(monthIndex) : undefined
     }
   });
@@ -91,7 +89,7 @@ export function useFiltersModalController() {
       description: "Os filtros foram limpados com sucesso."
     });
 
-    setValue("year", new Date().getFullYear());
+    setValue("year", CURRENT_YEAR);
 
     handleChangeModalVisibility();
 

@@ -2,6 +2,7 @@ import { Home } from "lucide-react";
 
 import { Header } from "@/components/Header";
 import { metricsService } from "@/services/metrics";
+import { CURRENT_YEAR } from "@/utils/constants";
 
 import { MonthHighestSaleCard } from "./components/MonthHighestSaleCard";
 import { MonthSalesAmountCard } from "./components/MonthSalesAmountCard";
@@ -11,7 +12,7 @@ import { RevenueChart } from "./components/RevenueChart";
 export default async function HomePage() {
   const { data: chartData } = await metricsService.getDailyReceiptInPeriod({
     month: new Date().getMonth() + 1,
-    year: new Date().getFullYear()
+    year: CURRENT_YEAR
   });
 
   return (

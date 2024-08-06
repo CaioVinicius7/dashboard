@@ -9,6 +9,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { z, ZodError } from "zod";
 
 import { prisma } from "@/lib/prisma";
+import { CURRENT_YEAR } from "@/utils/constants";
 
 const getSalesSearchParamsSchema = z.object({
   page: z.coerce
@@ -27,11 +28,7 @@ const getSalesSearchParamsSchema = z.object({
     .transform((value) => value?.toLocaleLowerCase()),
   year: z.coerce
     .number()
-    .max(
-      new Date().getFullYear(),
-      "O ano não pode ser maior do que o ano atual."
-    )
-    .default(new Date().getFullYear()),
+    .max(CURRENT_YEAR, "O ano não pode ser maior do que o ano atual."),
   month: z.coerce.number().optional()
 });
 

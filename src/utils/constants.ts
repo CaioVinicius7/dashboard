@@ -1,3 +1,5 @@
+export const CURRENT_YEAR = new Date().getFullYear();
+
 export const MONTHS = [
   "Janeiro",
   "Fevereiro",
