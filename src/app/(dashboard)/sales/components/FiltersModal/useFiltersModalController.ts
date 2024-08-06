@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -22,6 +22,9 @@ type FormData = z.infer<typeof schema>;
 export function useFiltersModalController() {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const monthIndex = searchParams.get("month");
 
   const {
     register,
@@ -34,7 +37,11 @@ export function useFiltersModalController() {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      year: new Date().getFullYear()
+      customer: searchParams.get("customer") ?? undefined,
+      year: searchParams.get("year")
+        ? Number(searchParams.get("year"))
+        : new Date().getFullYear(),
+      month: monthIndex ? Number(monthIndex) : undefined
     }
   });
 
@@ -77,6 +84,7 @@ export function useFiltersModalController() {
     handleChangeYear,
     control,
     errors,
-    handleResetFilters
+    handleResetFilters,
+    monthIndex
   };
 }

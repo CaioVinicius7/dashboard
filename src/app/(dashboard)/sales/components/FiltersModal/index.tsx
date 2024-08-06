@@ -34,7 +34,8 @@ export function FiltersModal() {
     handleChangeYear,
     control,
     errors,
-    handleResetFilters
+    handleResetFilters,
+    monthIndex
   } = useFiltersModalController();
 
   return (
@@ -108,7 +109,10 @@ export function FiltersModal() {
                   control={control}
                   name="month"
                   render={({ field: { onChange } }) => (
-                    <Select onValueChange={onChange}>
+                    <Select
+                      defaultValue={monthIndex ?? undefined}
+                      onValueChange={onChange}
+                    >
                       <SelectTrigger
                         id="role"
                         className={cn(
@@ -121,7 +125,10 @@ export function FiltersModal() {
 
                       <SelectContent>
                         {MONTHS.map((month, index) => (
-                          <SelectItem key={month} value={String(index + 1)}>
+                          <SelectItem
+                            key={month}
+                            value={(index + 1).toString()}
+                          >
                             {month}
                           </SelectItem>
                         ))}
