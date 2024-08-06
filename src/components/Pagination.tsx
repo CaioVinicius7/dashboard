@@ -1,4 +1,7 @@
+"use client";
+
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 import {
   Pagination as PaginationRoot,
@@ -22,6 +25,16 @@ export function Pagination({
   perPage,
   pageName
 }: PaginationProps) {
+  const searchParams = useSearchParams();
+
+  const currentSearchParams = Object.fromEntries(searchParams.entries());
+
+  if ("page" in currentSearchParams) {
+    delete currentSearchParams["page"];
+  }
+
+  const searchParamsWithoutPage = new URLSearchParams(currentSearchParams);
+
   const pages = Math.ceil(totalCount / perPage) || 1;
 
   return (
@@ -38,7 +51,10 @@ export function Pagination({
         <PaginationRoot>
           <PaginationContent>
             <PaginationItem>
-              <PaginationLink href={`${pageName}?page=1`} disabled={page <= 1}>
+              <PaginationLink
+                href={`${pageName}?${searchParamsWithoutPage}&page=1`}
+                disabled={page <= 1}
+              >
                 <ChevronsLeft className="size-4" />
                 <span className="sr-only">Primeira página</span>
               </PaginationLink>
@@ -46,20 +62,20 @@ export function Pagination({
 
             <PaginationItem>
               <PaginationPrevious
-                href={`${pageName}?page=${page - 1}`}
+                href={`${pageName}?${searchParamsWithoutPage}&page=${page - 1}`}
                 disabled={page <= 1}
               />
             </PaginationItem>
 
             <PaginationItem>
               <PaginationNext
-                href={`${pageName}?page=${page + 1}`}
+                href={`${pageName}?${searchParamsWithoutPage}&page=${page + 1}`}
                 disabled={page >= pages}
               />
             </PaginationItem>
 
             <PaginationLink
-              href={`${pageName}?page=${pages}`}
+              href={`${pageName}?${searchParamsWithoutPage}&page=${pages}`}
               disabled={page >= pages}
             >
               <ChevronsRight className="size-4" />
