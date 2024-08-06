@@ -32,13 +32,11 @@ export function RemoveEmployeeModal({ employeeId }: RemoveEmployeeModalProps) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="w-5/6">
         <DialogHeader>
           <DialogTitle>Remover funcionário</DialogTitle>
           <DialogDescription>
-            Esta ação é permanente e os dados do funcionário não poderão ser
-            recuperados. Por favor, confirme que você deseja prosseguir com a
-            remoção.
+            Confirme que você deseja prosseguir com a remoção.
           </DialogDescription>
         </DialogHeader>
 
