@@ -93,6 +93,8 @@ export function useRegisterSaleModalController() {
     });
   }
 
+  const hasSaleReceiptUrls = saleReceiptUrlsFields.length >= 1;
+
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
       await salesService.register({
@@ -140,6 +142,7 @@ export function useRegisterSaleModalController() {
     errors,
     isSubmitting,
     control,
+    hasSaleReceiptUrls,
     saleReceiptUrlsFields,
     appendSaleReceiptField,
     removeSaleReceiptField

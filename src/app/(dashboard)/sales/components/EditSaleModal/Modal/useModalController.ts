@@ -93,6 +93,8 @@ export function useModalController({
     control
   });
 
+  const hasSaleReceiptUrls = saleReceiptUrlsFields.length >= 1;
+
   function appendSaleReceiptField() {
     append({
       url: ""
@@ -145,6 +147,7 @@ export function useModalController({
     errors,
     isSubmitting,
     control,
+    hasSaleReceiptUrls,
     saleReceiptUrlsFields,
     appendSaleReceiptField,
     removeSaleReceiptField

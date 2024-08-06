@@ -30,6 +30,7 @@ export function RegisterSaleModal() {
     errors,
     isSubmitting,
     control,
+    hasSaleReceiptUrls,
     saleReceiptUrlsFields,
     appendSaleReceiptField,
     removeSaleReceiptField
@@ -111,7 +112,7 @@ export function RegisterSaleModal() {
             </div>
           </div>
 
-          {saleReceiptUrlsFields.length >= 1 && (
+          {hasSaleReceiptUrls && (
             <div className="space-y-2">
               <Label>URLs dos comprovantes de venda</Label>
 
@@ -136,16 +137,18 @@ export function RegisterSaleModal() {
             </div>
           )}
 
-          <Button
-            variant="ghost"
-            size="sm"
-            type="button"
-            onClick={appendSaleReceiptField}
-            className="gap-1"
-          >
-            <Plus className="size-4" />
-            Adicionar comprovante
-          </Button>
+          {saleReceiptUrlsFields.length < 3 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              type="button"
+              onClick={appendSaleReceiptField}
+              className="gap-1"
+            >
+              <Plus className="size-4" />
+              Adicionar comprovante
+            </Button>
+          )}
         </form>
 
         <div className="mt-2 flex justify-end gap-4">
