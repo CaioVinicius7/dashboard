@@ -35,9 +35,7 @@ export function RemoveSaleModal({ saleId }: RemoveSaleModalProps) {
         <DialogHeader>
           <DialogTitle>Remover venda</DialogTitle>
           <DialogDescription>
-            Esta ação é permanente e os dados da venda não poderão ser
-            recuperados. Por favor, confirme que você deseja prosseguir com a
-            remoção.
+            Confirme que você deseja prosseguir com a remoção.
           </DialogDescription>
         </DialogHeader>
 
