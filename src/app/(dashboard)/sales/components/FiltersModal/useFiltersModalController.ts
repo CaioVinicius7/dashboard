@@ -91,6 +91,8 @@ export function useFiltersModalController() {
       description: "Os filtros foram limpados com sucesso."
     });
 
+    setValue("year", new Date().getFullYear());
+
     handleChangeModalVisibility();
 
     router.push(pathname);
