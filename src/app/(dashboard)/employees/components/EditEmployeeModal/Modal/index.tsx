@@ -52,7 +52,7 @@ export function Modal({ isOpen, onClose, employee }: ModalProps) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="w-[92%] px-4 sm:p-6">
         <DialogHeader>
           <DialogTitle>Editar funcionário</DialogTitle>
           <DialogDescription>
