@@ -24,7 +24,11 @@ export default function Loading() {
       </header>
 
       <main className="space-y-4 p-4">
-        <Skeleton className="ml-auto h-10 w-32" />
+        <div className="flex items-center justify-between">
+          <Skeleton className="h-10 w-[102px]" />
+
+          <Skeleton className="h-10 w-32" />
+        </div>
 
         <Table className="min-w-[1000px]">
           <TableHeader>
