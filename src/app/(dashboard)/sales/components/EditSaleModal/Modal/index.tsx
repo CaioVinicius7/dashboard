@@ -1,9 +1,11 @@
+import { format } from "date-fns";
 import { Plus, Trash2 } from "lucide-react";
 import { Controller } from "react-hook-form";
 
 import { DatePicker } from "@/components/DatePicker";
 import { Input } from "@/components/Input";
 import { InputCurrency } from "@/components/InputCurrency";
+import { InputMask } from "@/components/InputMask";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -69,7 +71,7 @@ export function Modal({ isOpen, onClose, sale }: ModalProps) {
           </div>
 
           <div className="flex flex-col gap-4 sm:flex-row">
-            <div className="space-y-2 sm:w-1/2">
+            <div className="hidden space-y-2 sm:block sm:w-1/2">
               <Label htmlFor="dateOfSale">Data da venda</Label>
 
               <Controller
@@ -77,7 +79,7 @@ export function Modal({ isOpen, onClose, sale }: ModalProps) {
                 name="dateOfSale"
                 render={({ field: { value, onChange } }) => (
                   <DatePicker
-                    value={value}
+                    value={value instanceof Date ? value : undefined}
                     onChange={onChange}
                     className={cn(
                       "w-full",
@@ -92,6 +94,26 @@ export function Modal({ isOpen, onClose, sale }: ModalProps) {
                   {errors.dateOfSale?.message}
                 </span>
               )}
+            </div>
+
+            <div className="block space-y-2 sm:hidden sm:w-1/2">
+              <Label htmlFor="dateOfSale">Data da venda</Label>
+
+              <Controller
+                control={control}
+                name="dateOfSale"
+                render={({ field: { value, onChange, onBlur } }) => (
+                  <InputMask
+                    id="entryDate"
+                    mask="99/99/9999"
+                    placeholder={format(new Date(), "dd/LL/y")}
+                    value={typeof value == "string" ? value : undefined}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    error={errors.dateOfSale?.message}
+                  />
+                )}
+              />
             </div>
 
             <div className="space-y-2 sm:w-1/2">

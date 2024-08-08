@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { isBefore, isSameDay } from "date-fns";
+import { isBefore, isSameDay, isValid, parse } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -26,6 +26,34 @@ const schema = z.object({
       {
         message: "A data deve ser igual ou anterior à data atual"
       }
+    )
+    .or(
+      z
+        .string()
+        .min(10, "Preencha a data corretamente")
+        .refine(
+          (value) => {
+            const dateObject = parse(value, "dd/MM/yyyy", new Date());
+
+            const isValidDate = isValid(dateObject);
+
+            return isValidDate;
+          },
+          {
+            message: "A data é inválida."
+          }
+        )
+        .refine(
+          (value) => {
+            const currentDate = new Date();
+            const date = parse(value, "dd/MM/yyyy", new Date());
+
+            return isBefore(date, currentDate) || isSameDay(date, currentDate);
+          },
+          {
+            message: "A data deve ser igual ou anterior à data atual"
+          }
+        )
     ),
   value: z
     .union([
@@ -107,7 +135,10 @@ export function useModalController({
         id: sale.id,
         data: {
           ...data,
-          dateOfSale: data.dateOfSale.toISOString(),
+          dateOfSale:
+            data.dateOfSale instanceof Date
+              ? data.dateOfSale.toISOString()
+              : parse(data.dateOfSale, "dd/MM/yyyy", new Date()).toISOString(),
           value: currencyStringToNumber(data.value),
           saleReceiptUrls: data.saleReceiptUrls?.map(
             (saleReceiptUrl) => saleReceiptUrl.url
