@@ -19,7 +19,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="flex w-screen">
+    <div className="flex">
       <SideMenu />
 
       <div className="w-full">{children}</div>
