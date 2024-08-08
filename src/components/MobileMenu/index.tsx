@@ -1,4 +1,10 @@
-import { BadgeDollarSign, Blocks, Home, Menu, Users2 } from "lucide-react";
+import {
+  ArrowDownNarrowWide,
+  BadgeDollarSign,
+  Home,
+  Menu,
+  Users2
+} from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "../ui/button";
@@ -45,9 +51,9 @@ export function MobileMenu() {
             asChild
             className="flex items-center justify-start gap-2"
           >
-            <Link href="/stock">
-              <Blocks className="size-5" />
-              Estoque
+            <Link href="/expenses">
+              <ArrowDownNarrowWide className="size-5" />
+              Despesas
             </Link>
           </Button>
 

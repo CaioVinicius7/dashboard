@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 import {
+  ArrowDownNarrowWide,
   ArrowRight,
   BadgeDollarSign,
-  Blocks,
   Home,
   LogOut,
   Users
@@ -88,8 +88,8 @@ export function SideMenu() {
             <BadgeDollarSign />
           </NavLink>
 
-          <NavLink text="Estoque" href="/stock" sideMenuIsOpen={isOpen}>
-            <Blocks />
+          <NavLink text="Despesas" href="/expenses" sideMenuIsOpen={isOpen}>
+            <ArrowDownNarrowWide />
           </NavLink>
 
           <NavLink
