@@ -78,7 +78,7 @@ export default async function SalesPage({ searchParams }: SearchProps) {
                   <TableHead className="w-[175px]">Data da venda</TableHead>
                   <TableHead className="w-[175px]">Data da registro</TableHead>
                   <TableHead className="w-[175px]">
-                    Data da atualização
+                    Data de atualização
                   </TableHead>
                   <TableHead className="w-[150px]" />
                   <TableHead className="w-[150px]" />
