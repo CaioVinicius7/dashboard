@@ -1,12 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { isBefore, isSameDay, isValid, parse } from "date-fns";
+import { format, isBefore, isSameDay, isValid, parse } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
 import type { Sale } from "@/entities/Sale";
+import { useWindowSize } from "@/hooks/useWindowSize";
 import { salesService } from "@/services/sales";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 import type { OmitTyped } from "@/utils/typeUtils";
@@ -93,20 +95,27 @@ export function useModalController({
   sale,
   closeModal
 }: UseModalControllerParams) {
+  const { width: windowWidth } = useWindowSize();
+
   const { toast } = useToast();
 
   const router = useRouter();
 
+  const windowWidthIsSmOrAbove = windowWidth >= 640;
+
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
     control
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       customer: sale.customer,
-      dateOfSale: new Date(sale.dateOfSale),
+      dateOfSale: windowWidthIsSmOrAbove
+        ? new Date(sale.dateOfSale)
+        : format(new Date(sale.dateOfSale), "dd/MM/yyyy"),
       value: sale.value,
       saleReceiptUrls: sale.saleReceiptUrls?.map((url) => ({ url }))
     }
@@ -171,6 +180,14 @@ export function useModalController({
       });
     }
   });
+
+  useEffect(() => {
+    if (windowWidthIsSmOrAbove) {
+      setValue("dateOfSale", new Date(sale.dateOfSale));
+    } else {
+      setValue("dateOfSale", format(new Date(sale.dateOfSale), "dd/MM/yyyy"));
+    }
+  }, [windowWidthIsSmOrAbove, setValue, sale.dateOfSale]);
 
   return {
     register,
