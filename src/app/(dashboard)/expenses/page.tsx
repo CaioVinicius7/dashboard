@@ -1,4 +1,4 @@
-import { ArrowDownNarrowWide, Pencil, Plus, Trash2 } from "lucide-react";
+import { ArrowDownNarrowWide, Pencil, Trash2 } from "lucide-react";
 
 import { Header } from "@/components/Header";
 import { Pagination } from "@/components/Pagination";
@@ -13,16 +13,15 @@ import {
   TableRow
 } from "@/components/ui/table";
 
+import { RegisterExpenseModal } from "./components/RegisterExpenseModal";
+
 export default async function ExpensesPage() {
   return (
     <>
       <Header title="Despesas" icon={<ArrowDownNarrowWide />} />
 
       <main className="space-y-4 p-4">
-        <Button variant="outline" className="ml-auto flex items-center gap-2">
-          <Plus className="size-6" />
-          Adicionar
-        </Button>
+        <RegisterExpenseModal />
 
         <ScrollArea>
           <Table className="min-w-[1000px]">
