@@ -13,6 +13,7 @@ import {
   TableRow
 } from "@/components/ui/table";
 
+import { FiltersModal } from "./components/FiltersModal";
 import { RegisterExpenseModal } from "./components/RegisterExpenseModal";
 
 export default async function ExpensesPage() {
@@ -21,7 +22,11 @@ export default async function ExpensesPage() {
       <Header title="Despesas" icon={<ArrowDownNarrowWide />} />
 
       <main className="space-y-4 p-4">
-        <RegisterExpenseModal />
+        <div className="flex items-center justify-between">
+          <FiltersModal />
+
+          <RegisterExpenseModal />
+        </div>
 
         <ScrollArea>
           <Table className="min-w-[1000px]">

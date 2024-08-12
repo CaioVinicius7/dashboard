@@ -37,7 +37,7 @@ export function RegisterExpenseModal() {
   return (
     <Dialog open={isOpen} onOpenChange={handleChangeModalVisibility}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="ml-auto flex items-center gap-2">
+        <Button variant="outline" className="flex items-center gap-2">
           <Plus className="size-6" />
           Adicionar
         </Button>
