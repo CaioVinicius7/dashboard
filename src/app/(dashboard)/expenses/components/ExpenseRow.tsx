@@ -1,12 +1,10 @@
-import { Pencil } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import type { Expense } from "@/entities/Expense";
 import { capitalizeFirstLetters } from "@/utils/capitalizeFirstLetters";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 
+import { EditExpenseModal } from "./EditExpenseModal";
 import { RemoveExpenseModal } from "./RemoveExpenseModal";
 
 interface ExpenseRowProps {
@@ -22,10 +20,7 @@ export function ExpenseRow({ expense }: ExpenseRowProps) {
       <TableCell>{formatDate(expense.createdAt)}</TableCell>
       <TableCell>{formatDate(expense.updatedAt)}</TableCell>
       <TableCell className="flex items-center gap-2">
-        <Button variant="ghost" size="icon">
-          <Pencil className="size-5" />
-          <span className="sr-only">Editar despesa</span>
-        </Button>
+        <EditExpenseModal expense={expense} />
 
         <RemoveExpenseModal expenseId={expense.id} />
       </TableCell>
