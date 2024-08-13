@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/table";
 import { expensesService } from "@/services/expenses";
 
+import { EmptyView } from "./components/EmptyView";
 import { ExpenseRow } from "./components/ExpenseRow";
 import { FiltersModal } from "./components/FiltersModal";
 import { RegisterExpenseModal } from "./components/RegisterExpenseModal";
@@ -59,6 +60,8 @@ export default async function ExpensesPage({ searchParams }: SearchProps) {
 
           <RegisterExpenseModal />
         </div>
+
+        {!hasExpenses && <EmptyView />}
 
         {hasExpenses && (
           <ScrollArea>
