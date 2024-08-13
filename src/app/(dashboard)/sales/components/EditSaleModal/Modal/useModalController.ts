@@ -19,16 +19,6 @@ const schema = z.object({
     .date({
       message: "Selecione a data da venda"
     })
-    .refine(
-      (value) => {
-        const currentDate = new Date();
-
-        return isBefore(value, currentDate) || isSameDay(value, currentDate);
-      },
-      {
-        message: "A data deve ser igual ou anterior à data atual"
-      }
-    )
     .or(
       z
         .string()
@@ -45,17 +35,22 @@ const schema = z.object({
             message: "A data é inválida."
           }
         )
-        .refine(
-          (value) => {
-            const currentDate = new Date();
-            const date = parse(value, "dd/MM/yyyy", new Date());
+    )
+    .refine(
+      (value) => {
+        const currentDate = new Date();
 
-            return isBefore(date, currentDate) || isSameDay(date, currentDate);
-          },
-          {
-            message: "A data deve ser igual ou anterior à data atual"
-          }
-        )
+        let date = value;
+
+        if (typeof value === "string") {
+          date = parse(value, "dd/MM/yyyy", new Date());
+        }
+
+        return isBefore(date, currentDate) || isSameDay(date, currentDate);
+      },
+      {
+        message: "A data deve ser igual ou anterior à data atual"
+      }
     ),
   value: z
     .union([
@@ -64,7 +59,6 @@ const schema = z.object({
       }),
       z.number()
     ])
-
     .refine(
       (value) => {
         const numberValue = currencyStringToNumber(value);
@@ -107,6 +101,7 @@ export function useModalController({
     register,
     handleSubmit: hookFormHandleSubmit,
     setValue,
+    clearErrors,
     formState: { errors, isSubmitting },
     control
   } = useForm<FormData>({
@@ -184,10 +179,12 @@ export function useModalController({
   useEffect(() => {
     if (windowWidthIsSmOrAbove) {
       setValue("dateOfSale", new Date(sale.dateOfSale));
+      clearErrors("dateOfSale");
     } else {
       setValue("dateOfSale", format(new Date(sale.dateOfSale), "dd/MM/yyyy"));
+      clearErrors("dateOfSale");
     }
-  }, [windowWidthIsSmOrAbove, setValue, sale.dateOfSale]);
+  }, [windowWidthIsSmOrAbove, setValue, clearErrors, sale.dateOfSale]);
 
   return {
     register,
