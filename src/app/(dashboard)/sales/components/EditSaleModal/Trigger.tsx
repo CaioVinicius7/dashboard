@@ -6,7 +6,7 @@ interface TriggerProps {
   onOpen: () => void;
 }
 
-export default function Trigger({ onOpen }: TriggerProps) {
+export function Trigger({ onOpen }: TriggerProps) {
   return (
     <Button variant="ghost" size="icon" onClick={onOpen}>
       <Pencil className="size-5" />
