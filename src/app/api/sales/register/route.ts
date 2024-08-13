@@ -13,8 +13,8 @@ const registerSaleBodySchema = z.object({
     required_error: "O campo é obrigatório"
   }),
   value: z.number({
-    required_error: "O campo salário precisa ser informado",
-    invalid_type_error: "O campo salário precisa ser do tipo numérico"
+    required_error: "O campo valor precisa ser informado",
+    invalid_type_error: "O campo valor precisa ser do tipo numérico"
   }),
   saleReceiptUrls: z
     .array(z.string().url("Preencha com uma URL válida"))
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    return new NextResponse(undefined, {
+    return new NextResponse(null, {
       status: 201
     });
   } catch (error: any) {
