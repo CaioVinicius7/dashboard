@@ -49,3 +49,14 @@ model Sale {
 
   @@map("sales")
 }
+
+model Expense {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  value            Int
+  dateOfOccurrence DateTime @map("date_of_occurrence") @db.Date
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt        DateTime @default(now()) @map("updated_at") @db.Timestamp
+
+  @@map("expenses")
+}

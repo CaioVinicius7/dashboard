@@ -8,6 +8,7 @@ import { z } from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
 import { useWindowSize } from "@/hooks/useWindowSize";
+import { expensesService } from "@/services/expenses";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 
 const schema = z.object({
@@ -101,9 +102,9 @@ export function useRegisterExpenseModalController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      console.log({
+      await expensesService.register({
         ...data,
-        dateOfSale:
+        dateOfOccurrence:
           data.dateOfOccurrence instanceof Date
             ? data.dateOfOccurrence.toISOString()
             : parse(
