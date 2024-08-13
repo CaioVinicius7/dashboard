@@ -10,7 +10,10 @@ const rolesSchema = z.enum(ROLES_IN_DB, {
 });
 
 const registerEmployeeBodySchema = z.object({
-  name: z.string().min(1, "O campo nome precisa ter no mínimo 1 caractere"),
+  name: z
+    .string()
+    .min(1, "O campo nome precisa ter no mínimo 1 caractere")
+    .transform((value) => value.toLowerCase()),
   role: rolesSchema,
   phone: z
     .string()

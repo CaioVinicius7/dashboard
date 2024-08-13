@@ -21,7 +21,8 @@ const editEmployeeBodySchema = z.object({
   name: z
     .string()
     .min(1, "O campo nome precisa ter no mínimo 1 caractere")
-    .optional(),
+    .optional()
+    .transform((value) => value?.toLowerCase()),
   role: rolesSchema.optional(),
   phone: z
     .string()
