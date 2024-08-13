@@ -1,26 +1,21 @@
-import { ArrowDownNarrowWide, Pencil } from "lucide-react";
+import { ArrowDownNarrowWide } from "lucide-react";
 import { z } from "zod";
 
 import { Header } from "@/components/Header";
 import { Pagination } from "@/components/Pagination";
-import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow
 } from "@/components/ui/table";
 import { expensesService } from "@/services/expenses";
-import { capitalizeFirstLetters } from "@/utils/capitalizeFirstLetters";
-import { formatCurrency } from "@/utils/formatCurrency";
-import { formatDate } from "@/utils/formatDate";
 
+import { ExpenseRow } from "./components/ExpenseRow";
 import { FiltersModal } from "./components/FiltersModal";
 import { RegisterExpenseModal } from "./components/RegisterExpenseModal";
-import { RemoveExpenseModal } from "./components/RemoveExpenseModal";
 
 interface SearchProps {
   searchParams: {
@@ -83,25 +78,7 @@ export default async function ExpensesPage({ searchParams }: SearchProps) {
 
               <TableBody>
                 {expenses.map((expense) => (
-                  <TableRow key={expense.id}>
-                    <TableCell>
-                      {capitalizeFirstLetters(expense.title)}
-                    </TableCell>
-                    <TableCell>{formatCurrency(expense.value)}</TableCell>
-                    <TableCell>
-                      {formatDate(expense.dateOfOccurrence)}
-                    </TableCell>
-                    <TableCell>{formatDate(expense.createdAt)}</TableCell>
-                    <TableCell>{formatDate(expense.updatedAt)}</TableCell>
-                    <TableCell className="flex items-center gap-2">
-                      <Button variant="ghost" size="icon">
-                        <Pencil className="size-5" />
-                        <span className="sr-only">Editar despesa</span>
-                      </Button>
-
-                      <RemoveExpenseModal expenseId={expense.id} />
-                    </TableCell>
-                  </TableRow>
+                  <ExpenseRow key={expense.id} expense={expense} />
                 ))}
               </TableBody>
             </Table>
