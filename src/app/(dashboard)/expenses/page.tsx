@@ -1,4 +1,4 @@
-import { ArrowDownNarrowWide, Pencil, Trash2 } from "lucide-react";
+import { ArrowDownNarrowWide, Pencil } from "lucide-react";
 import { z } from "zod";
 
 import { Header } from "@/components/Header";
@@ -20,6 +20,7 @@ import { formatDate } from "@/utils/formatDate";
 
 import { FiltersModal } from "./components/FiltersModal";
 import { RegisterExpenseModal } from "./components/RegisterExpenseModal";
+import { RemoveExpenseModal } from "./components/RemoveExpenseModal";
 
 interface SearchProps {
   searchParams: {
@@ -81,8 +82,8 @@ export default async function ExpensesPage({ searchParams }: SearchProps) {
               </TableHeader>
 
               <TableBody>
-                {expenses.map((expense, index) => (
-                  <TableRow key={index}>
+                {expenses.map((expense) => (
+                  <TableRow key={expense.id}>
                     <TableCell>
                       {capitalizeFirstLetters(expense.title)}
                     </TableCell>
@@ -98,10 +99,7 @@ export default async function ExpensesPage({ searchParams }: SearchProps) {
                         <span className="sr-only">Editar despesa</span>
                       </Button>
 
-                      <Button variant="ghost" size="icon">
-                        <Trash2 className="size-5" />
-                        <span className="sr-only">Remover despesa</span>
-                      </Button>
+                      <RemoveExpenseModal expenseId={expense.id} />
                     </TableCell>
                   </TableRow>
                 ))}
