@@ -21,16 +21,6 @@ const schema = z.object({
     .date({
       message: "Selecione a data da despesa"
     })
-    .refine(
-      (value) => {
-        const currentDate = new Date();
-
-        return isBefore(value, currentDate) || isSameDay(value, currentDate);
-      },
-      {
-        message: "A data deve ser igual ou anterior à data atual"
-      }
-    )
     .or(
       z
         .string()
@@ -47,17 +37,22 @@ const schema = z.object({
             message: "A data é inválida."
           }
         )
-        .refine(
-          (value) => {
-            const currentDate = new Date();
-            const date = parse(value, "dd/MM/yyyy", new Date());
+    )
+    .refine(
+      (value) => {
+        const currentDate = new Date();
 
-            return isBefore(date, currentDate) || isSameDay(date, currentDate);
-          },
-          {
-            message: "A data deve ser igual ou anterior à data atual"
-          }
-        )
+        let date = value;
+
+        if (typeof value === "string") {
+          date = parse(value, "dd/MM/yyyy", new Date());
+        }
+
+        return isBefore(date, currentDate) || isSameDay(date, currentDate);
+      },
+      {
+        message: "A data deve ser igual ou anterior à data atual"
+      }
     ),
   value: z
     .union([
@@ -102,6 +97,7 @@ export function useModalController({
     handleSubmit: hookFormHandleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    clearErrors,
     control,
     reset
   } = useForm<FormData>({
@@ -161,13 +157,17 @@ export function useModalController({
   useEffect(() => {
     if (windowWidthIsSmOrAbove) {
       setValue("dateOfOccurrence", new Date(expense.dateOfOccurrence));
+
+      clearErrors("dateOfOccurrence");
     } else {
       setValue(
         "dateOfOccurrence",
         format(new Date(expense.dateOfOccurrence), "dd/MM/yyyy")
       );
+
+      clearErrors("dateOfOccurrence");
     }
-  }, [windowWidthIsSmOrAbove, setValue, expense.dateOfOccurrence]);
+  }, [windowWidthIsSmOrAbove, setValue, clearErrors, expense.dateOfOccurrence]);
 
   return {
     register,
