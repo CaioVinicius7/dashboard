@@ -16,21 +16,27 @@ export default function Loading() {
       </header>
 
       <main className="w-full space-y-4 px-4 py-2 sm:py-6">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <Skeleton className="h-[132px]" />
+        <div className="flex flex-col-reverse gap-4 md:flex-row">
+          <div className="3xl:w-4/5 w-full space-y-4 md:w-4/6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <Skeleton className="h-[132px]" />
 
-          <Skeleton className="h-[132px]" />
+              <Skeleton className="h-[132px]" />
 
-          <Skeleton className="h-[132px]" />
+              <Skeleton className="h-[132px]" />
+
+              <Skeleton className="h-[132px]" />
+
+              <Skeleton className="h-[132px]" />
+
+              <Skeleton className="h-[132px]" />
+            </div>
+          </div>
+
+          <Skeleton className="3xl:w-1/5 h-[272px] w-full md:h-[428px] md:w-2/6 lg:h-[280px]" />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <Skeleton className="h-[132px]" />
-
-          <Skeleton className="h-[132px]" />
-
-          <Skeleton className="h-[132px]" />
-        </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3"></div>
 
         <Skeleton className="h-[362px]" />
       </main>
