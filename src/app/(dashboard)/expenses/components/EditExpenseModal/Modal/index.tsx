@@ -49,8 +49,11 @@ export function Modal({ isOpen, onClose, expense }: ModalProps) {
 
       <DialogContent className="w-5/6">
         <DialogHeader>
-          <DialogTitle>Registrar despesa</DialogTitle>
-          <DialogDescription>Preencha os dados da despesa.</DialogDescription>
+          <DialogTitle>Editar despesa</DialogTitle>
+          <DialogDescription>
+            Insira as novas informações da despesa nos campos abaixo para
+            realizar a atualização.
+          </DialogDescription>
         </DialogHeader>
 
         <form
