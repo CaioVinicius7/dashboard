@@ -7,6 +7,8 @@ import { formatCurrency } from "@/utils/formatCurrency";
 export async function MonthHighestSaleCard() {
   const { monthHighestSale } = await metricsService.getMonthHighestSale();
 
+  const hasMonthHighestSale = !!monthHighestSale;
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -18,14 +20,24 @@ export async function MonthHighestSaleCard() {
       </CardHeader>
 
       <CardContent className="space-y-1">
-        <span className="text-2xl font-bold tracking-tight">
-          {formatCurrency(monthHighestSale.value / 100)}
-        </span>
+        {!hasMonthHighestSale && (
+          <p className="truncate text-xs text-muted-foreground">
+            Nenhuma venda foi registrada no mês atual.
+          </p>
+        )}
 
-        <p className="text-xs text-muted-foreground">
-          Venda realizada para{" "}
-          <span className="font-bold">{monthHighestSale.customer}</span>
-        </p>
+        {hasMonthHighestSale && (
+          <>
+            <span className="text-2xl font-bold tracking-tight">
+              {formatCurrency(monthHighestSale.value / 100)}
+            </span>
+
+            <p className="truncate text-xs text-muted-foreground">
+              Venda realizada para{" "}
+              <span className="font-bold">{monthHighestSale.customer}</span>
+            </p>
+          </>
+        )}
       </CardContent>
     </Card>
   );
