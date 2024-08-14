@@ -26,33 +26,23 @@ const editEmployeeBodySchema = z.object({
   name: z
     .string()
     .min(1, "O campo nome precisa ter no mínimo 1 caractere")
-    .optional()
-    .transform((value) => value?.toLowerCase()),
-  role: rolesSchema.optional(),
+    .transform((value) => value.toLowerCase()),
+  role: rolesSchema,
   phone: z
     .string()
-    .min(16, "O campo telefone precisa ser preenchido corretamente")
-    .optional(),
+    .min(16, "O campo telefone precisa ser preenchido corretamente"),
   entryDate: z
     .string()
-    .min(10, "O campo data de ingressão precisa ser preenchido corretamente")
-    .optional(),
-  salary: z
-    .number({
-      required_error: "O campo salário precisa ser informado",
-      invalid_type_error: "O campo salário precisa ser do tipo numérico"
-    })
-    .optional()
+    .min(10, "O campo data de ingressão precisa ser preenchido corretamente"),
+  salary: z.number({
+    required_error: "O campo salário precisa ser informado",
+    invalid_type_error: "O campo salário precisa ser do tipo numérico"
+  })
 });
 
 export async function PUT(req: NextRequest, { params }: { params: Params }) {
   try {
     const { id } = editEmployeeParamsSchema.parse(params);
-
-    const body = await req.json();
-
-    const { name, role, phone, entryDate, salary } =
-      editEmployeeBodySchema.parse(body);
 
     const employeeFromId = await prisma.employee.findUnique({
       where: {
@@ -71,26 +61,29 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
       );
     }
 
-    if (!!phone) {
-      const employeeFromPhone = await prisma.employee.findUnique({
-        where: {
-          phone,
-          NOT: {
-            id: employeeFromId.id
-          }
-        }
-      });
+    const body = await req.json();
 
-      if (!!employeeFromPhone) {
-        return NextResponse.json(
-          {
-            message: "Esse número de telefone já está em uso."
-          },
-          {
-            status: 409
-          }
-        );
+    const { name, role, phone, entryDate, salary } =
+      editEmployeeBodySchema.parse(body);
+
+    const employeeFromPhone = await prisma.employee.findUnique({
+      where: {
+        phone,
+        NOT: {
+          id: employeeFromId.id
+        }
       }
+    });
+
+    if (!!employeeFromPhone) {
+      return NextResponse.json(
+        {
+          message: "Esse número de telefone já está em uso."
+        },
+        {
+          status: 409
+        }
+      );
     }
 
     const dateObject = !!entryDate
