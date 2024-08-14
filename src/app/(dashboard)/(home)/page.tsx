@@ -10,6 +10,7 @@ import { MonthHighestExpenseCard } from "./components/MonthHighestExpenseCard";
 import { MonthHighestSaleCard } from "./components/MonthHighestSaleCard";
 import { MonthSalesAmountCard } from "./components/MonthSalesAmountCard";
 import { MonthSalesCountCard } from "./components/MonthSalesCountCard ";
+import { MonthTotalProfitCard } from "./components/MonthTotalProfitCard";
 import { RevenueChart } from "./components/RevenueChart";
 
 export default async function HomePage() {
@@ -23,20 +24,26 @@ export default async function HomePage() {
       <Header title="Página inicial" icon={<Home />} />
 
       <main className="w-full space-y-4 px-4 py-2 sm:py-6">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <MonthSalesCountCard />
+        <div className="flex gap-4">
+          <div className="w-4/5 space-y-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <MonthSalesCountCard />
 
-          <MonthSalesAmountCard />
+              <MonthSalesAmountCard />
 
-          <MonthHighestSaleCard />
-        </div>
+              <MonthHighestSaleCard />
+            </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <MonthExpensesCountCard />
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <MonthExpensesCountCard />
 
-          <MonthExpensesAmountCard />
+              <MonthExpensesAmountCard />
 
-          <MonthHighestExpenseCard />
+              <MonthHighestExpenseCard />
+            </div>
+          </div>
+
+          <MonthTotalProfitCard />
         </div>
 
         <RevenueChart chartData={chartData} />
