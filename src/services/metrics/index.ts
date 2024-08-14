@@ -5,6 +5,7 @@ import { getMonthHighestExpense } from "./getMonthHighestExpense";
 import { getMonthHighestSale } from "./getMonthHighestSale";
 import { getMonthSalesAmount } from "./getMonthSalesAmount";
 import { getMonthSalesCount } from "./getMonthSalesCount";
+import { getMonthTotalProfit } from "./getMonthTotalProfit";
 
 export const metricsService = {
   getDailyReceiptInPeriod,
@@ -13,5 +14,6 @@ export const metricsService = {
   getMonthSalesAmount,
   getMonthExpensesCount,
   getMonthHighestExpense,
-  getMonthExpensesAmount
+  getMonthExpensesAmount,
+  getMonthTotalProfit
 };
