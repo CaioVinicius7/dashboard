@@ -76,7 +76,8 @@ const config = {
         sans: ["var(--font-sans)", ...fontFamily.sans]
       },
       screens: {
-        xlg: "1150px"
+        xlg: "1150px",
+        "3xl": "1660px"
       }
     }
   },

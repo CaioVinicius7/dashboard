@@ -17,22 +17,22 @@ export async function MonthTotalProfitCard() {
   const currentProfitIsGreaterThanPreviousProfit = diffFromPreviousMonth >= 0;
 
   return (
-    <Card className="w-1/5">
+    <Card className="3xl:w-1/5 w-full md:w-2/6">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-2xl font-semibold">
+        <CardTitle className="text-xl font-semibold md:text-2xl">
           Lucro total (mês)
         </CardTitle>
 
-        <HandCoins className="size-8" />
+        <HandCoins className="size-7 md:size-8" />
       </CardHeader>
 
       <CardContent className="mt-2 justify-between space-y-8">
         {hasProfit ? (
-          <strong className="text-2xl font-bold tracking-tight text-emerald-500 dark:text-emerald-400">
+          <strong className="text-lg font-bold tracking-tight text-emerald-500 dark:text-emerald-400 md:text-2xl">
             + {formatCurrency(currentMonthProfit / 100)}
           </strong>
         ) : (
-          <strong className="text-2xl font-bold tracking-tight text-rose-500 dark:text-rose-400">
+          <strong className="text-lg font-bold tracking-tight text-rose-500 dark:text-rose-400 md:text-2xl">
             {formatCurrency(currentMonthProfit / 100)}
           </strong>
         )}
