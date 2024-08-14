@@ -38,6 +38,23 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
   try {
     const { id } = editSaleParamsSchema.parse(params);
 
+    const saleFromId = await prisma.sale.findUnique({
+      where: {
+        id
+      }
+    });
+
+    if (!saleFromId) {
+      return NextResponse.json(
+        {
+          message: "Venda não encontrado."
+        },
+        {
+          status: 400
+        }
+      );
+    }
+
     const body = await req.json();
 
     const { customer, dateOfSale, value, saleReceiptUrls } =
