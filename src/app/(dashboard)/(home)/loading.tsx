@@ -24,6 +24,14 @@ export default function Loading() {
           <Skeleton className="h-[132px]" />
         </div>
 
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <Skeleton className="h-[132px]" />
+
+          <Skeleton className="h-[132px]" />
+
+          <Skeleton className="h-[132px]" />
+        </div>
+
         <Skeleton className="h-[362px]" />
       </main>
     </>
