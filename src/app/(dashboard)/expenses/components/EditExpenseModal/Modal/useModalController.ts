@@ -9,6 +9,7 @@ import { z } from "zod";
 import { useToast } from "@/components/ui/use-toast";
 import type { Expense } from "@/entities/Expense";
 import { useWindowSize } from "@/hooks/useWindowSize";
+import { expensesService } from "@/services/expenses";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 import type { OmitTyped } from "@/utils/typeUtils";
 
@@ -113,17 +114,20 @@ export function useModalController({
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      console.log({
-        ...data,
-        value: currencyStringToNumber(data.value),
-        dateOfOccurrence:
-          data.dateOfOccurrence instanceof Date
-            ? data.dateOfOccurrence.toISOString()
-            : parse(
-                data.dateOfOccurrence,
-                "dd/MM/yyyy",
-                new Date()
-              ).toISOString()
+      await expensesService.edit({
+        id: expense.id,
+        data: {
+          ...data,
+          value: currencyStringToNumber(data.value),
+          dateOfOccurrence:
+            data.dateOfOccurrence instanceof Date
+              ? data.dateOfOccurrence.toISOString()
+              : parse(
+                  data.dateOfOccurrence,
+                  "dd/MM/yyyy",
+                  new Date()
+                ).toISOString()
+        }
       });
 
       reset();
