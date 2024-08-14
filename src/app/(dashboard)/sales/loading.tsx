@@ -17,7 +17,7 @@ export default function Loading() {
         <div className="flex items-center gap-2">
           <BadgeDollarSign />
 
-          <h2 className="text-xl">Funcionários</h2>
+          <h2 className="text-xl">Vendas</h2>
         </div>
 
         <Skeleton className="size-10 rounded-md" />
