@@ -24,7 +24,7 @@ export async function MonthExpensesAmountCard() {
         </span>
 
         <p className="text-xs text-muted-foreground">
-          {diffFromPreviousMonth >= 0 ? (
+          {diffFromPreviousMonth > 0 ? (
             <span className="text-rose-500 dark:text-rose-400">
               +{formatCurrency(diffFromPreviousMonth / 100)}
             </span>
