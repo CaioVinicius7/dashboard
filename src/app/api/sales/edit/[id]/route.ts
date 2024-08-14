@@ -9,7 +9,12 @@ interface Params {
 }
 
 const editSaleParamsSchema = z.object({
-  id: z.string()
+  id: z
+    .string()
+    .refine(
+      (value) => /^[0-9a-fA-F]{24}$/.test(value),
+      "O id deve ser um ObjectId válido"
+    )
 });
 
 const editSaleBodySchema = z.object({

@@ -14,7 +14,12 @@ const rolesSchema = z.enum(ROLES_IN_DB, {
 });
 
 const editEmployeeParamsSchema = z.object({
-  id: z.string()
+  id: z
+    .string()
+    .refine(
+      (value) => /^[0-9a-fA-F]{24}$/.test(value),
+      "O id deve ser um ObjectId válido"
+    )
 });
 
 const editEmployeeBodySchema = z.object({
