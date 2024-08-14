@@ -25,7 +25,7 @@ export default async function HomePage() {
 
       <main className="w-full space-y-4 px-4 py-2 sm:py-6">
         <div className="flex flex-col-reverse gap-4 md:flex-row">
-          <div className="3xl:w-4/5 w-full space-y-4 md:w-4/6">
+          <div className="w-full space-y-4 md:w-4/6 3xl:w-4/5">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               <MonthSalesCountCard />
 

@@ -17,7 +17,7 @@ export async function MonthTotalProfitCard() {
   const currentProfitIsGreaterThanPreviousProfit = diffFromPreviousMonth >= 0;
 
   return (
-    <Card className="3xl:w-1/5 w-full md:w-2/6">
+    <Card className="w-full md:w-2/6 3xl:w-1/5">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xl font-semibold md:text-2xl">
           Lucro total (mês)
