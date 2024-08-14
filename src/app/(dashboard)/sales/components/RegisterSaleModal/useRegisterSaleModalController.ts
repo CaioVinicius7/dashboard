@@ -1,12 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { isBefore, isSameDay, isValid, parse } from "date-fns";
+import { format, isBefore, isSameDay, isValid, parse } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
+import { useWindowSize } from "@/hooks/useWindowSize";
 import { salesService } from "@/services/sales";
 import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 
@@ -101,6 +102,7 @@ export function useRegisterSaleModalController() {
     handleSubmit: hookFormHandleSubmit,
     formState: { errors, isSubmitting },
     control,
+    setValue,
     reset
   } = useForm<FormData>({
     resolver: zodResolver(schema)
@@ -164,6 +166,26 @@ export function useRegisterSaleModalController() {
       });
     }
   });
+
+  const { width: windowWidth } = useWindowSize();
+
+  const windowWidthIsSmOrAbove = windowWidth >= 640;
+
+  const watchedValues = useWatch({
+    control
+  });
+
+  const dateOfSale = watchedValues.dateOfSale;
+
+  useEffect(() => {
+    if (windowWidthIsSmOrAbove && typeof dateOfSale === "string") {
+      setValue("dateOfSale", parse(dateOfSale, "dd/MM/yyyy", new Date()));
+    }
+
+    if (!windowWidthIsSmOrAbove && dateOfSale instanceof Date) {
+      setValue("dateOfSale", format(dateOfSale, "dd/MM/yyyy"));
+    }
+  }, [windowWidthIsSmOrAbove, setValue, dateOfSale]);
 
   return {
     isOpen,
