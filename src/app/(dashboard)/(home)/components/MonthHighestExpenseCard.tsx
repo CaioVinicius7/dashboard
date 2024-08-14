@@ -13,6 +13,8 @@ import { formatCurrency } from "@/utils/formatCurrency";
 export async function MonthHighestExpenseCard() {
   const { monthHighestExpense } = await metricsService.getMonthHighestExpense();
 
+  const hasMonthHighestExpense = !!monthHighestExpense;
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -24,24 +26,36 @@ export async function MonthHighestExpenseCard() {
       </CardHeader>
 
       <CardContent className="space-y-1">
-        <span className="text-2xl font-bold tracking-tight">
-          {formatCurrency(monthHighestExpense.value / 100)}
-        </span>
+        {!hasMonthHighestExpense && (
+          <p className="truncate text-xs text-muted-foreground">
+            Nenhuma despesa foi registrada no mês atual.
+          </p>
+        )}
 
-        <p className="truncate text-xs text-muted-foreground">
-          A maior despesa foi{" "}
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <span className="font-bold">{monthHighestExpense.title}</span>
-              </TooltipTrigger>
+        {hasMonthHighestExpense && (
+          <>
+            <span className="text-2xl font-bold tracking-tight">
+              {formatCurrency(monthHighestExpense.value / 100)}
+            </span>
 
-              <TooltipContent>
-                <p>{monthHighestExpense.title}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </p>
+            <p className="truncate text-xs text-muted-foreground">
+              A maior despesa foi{" "}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="font-bold">
+                      {monthHighestExpense.title}
+                    </span>
+                  </TooltipTrigger>
+
+                  <TooltipContent>
+                    <p>{monthHighestExpense.title}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </p>
+          </>
+        )}
       </CardContent>
     </Card>
   );
