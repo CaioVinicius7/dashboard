@@ -56,7 +56,7 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
           message: "Funcionário não encontrado."
         },
         {
-          status: 400
+          status: 404
         }
       );
     }

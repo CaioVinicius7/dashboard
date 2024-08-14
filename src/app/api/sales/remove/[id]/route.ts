@@ -32,7 +32,7 @@ export async function DELETE(_: NextRequest, { params }: { params: Params }) {
           message: "Venda não encontrada."
         },
         {
-          status: 400
+          status: 404
         }
       );
     }

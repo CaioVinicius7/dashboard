@@ -47,7 +47,7 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
           message: "Despesa não encontrada."
         },
         {
-          status: 400
+          status: 404
         }
       );
     }

@@ -32,7 +32,7 @@ export async function DELETE(_: NextRequest, { params }: { params: Params }) {
           message: "Funcionário não encontrado."
         },
         {
-          status: 400
+          status: 404
         }
       );
     }
