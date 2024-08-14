@@ -31,9 +31,26 @@ const editExpenseBodySchema = z.object({
   })
 });
 
-export async function POST(req: NextRequest, { params }: { params: Params }) {
+export async function PUT(req: NextRequest, { params }: { params: Params }) {
   try {
     const { id } = editExpenseParamsSchema.parse(params);
+
+    const expenseFromId = await prisma.expense.findUnique({
+      where: {
+        id
+      }
+    });
+
+    if (!expenseFromId) {
+      return NextResponse.json(
+        {
+          message: "Despesa não encontrada."
+        },
+        {
+          status: 400
+        }
+      );
+    }
 
     const body = await req.json();
 
