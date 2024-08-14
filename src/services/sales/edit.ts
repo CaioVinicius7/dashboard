@@ -4,7 +4,7 @@ import type { OmitTyped } from "@/utils/typeUtils";
 
 interface EditSaleParams {
   id: string;
-  data: Partial<OmitTyped<Sale, "id" | "createdAt" | "updatedAt">>;
+  data: OmitTyped<Sale, "id" | "createdAt" | "updatedAt">;
 }
 
 export async function edit({
