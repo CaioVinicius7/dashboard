@@ -14,7 +14,7 @@ export async function MonthSalesCountCard() {
           Total de vendas (mês)
         </CardTitle>
 
-        <Diff className="tex h-4 w-4 text-muted-foreground" />
+        <Diff className="size-4 text-muted-foreground" />
       </CardHeader>
 
       <CardContent className="space-y-1">

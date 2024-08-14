@@ -20,7 +20,7 @@ export async function MonthHighestExpenseCard() {
           Maior despesa (mês)
         </CardTitle>
 
-        <ArrowDownNarrowWide className="tex h-4 w-4 text-muted-foreground" />
+        <ArrowDownNarrowWide className="size-4 text-muted-foreground" />
       </CardHeader>
 
       <CardContent className="space-y-1">

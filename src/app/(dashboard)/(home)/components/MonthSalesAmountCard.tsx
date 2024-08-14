@@ -15,7 +15,7 @@ export async function MonthSalesAmountCard() {
           Faturamento (mês)
         </CardTitle>
 
-        <DollarSign className="tex h-4 w-4 text-muted-foreground" />
+        <DollarSign className="size-4 text-muted-foreground" />
       </CardHeader>
 
       <CardContent className="space-y-1">
