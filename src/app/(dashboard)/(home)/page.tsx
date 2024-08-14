@@ -4,6 +4,9 @@ import { Header } from "@/components/Header";
 import { metricsService } from "@/services/metrics";
 import { CURRENT_YEAR } from "@/utils/constants";
 
+import { MonthExpensesAmountCard } from "./components/MonthExpensesAmountCard";
+import { MonthExpensesCountCard } from "./components/MonthExpensesCountCard";
+import { MonthHighestExpenseCard } from "./components/MonthHighestExpenseCard";
 import { MonthHighestSaleCard } from "./components/MonthHighestSaleCard";
 import { MonthSalesAmountCard } from "./components/MonthSalesAmountCard";
 import { MonthSalesCountCard } from "./components/MonthSalesCountCard ";
@@ -26,6 +29,14 @@ export default async function HomePage() {
           <MonthSalesAmountCard />
 
           <MonthHighestSaleCard />
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <MonthExpensesCountCard />
+
+          <MonthExpensesAmountCard />
+
+          <MonthHighestExpenseCard />
         </div>
 
         <RevenueChart chartData={chartData} />
