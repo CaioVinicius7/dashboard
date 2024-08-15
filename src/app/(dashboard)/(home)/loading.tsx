@@ -36,8 +36,6 @@ export default function Loading() {
           <Skeleton className="h-[272px] w-full md:h-[428px] md:w-2/6 lg:h-[280px] 3xl:w-1/5" />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3"></div>
-
         <Skeleton className="h-[362px]" />
       </main>
     </>
