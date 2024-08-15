@@ -1,10 +1,22 @@
+import { endOfMonth, startOfMonth } from "date-fns";
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   try {
+    const now = new Date();
+
+    const startOfCurrentMonth = startOfMonth(now);
+    const endOfCurrentMonth = endOfMonth(now);
+
     const monthHighestSale = await prisma.sale.findFirst({
+      where: {
+        dateOfSale: {
+          gte: startOfCurrentMonth,
+          lte: endOfCurrentMonth
+        }
+      },
       orderBy: {
         value: "desc"
       },
