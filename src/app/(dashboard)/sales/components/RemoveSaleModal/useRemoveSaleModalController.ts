@@ -6,11 +6,16 @@ import { useToast } from "@/components/ui/use-toast";
 import { salesService } from "@/services/sales";
 
 export function useRemoveSaleModalController() {
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const { toast } = useToast();
+
+  function handleChangeModalVisibility() {
+    isOpen ? setIsOpen(false) : setIsOpen(true);
+  }
 
   async function handleRemoveSale(saleId: string) {
     try {
@@ -23,6 +28,8 @@ export function useRemoveSaleModalController() {
       toast({
         description: "Venda removida com sucesso!"
       });
+
+      handleChangeModalVisibility();
 
       router.refresh();
     } catch (error) {
@@ -47,6 +54,8 @@ export function useRemoveSaleModalController() {
   }
 
   return {
+    isOpen,
+    handleChangeModalVisibility,
     handleRemoveSale,
     isLoading
   };

@@ -6,11 +6,16 @@ import { useToast } from "@/components/ui/use-toast";
 import { expensesService } from "@/services/expenses";
 
 export function useRemoveExpenseModalController() {
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const { toast } = useToast();
+
+  function handleChangeModalVisibility() {
+    isOpen ? setIsOpen(false) : setIsOpen(true);
+  }
 
   async function handleRemoveExpense(expenseId: string) {
     try {
@@ -23,6 +28,8 @@ export function useRemoveExpenseModalController() {
       toast({
         description: "Despesa removida com sucesso!"
       });
+
+      handleChangeModalVisibility();
 
       router.refresh();
     } catch (error) {
@@ -47,6 +54,8 @@ export function useRemoveExpenseModalController() {
   }
 
   return {
+    isOpen,
+    handleChangeModalVisibility,
     handleRemoveExpense,
     isLoading
   };

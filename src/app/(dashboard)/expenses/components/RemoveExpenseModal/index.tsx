@@ -20,10 +20,15 @@ interface RemoveExpenseModalProps {
 }
 
 export function RemoveExpenseModal({ expenseId }: RemoveExpenseModalProps) {
-  const { handleRemoveExpense, isLoading } = useRemoveExpenseModalController();
+  const {
+    isOpen,
+    handleChangeModalVisibility,
+    handleRemoveExpense,
+    isLoading
+  } = useRemoveExpenseModalController();
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={handleChangeModalVisibility}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="icon">
           <Trash2 className="size-5" />

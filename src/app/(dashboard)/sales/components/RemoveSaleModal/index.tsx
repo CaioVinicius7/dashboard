@@ -20,10 +20,11 @@ interface RemoveSaleModalProps {
 }
 
 export function RemoveSaleModal({ saleId }: RemoveSaleModalProps) {
-  const { handleRemoveSale, isLoading } = useRemoveSaleModalController();
+  const { isOpen, handleChangeModalVisibility, handleRemoveSale, isLoading } =
+    useRemoveSaleModalController();
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={handleChangeModalVisibility}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="icon">
           <Trash2 className="size-5" />
