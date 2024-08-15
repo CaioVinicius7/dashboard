@@ -26,6 +26,8 @@ interface RevenueChartProps {
 }
 
 export function RevenueChart({ chartData }: RevenueChartProps) {
+  const hasChartData = chartData.length >= 1;
+
   return (
     <Card>
       <CardHeader>
@@ -35,49 +37,60 @@ export function RevenueChart({ chartData }: RevenueChartProps) {
       </CardHeader>
 
       <CardContent>
-        <ChartContainer config={{}} className="h-[240px] w-full">
-          <LineChart
-            data={chartData}
-            style={{
-              fontSize: 12
-            }}
-          >
-            <XAxis
-              dataKey="date"
-              axisLine={false}
-              tickLine={false}
-              dy={16}
-              tickFormatter={formatDate}
-            />
+        {!hasChartData && (
+          <div className="flex h-[240px] items-center justify-center">
+            <p className="sm:text-md w-[570px] text-center text-sm text-muted-foreground">
+              Nenhum dado de vendas disponível para o mês atual. Comece a
+              registrar suas vendas para visualizar as informações no gráfico.
+            </p>
+          </div>
+        )}
 
-            <YAxis
-              stroke="#888"
-              axisLine={false}
-              tickLine={false}
-              width={80}
-              tickFormatter={formatCurrency}
-            />
+        {hasChartData && (
+          <ChartContainer config={{}} className="h-[240px] w-full">
+            <LineChart
+              data={chartData}
+              style={{
+                fontSize: 12
+              }}
+            >
+              <XAxis
+                dataKey="date"
+                axisLine={false}
+                tickLine={false}
+                dy={16}
+                tickFormatter={formatDate}
+              />
 
-            <CartesianGrid vertical={false} className="stroke-muted" />
+              <YAxis
+                stroke="#888"
+                axisLine={false}
+                tickLine={false}
+                width={80}
+                tickFormatter={formatCurrency}
+              />
 
-            <Line
-              type="linear"
-              dataKey="receipt"
-              strokeWidth={2}
-              stroke={colors["blue"][500]}
-            />
+              <CartesianGrid vertical={false} className="stroke-muted" />
 
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  formatter={(value) => formatCurrency(Number(value))}
-                  labelClassName="text-muted-foreground"
-                  labelFormatter={formatDate}
-                />
-              }
-            />
-          </LineChart>
-        </ChartContainer>
+              <Line
+                type="linear"
+                dataKey="receipt"
+                strokeWidth={2}
+                stroke={colors["blue"][500]}
+              />
+
+              <ChartTooltip
+                content={
+                  <ChartTooltipContent
+                    formatter={(value) => formatCurrency(Number(value))}
+                    labelClassName="text-muted-foreground"
+                    labelFormatter={formatDate}
+                  />
+                }
+              />
+            </LineChart>
+          </ChartContainer>
+        )}
       </CardContent>
     </Card>
   );
