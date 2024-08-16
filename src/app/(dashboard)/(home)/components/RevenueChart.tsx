@@ -26,7 +26,11 @@ interface RevenueChartProps {
 }
 
 export function RevenueChart({ chartData }: RevenueChartProps) {
-  const hasChartData = chartData.length >= 1;
+  const allDatesAreEqual = chartData.every(
+    (item) => item.date === chartData[0].date
+  );
+
+  const hasMinChartData = chartData.length >= 1 && !allDatesAreEqual;
 
   return (
     <Card>
@@ -37,16 +41,16 @@ export function RevenueChart({ chartData }: RevenueChartProps) {
       </CardHeader>
 
       <CardContent>
-        {!hasChartData && (
+        {!hasMinChartData && (
           <div className="flex h-[240px] items-center justify-center">
             <p className="sm:text-md w-[570px] text-center text-sm text-muted-foreground">
-              Nenhum dado de vendas disponível para o mês atual. Comece a
-              registrar suas vendas para visualizar as informações no gráfico.
+              Continue registrando suas vendas para visualizar as informações no
+              gráfico.
             </p>
           </div>
         )}
 
-        {hasChartData && (
+        {hasMinChartData && (
           <ChartContainer config={{}} className="h-[240px] w-full">
             <LineChart
               data={chartData}
