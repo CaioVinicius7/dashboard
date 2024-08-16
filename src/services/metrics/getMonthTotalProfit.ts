@@ -4,13 +4,17 @@ interface GetMonthTotalProfitResponse {
   currentMonthProfit: number;
   diffFromPreviousMonth: number;
   diffFromPreviousMonthInPercent: number;
+  salesDiffInPercent: number;
+  expensesDiffInPercent: number;
 }
 
 export async function getMonthTotalProfit() {
   const {
     currentMonthProfit,
     diffFromPreviousMonth,
-    diffFromPreviousMonthInPercent
+    diffFromPreviousMonthInPercent,
+    salesDiffInPercent,
+    expensesDiffInPercent
   } = await httpClient
     .get("metrics/month-total-profit")
     .json<GetMonthTotalProfitResponse>();
@@ -18,6 +22,8 @@ export async function getMonthTotalProfit() {
   return {
     currentMonthProfit,
     diffFromPreviousMonth,
-    diffFromPreviousMonthInPercent
+    diffFromPreviousMonthInPercent,
+    salesDiffInPercent,
+    expensesDiffInPercent
   };
 }

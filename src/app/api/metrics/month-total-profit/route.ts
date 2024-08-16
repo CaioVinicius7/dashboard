@@ -50,7 +50,7 @@ export async function GET() {
         where: {
           dateOfOccurrence: {
             gte: startOfCurrentMonth,
-            lte: startOfCurrentMonth
+            lte: endOfCurrentMonth
           }
         }
       }),
@@ -88,11 +88,27 @@ export async function GET() {
           100
         : 0;
 
+    const salesDiffInPercent =
+      previousSalesAmountTotal !== 0
+        ? ((currentSalesAmountTotal - previousSalesAmountTotal) /
+            previousSalesAmountTotal) *
+          100
+        : 0;
+
+    const expensesDiffInPercent =
+      previousExpensesAmountTotal !== 0
+        ? ((currentExpensesAmountTotal - previousExpensesAmountTotal) /
+            previousExpensesAmountTotal) *
+          100
+        : 0;
+
     const response = NextResponse.json(
       {
         currentMonthProfit,
         diffFromPreviousMonth,
-        diffFromPreviousMonthInPercent
+        diffFromPreviousMonthInPercent,
+        salesDiffInPercent,
+        expensesDiffInPercent
       },
       {
         status: 200
