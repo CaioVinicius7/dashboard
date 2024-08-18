@@ -5,7 +5,8 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
   ],
   "plugins": [
     "simple-import-sort",
@@ -13,7 +14,8 @@
     "react-hooks",
     "jsx-a11y",
     "prettier",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "@tanstack/query"
   ],
   "parser": "@typescript-eslint/parser",
   "rules": {

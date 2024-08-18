@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { Toaster } from "@/components/ui/toaster";
 
+import { QueryProvider } from "./queryProvider";
 import { NextAuthSessionProvider } from "./sessionProvider";
 import { ThemeProvider } from "./themeProvider";
 
@@ -11,12 +12,14 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   return (
-    <NextAuthSessionProvider>
-      <ThemeProvider>
-        {children}
+    <QueryProvider>
+      <NextAuthSessionProvider>
+        <ThemeProvider>
+          {children}
 
-        <Toaster />
-      </ThemeProvider>
-    </NextAuthSessionProvider>
+          <Toaster />
+        </ThemeProvider>
+      </NextAuthSessionProvider>
+    </QueryProvider>
   );
 }

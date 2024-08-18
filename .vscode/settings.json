@@ -7,6 +7,8 @@
     "NEXTAUTH",
     "nextjs",
     "Parens",
-    "tailwindcss"
+    "Shadcn",
+    "tailwindcss",
+    "tanstack"
   ]
 }
