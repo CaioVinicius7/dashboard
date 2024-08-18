@@ -1,8 +1,8 @@
 "use client";
 
-import { LoaderCircle, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/Button";
 import {
   Dialog,
   DialogClose,
@@ -48,13 +48,9 @@ export function RemoveSaleModal({ saleId }: RemoveSaleModalProps) {
           <Button
             variant="destructive"
             onClick={() => handleRemoveSale(saleId)}
-            disabled={isLoading}
+            isLoading={isLoading}
           >
-            {isLoading ? (
-              <LoaderCircle className="size-4 w-11 animate-spin" />
-            ) : (
-              "Excluir"
-            )}
+            Excluir
           </Button>
         </div>
       </DialogContent>
