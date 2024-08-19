@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { format, isBefore, isSameDay, isValid, parse } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
@@ -91,6 +92,10 @@ export function useModalController({
 
   const router = useRouter();
 
+  const { mutateAsync: editExpenseFn, isPending } = useMutation({
+    mutationFn: expensesService.edit
+  });
+
   const windowWidthIsSmOrAbove = windowWidth >= 640;
 
   const {
@@ -114,7 +119,7 @@ export function useModalController({
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await expensesService.edit({
+      await editExpenseFn({
         id: expense.id,
         data: {
           ...data,
@@ -178,6 +183,7 @@ export function useModalController({
     handleSubmit,
     errors,
     isSubmitting,
-    control
+    control,
+    isPending: isPending && isSubmitting
   };
 }

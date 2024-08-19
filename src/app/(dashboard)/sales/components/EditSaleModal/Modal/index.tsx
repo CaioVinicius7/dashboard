@@ -2,11 +2,11 @@ import { format } from "date-fns";
 import { Plus, Trash2 } from "lucide-react";
 import { Controller } from "react-hook-form";
 
+import { Button } from "@/components/Button";
 import { DatePicker } from "@/components/DatePicker";
 import { Input } from "@/components/Input";
 import { InputCurrency } from "@/components/InputCurrency";
 import { InputMask } from "@/components/InputMask";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -33,12 +33,12 @@ export function Modal({ isOpen, onClose, sale }: ModalProps) {
     register,
     handleSubmit,
     errors,
-    isSubmitting,
     control,
     hasSaleReceiptUrls,
     saleReceiptUrlsFields,
     appendSaleReceiptField,
-    removeSaleReceiptField
+    removeSaleReceiptField,
+    isLoading
   } = useModalController({
     sale,
     closeModal: onClose
@@ -178,11 +178,7 @@ export function Modal({ isOpen, onClose, sale }: ModalProps) {
             <Button variant="ghost">Cancelar</Button>
           </DialogClose>
 
-          <Button
-            variant="secondary"
-            form="editSaleForm"
-            disabled={isSubmitting}
-          >
+          <Button variant="secondary" form="editSaleForm" isLoading={isLoading}>
             Enviar
           </Button>
         </div>

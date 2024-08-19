@@ -4,10 +4,10 @@ import { format } from "date-fns";
 import { UserPlus } from "lucide-react";
 import { Controller } from "react-hook-form";
 
+import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { InputCurrency } from "@/components/InputCurrency";
 import { InputMask } from "@/components/InputMask";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -36,9 +36,9 @@ export function RegisterEmployeeModal() {
     register,
     handleSubmit,
     errors,
-    isSubmitting,
     control,
-    ROLES
+    ROLES,
+    isLoading
   } = useRegisterEmployeeModalController();
 
   return (
@@ -183,7 +183,7 @@ export function RegisterEmployeeModal() {
           <Button
             variant="secondary"
             form="registerEmployeeForm"
-            disabled={isSubmitting}
+            isLoading={isLoading}
           >
             Enviar
           </Button>

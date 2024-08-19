@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { format, isBefore, isSameDay, isValid, parse } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
@@ -87,6 +88,10 @@ export function useRegisterSaleModalController() {
 
   const router = useRouter();
 
+  const { mutateAsync: registerSaleFn, isPending } = useMutation({
+    mutationFn: salesService.register
+  });
+
   function handleChangeModalVisibility() {
     if (isOpen) {
       setIsOpen(false);
@@ -127,7 +132,7 @@ export function useRegisterSaleModalController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await salesService.register({
+      await registerSaleFn({
         ...data,
         dateOfSale:
           data.dateOfSale instanceof Date
@@ -193,11 +198,11 @@ export function useRegisterSaleModalController() {
     register,
     handleSubmit,
     errors,
-    isSubmitting,
     control,
     hasSaleReceiptUrls,
     saleReceiptUrlsFields,
     appendSaleReceiptField,
-    removeSaleReceiptField
+    removeSaleReceiptField,
+    isLoading: isPending && isSubmitting
   };
 }

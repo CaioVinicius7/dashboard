@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -7,11 +8,14 @@ import { salesService } from "@/services/sales";
 
 export function useRemoveSaleModalController() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const { toast } = useToast();
+
+  const { mutateAsync: removeSaleFn, isPending: isLoading } = useMutation({
+    mutationFn: salesService.remove
+  });
 
   function handleChangeModalVisibility() {
     isOpen ? setIsOpen(false) : setIsOpen(true);
@@ -19,11 +23,7 @@ export function useRemoveSaleModalController() {
 
   async function handleRemoveSale(saleId: string) {
     try {
-      setIsLoading(true);
-
-      await salesService.remove({
-        id: saleId
-      });
+      await removeSaleFn({ id: saleId });
 
       toast({
         description: "Venda removida com sucesso!"
@@ -48,8 +48,6 @@ export function useRemoveSaleModalController() {
         description: "Ocorreu um erro ao remover a venda.",
         variant: "destructive"
       });
-    } finally {
-      setIsLoading(false);
     }
   }
 

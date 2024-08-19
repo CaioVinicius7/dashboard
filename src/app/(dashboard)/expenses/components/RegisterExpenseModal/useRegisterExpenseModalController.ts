@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { format, isBefore, isSameDay, isValid, parse } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
@@ -80,6 +81,10 @@ export function useRegisterExpenseModalController() {
 
   const router = useRouter();
 
+  const { mutateAsync: registerExpenseFn, isPending } = useMutation({
+    mutationFn: expensesService.register
+  });
+
   function handleChangeModalVisibility() {
     if (isOpen) {
       setIsOpen(false);
@@ -102,7 +107,7 @@ export function useRegisterExpenseModalController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await expensesService.register({
+      await registerExpenseFn({
         ...data,
         dateOfOccurrence:
           data.dateOfOccurrence instanceof Date
@@ -172,7 +177,7 @@ export function useRegisterExpenseModalController() {
     register,
     handleSubmit,
     errors,
-    isSubmitting,
-    control
+    control,
+    isLoading: isPending && isSubmitting
   };
 }

@@ -4,10 +4,10 @@ import { format } from "date-fns";
 import { Pencil } from "lucide-react";
 import { Controller } from "react-hook-form";
 
+import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { InputCurrency } from "@/components/InputCurrency";
 import { InputMask } from "@/components/InputMask";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -37,7 +37,7 @@ interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, employee }: ModalProps) {
-  const { register, handleSubmit, errors, isSubmitting, control, ROLES } =
+  const { register, handleSubmit, errors, control, ROLES, isLoading } =
     useModalController({
       employee,
       closeModal: onClose
@@ -189,7 +189,7 @@ export function Modal({ isOpen, onClose, employee }: ModalProps) {
           <Button
             variant="secondary"
             form="editEmployeeForm"
-            disabled={isSubmitting}
+            isLoading={isLoading}
           >
             Enviar
           </Button>

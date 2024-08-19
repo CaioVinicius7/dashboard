@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { isBefore, isSameDay, isValid, parse } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
@@ -69,6 +70,10 @@ export function useRegisterEmployeeModalController() {
 
   const router = useRouter();
 
+  const { mutateAsync: registerEmployeeFn, isPending } = useMutation({
+    mutationFn: employeesService.register
+  });
+
   function handleChangeModalVisibility() {
     if (isOpen) {
       setIsOpen(false);
@@ -95,7 +100,7 @@ export function useRegisterEmployeeModalController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await employeesService.register({
+      await registerEmployeeFn({
         ...data,
         salary: currencyStringToNumber(data.salary)
       });
@@ -134,8 +139,8 @@ export function useRegisterEmployeeModalController() {
     register,
     handleSubmit,
     errors,
-    isSubmitting,
     control,
-    ROLES
+    ROLES,
+    isLoading: isPending && isSubmitting
   };
 }

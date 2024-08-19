@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -7,11 +8,14 @@ import { employeesService } from "@/services/employees";
 
 export function useRemoveEmployeeModalController() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const { toast } = useToast();
+
+  const { mutateAsync: removeEmployeeFn, isPending: isLoading } = useMutation({
+    mutationFn: employeesService.remove
+  });
 
   function handleChangeModalVisibility() {
     isOpen ? setIsOpen(false) : setIsOpen(true);
@@ -19,9 +23,7 @@ export function useRemoveEmployeeModalController() {
 
   async function handleRemoveEmployee(employeeId: string) {
     try {
-      setIsLoading(true);
-
-      await employeesService.remove({
+      await removeEmployeeFn({
         id: employeeId
       });
 
@@ -48,8 +50,6 @@ export function useRemoveEmployeeModalController() {
         description: "Ocorreu um erro ao remover o funcionário.",
         variant: "destructive"
       });
-    } finally {
-      setIsLoading(false);
     }
   }
 

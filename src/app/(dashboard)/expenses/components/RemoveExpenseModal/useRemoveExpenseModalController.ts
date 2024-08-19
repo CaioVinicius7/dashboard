@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -7,11 +8,14 @@ import { expensesService } from "@/services/expenses";
 
 export function useRemoveExpenseModalController() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const { toast } = useToast();
+
+  const { mutateAsync: removeExpenseFn, isPending: isLoading } = useMutation({
+    mutationFn: expensesService.remove
+  });
 
   function handleChangeModalVisibility() {
     isOpen ? setIsOpen(false) : setIsOpen(true);
@@ -19,9 +23,7 @@ export function useRemoveExpenseModalController() {
 
   async function handleRemoveExpense(expenseId: string) {
     try {
-      setIsLoading(true);
-
-      await expensesService.remove({
+      await removeExpenseFn({
         id: expenseId
       });
 
@@ -48,8 +50,6 @@ export function useRemoveExpenseModalController() {
         description: "Ocorreu um erro ao remover a Despesa.",
         variant: "destructive"
       });
-    } finally {
-      setIsLoading(false);
     }
   }
 

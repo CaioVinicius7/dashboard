@@ -4,11 +4,11 @@ import { format } from "date-fns";
 import { Plus, Trash2 } from "lucide-react";
 import { Controller } from "react-hook-form";
 
+import { Button } from "@/components/Button";
 import { DatePicker } from "@/components/DatePicker";
 import { Input } from "@/components/Input";
 import { InputCurrency } from "@/components/InputCurrency";
 import { InputMask } from "@/components/InputMask";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -30,12 +30,12 @@ export function RegisterSaleModal() {
     register,
     handleSubmit,
     errors,
-    isSubmitting,
     control,
     hasSaleReceiptUrls,
     saleReceiptUrlsFields,
     appendSaleReceiptField,
-    removeSaleReceiptField
+    removeSaleReceiptField,
+    isLoading
   } = useRegisterSaleModalController();
 
   return (
@@ -181,7 +181,7 @@ export function RegisterSaleModal() {
           <Button
             variant="secondary"
             form="registerSaleForm"
-            disabled={isSubmitting}
+            isLoading={isLoading}
           >
             Enviar
           </Button>

@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { isBefore, isSameDay, isValid, parse } from "date-fns";
 import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
@@ -79,6 +80,10 @@ export function useModalController({
 
   const router = useRouter();
 
+  const { mutateAsync: editEmployeeFn, isPending } = useMutation({
+    mutationFn: employeesService.edit
+  });
+
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
@@ -97,7 +102,7 @@ export function useModalController({
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await employeesService.edit({
+      await editEmployeeFn({
         id: employee.id,
         data: {
           ...data,
@@ -135,8 +140,8 @@ export function useModalController({
     register,
     handleSubmit,
     errors,
-    isSubmitting,
     control,
-    ROLES
+    ROLES,
+    isLoading: isPending && isSubmitting
   };
 }
