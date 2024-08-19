@@ -5,11 +5,11 @@ import { format } from "date-fns";
 import { Plus } from "lucide-react";
 import { Controller } from "react-hook-form";
 
+import { Button } from "@/components/Button";
 import { DatePicker } from "@/components/DatePicker";
 import { Input } from "@/components/Input";
 import { InputCurrency } from "@/components/InputCurrency";
 import { InputMask } from "@/components/InputMask";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -30,8 +30,8 @@ export function RegisterExpenseModal() {
     register,
     handleSubmit,
     errors,
-    isSubmitting,
-    control
+    control,
+    isLoading
   } = useRegisterExpenseModalController();
 
   return (
@@ -137,7 +137,7 @@ export function RegisterExpenseModal() {
           <Button
             variant="secondary"
             form="registerExpenseForm"
-            disabled={isSubmitting}
+            isLoading={isLoading}
           >
             Enviar
           </Button>
