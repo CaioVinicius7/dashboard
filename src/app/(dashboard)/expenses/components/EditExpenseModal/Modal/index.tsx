@@ -2,7 +2,6 @@
 
 import { Label } from "@radix-ui/react-label";
 import { format } from "date-fns";
-import { Plus } from "lucide-react";
 import { Controller } from "react-hook-form";
 
 import { DatePicker } from "@/components/DatePicker";
@@ -16,8 +15,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger
+  DialogTitle
 } from "@/components/ui/dialog";
 import type { Expense } from "@/entities/Expense";
 import { cn } from "@/lib/utils";
@@ -40,13 +38,6 @@ export function Modal({ isOpen, onClose, expense }: ModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="flex items-center gap-2">
-          <Plus className="size-6" />
-          Adicionar
-        </Button>
-      </DialogTrigger>
-
       <DialogContent className="w-5/6">
         <DialogHeader>
           <DialogTitle>Editar despesa</DialogTitle>
