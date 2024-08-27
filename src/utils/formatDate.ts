@@ -1,5 +1,5 @@
-import { format } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 
 export function formatDate(date: string) {
-  return format(new Date(date), "dd/MM/yyyy");
+  return formatInTimeZone(date, "America/Sao_Paulo", "dd/MM/yyyy");
 }
