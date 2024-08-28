@@ -41,12 +41,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "src/app/api/**/*.ts",
-        "src/lib/nextAuth.ts",
-        "*.spec.ts",
-        "*.spec.tsx"
-      ],
+      "files": ["src/app/api/**/*.ts", "src/lib/nextAuth.ts"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-unused-vars": "off"
