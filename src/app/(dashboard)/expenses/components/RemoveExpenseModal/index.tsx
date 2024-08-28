@@ -54,7 +54,7 @@ export function RemoveExpenseModal({ expenseId }: RemoveExpenseModalProps) {
             onClick={() => handleRemoveExpense(expenseId)}
             isLoading={isLoading}
           >
-            Excluir
+            Remover
           </Button>
         </div>
       </DialogContent>
