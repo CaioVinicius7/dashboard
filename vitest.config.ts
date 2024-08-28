@@ -6,12 +6,16 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src")
+      "@": path.resolve(__dirname, "./src"),
+      "@test": path.resolve(__dirname, "./test")
     }
   },
   test: {
     globals: true,
-    setupFiles: [path.resolve(__dirname, "./test/vitest.setup.ts")],
+    setupFiles: [
+      path.resolve(__dirname, "./test/vitest.setup.ts"),
+      "dotenv/config"
+    ],
     environment: "jsdom"
   }
 });
