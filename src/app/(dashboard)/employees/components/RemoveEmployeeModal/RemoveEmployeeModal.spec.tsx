@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TestProviders } from "@test/utils/providers";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
@@ -24,17 +23,19 @@ vi.mock("next/navigation", () => ({
 }));
 
 describe("RemoveEmployeeModal", () => {
+  let triggerButton: HTMLElement;
+
   beforeEach(() => {
     render(<RemoveEmployeeModal employeeId="64e48d08d3c7e4d8f0c5b6e3" />, {
       wrapper: TestProviders
     });
+
+    triggerButton = screen.getByRole("button", {
+      name: /remover funcionário/i
+    });
   });
 
   it("Should be able to open the modal when the trigger button is clicked", () => {
-    const triggerButton = screen.getByRole("button", {
-      name: /remover funcionário/i
-    });
-
     fireEvent.click(triggerButton);
 
     const modalTitle = screen.queryByRole("heading", {
@@ -45,10 +46,6 @@ describe("RemoveEmployeeModal", () => {
   });
 
   it("Should be able to close the modal when the cancel button is clicked", async () => {
-    const triggerButton = screen.getByRole("button", {
-      name: /remover funcionário/i
-    });
-
     fireEvent.click(triggerButton);
 
     const modalTitle = screen.queryByRole("heading", {
@@ -63,10 +60,6 @@ describe("RemoveEmployeeModal", () => {
   });
 
   it("Should be able to call handleRemoveEmployee when the remove button is clicked", async () => {
-    const triggerButton = screen.getByRole("button", {
-      name: /remover funcionário/i
-    });
-
     fireEvent.click(triggerButton);
 
     const removeButton = screen.getByRole("button", { name: /remover/i });
