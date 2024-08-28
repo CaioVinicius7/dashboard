@@ -38,17 +38,17 @@ describe("RemoveEmployeeModal", () => {
   it("Should be able to open the modal when the trigger button is clicked", () => {
     fireEvent.click(triggerButton);
 
-    const modalTitle = screen.queryByRole("heading", {
+    const modalTitle = screen.getByRole("heading", {
       name: /remover funcionário/i
     });
 
     expect(modalTitle).toBeInTheDocument();
   });
 
-  it("Should be able to close the modal when the cancel button is clicked", async () => {
+  it("Should be able to close the modal when the cancel button is clicked", () => {
     fireEvent.click(triggerButton);
 
-    const modalTitle = screen.queryByRole("heading", {
+    const modalTitle = screen.getByRole("heading", {
       name: /remover funcionário/i
     });
 
