@@ -50,7 +50,7 @@ export function RemoveSaleModal({ saleId }: RemoveSaleModalProps) {
             onClick={() => handleRemoveSale(saleId)}
             isLoading={isLoading}
           >
-            Excluir
+            Remover
           </Button>
         </div>
       </DialogContent>
