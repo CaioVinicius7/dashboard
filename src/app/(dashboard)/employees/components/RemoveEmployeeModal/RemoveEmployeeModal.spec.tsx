@@ -59,7 +59,7 @@ describe("RemoveEmployeeModal", () => {
     expect(modalTitle).not.toBeInTheDocument();
   });
 
-  it("Should be able to call handleRemoveEmployee when the remove button is clicked", async () => {
+  it("Should be able to call employeesService.remove when the remove button is clicked", async () => {
     fireEvent.click(triggerButton);
 
     const removeButton = screen.getByRole("button", { name: /remover/i });
