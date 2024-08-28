@@ -54,7 +54,7 @@ export function RemoveEmployeeModal({ employeeId }: RemoveEmployeeModalProps) {
             onClick={() => handleRemoveEmployee(employeeId)}
             isLoading={isLoading}
           >
-            Excluir
+            Remover
           </Button>
         </div>
       </DialogContent>
