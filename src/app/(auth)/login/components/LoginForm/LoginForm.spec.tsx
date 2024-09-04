@@ -53,8 +53,8 @@ describe("LoginForm", () => {
   });
 
   it("Should be able to display validation errors on invalid input", async () => {
-    const emailErrorMessage = "O campo deve conter um e-mail válido.";
-    const passwordErrorMessage = "A senha deve conter no mínimo 8 caracteres.";
+    const emailErrorMessage = "O campo deve conter um e-mail válido";
+    const passwordErrorMessage = "A senha deve conter no mínimo 8 caracteres";
 
     expect(screen.queryByText(emailErrorMessage)).toBeNull();
     expect(screen.queryByText(passwordErrorMessage)).toBeNull();

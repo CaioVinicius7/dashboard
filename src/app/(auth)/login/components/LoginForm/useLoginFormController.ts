@@ -9,9 +9,9 @@ import { useToast } from "@/components/ui/use-toast";
 const schema = z.object({
   email: z
     .string()
-    .email("O campo deve conter um e-mail válido.")
+    .email("O campo deve conter um e-mail válido")
     .transform((value) => value.toLowerCase()),
-  password: z.string().min(8, "A senha deve conter no mínimo 8 caracteres.")
+  password: z.string().min(8, "A senha deve conter no mínimo 8 caracteres")
 });
 
 type FormData = z.infer<typeof schema>;
