@@ -32,7 +32,7 @@ const schema = z.object({
         return isValidDate;
       },
       {
-        message: "A data é inválida."
+        message: "A data é inválida"
       }
     )
     .refine(
