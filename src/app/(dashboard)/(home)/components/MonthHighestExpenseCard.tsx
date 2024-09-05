@@ -10,6 +10,8 @@ import {
 import { metricsService } from "@/services/metrics";
 import { formatCurrency } from "@/utils/formatCurrency";
 
+export const dynamic = "force-dynamic";
+
 export async function MonthHighestExpenseCard() {
   const { monthHighestExpense } = await metricsService.getMonthHighestExpense();
 

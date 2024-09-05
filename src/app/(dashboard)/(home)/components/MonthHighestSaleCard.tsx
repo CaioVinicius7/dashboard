@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { metricsService } from "@/services/metrics";
 import { formatCurrency } from "@/utils/formatCurrency";
 
+export const dynamic = "force-dynamic";
+
 export async function MonthHighestSaleCard() {
   const { monthHighestSale } = await metricsService.getMonthHighestSale();
 

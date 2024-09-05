@@ -3,6 +3,8 @@ import { Diff } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { metricsService } from "@/services/metrics";
 
+export const dynamic = "force-dynamic";
+
 export async function MonthExpensesCountCard() {
   const { monthExpensesCount, diffFromPreviousMonth } =
     await metricsService.getMonthExpensesCount();
