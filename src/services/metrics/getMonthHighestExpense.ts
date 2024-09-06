@@ -8,7 +8,9 @@ interface GetMonthHighestExpenseResponse {
 export async function getMonthHighestExpense() {
   const { monthHighestExpense } = await httpClient
     .get("metrics/month-highest-expense", {
-      cache: "no-store"
+      next: {
+        revalidate: 10 // 10 seg
+      }
     })
     .json<GetMonthHighestExpenseResponse>();
 

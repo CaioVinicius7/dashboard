@@ -22,7 +22,9 @@ export async function getDailyReceiptInPeriod({
         month,
         year
       },
-      cache: "no-store"
+      next: {
+        revalidate: 10 // 10 seg
+      }
     })
     .json<GetDailyReceiptInPeriodResponse>();
 

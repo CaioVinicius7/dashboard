@@ -10,7 +10,7 @@ import {
 import { metricsService } from "@/services/metrics";
 import { formatCurrency } from "@/utils/formatCurrency";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 10; // 10 seg
 
 export async function MonthHighestExpenseCard() {
   const { monthHighestExpense } = await metricsService.getMonthHighestExpense();
