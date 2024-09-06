@@ -7,7 +7,9 @@ interface GetMonthSalesAmountResponse {
 
 export async function getMonthSalesAmount() {
   const { monthSalesAmount, diffFromPreviousMonth } = await httpClient
-    .get("metrics/month-sales-amount")
+    .get("metrics/month-sales-amount", {
+      cache: "no-store"
+    })
     .json<GetMonthSalesAmountResponse>();
 
   return {

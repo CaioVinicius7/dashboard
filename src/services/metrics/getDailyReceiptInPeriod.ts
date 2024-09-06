@@ -21,7 +21,8 @@ export async function getDailyReceiptInPeriod({
       searchParams: {
         month,
         year
-      }
+      },
+      cache: "no-store"
     })
     .json<GetDailyReceiptInPeriodResponse>();
 

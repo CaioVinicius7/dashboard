@@ -7,7 +7,9 @@ interface GetMonthSalesCountResponse {
 
 export async function getMonthSalesCount() {
   const { monthSalesCount, diffFromPreviousMonth } = await httpClient
-    .get("metrics/month-sales-count")
+    .get("metrics/month-sales-count", {
+      cache: "no-store"
+    })
     .json<GetMonthSalesCountResponse>();
 
   return {
