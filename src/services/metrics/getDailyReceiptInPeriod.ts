@@ -21,9 +21,6 @@ export async function getDailyReceiptInPeriod({
       searchParams: {
         month,
         year
-      },
-      next: {
-        revalidate: 10 // 10 seg
       }
     })
     .json<GetDailyReceiptInPeriodResponse>();

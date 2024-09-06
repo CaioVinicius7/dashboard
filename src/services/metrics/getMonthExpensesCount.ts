@@ -7,11 +7,7 @@ interface GetMonthExpensesCountResponse {
 
 export async function getMonthExpensesCount() {
   const { monthExpensesCount, diffFromPreviousMonth } = await httpClient
-    .get("metrics/month-expenses-count", {
-      next: {
-        revalidate: 10 // 10 seg
-      }
-    })
+    .get("metrics/month-expenses-count")
     .json<GetMonthExpensesCountResponse>();
 
   return {

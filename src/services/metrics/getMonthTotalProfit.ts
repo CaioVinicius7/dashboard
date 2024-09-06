@@ -16,11 +16,7 @@ export async function getMonthTotalProfit() {
     salesDiffInPercent,
     expensesDiffInPercent
   } = await httpClient
-    .get("metrics/month-total-profit", {
-      next: {
-        revalidate: 10 // 10 seg
-      }
-    })
+    .get("metrics/month-total-profit")
     .json<GetMonthTotalProfitResponse>();
 
   return {
