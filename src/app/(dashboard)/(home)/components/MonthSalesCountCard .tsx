@@ -3,6 +3,8 @@ import { Diff } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { metricsService } from "@/services/metrics";
 
+export const revalidate = 10; // 10 seg
+
 export async function MonthSalesCountCard() {
   const { monthSalesCount, diffFromPreviousMonth } =
     await metricsService.getMonthSalesCount();

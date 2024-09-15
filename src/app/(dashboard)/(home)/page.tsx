@@ -13,6 +13,8 @@ import { MonthSalesCountCard } from "./components/MonthSalesCountCard ";
 import { MonthTotalProfitCard } from "./components/MonthTotalProfitCard";
 import { RevenueChart } from "./components/RevenueChart";
 
+export const revalidate = 10; // 10 seg
+
 export default async function HomePage() {
   const { data: chartData } = await metricsService.getDailyReceiptInPeriod({
     month: new Date().getMonth() + 1,

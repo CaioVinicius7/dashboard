@@ -53,24 +53,20 @@ describe("LoginForm", () => {
   });
 
   it("Should be able to display validation errors on invalid input", async () => {
-    const emailErrorMessageText = "O campo deve conter um e-mail válido.";
-    const passwordErrorMessageText =
-      "A senha deve conter no mínimo 8 caracteres.";
+    const emailErrorMessage = "O campo deve conter um e-mail válido";
+    const passwordErrorMessage = "A senha deve conter no mínimo 8 caracteres";
 
-    expect(screen.queryByText(emailErrorMessageText)).toBeNull();
-    expect(screen.queryByText(passwordErrorMessageText)).toBeNull();
+    expect(screen.queryByText(emailErrorMessage)).toBeNull();
+    expect(screen.queryByText(passwordErrorMessage)).toBeNull();
 
     const submitButton = screen.getByText("Entrar");
 
     fireEvent.click(submitButton);
 
-    const emailErrorMessage = await screen.findByText(emailErrorMessageText);
+    const emailError = await screen.findByText(emailErrorMessage);
+    const passwordError = await screen.findByText(passwordErrorMessage);
 
-    const passwordErrorMessage = await screen.findByText(
-      passwordErrorMessageText
-    );
-
-    expect(emailErrorMessage).toBeInTheDocument();
-    expect(passwordErrorMessage).toBeInTheDocument();
+    expect(emailError).toBeInTheDocument();
+    expect(passwordError).toBeInTheDocument();
   });
 });

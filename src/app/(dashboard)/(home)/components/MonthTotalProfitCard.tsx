@@ -5,6 +5,8 @@ import { metricsService } from "@/services/metrics";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatPercentage } from "@/utils/formatPercentage";
 
+export const revalidate = 10; // 10 seg
+
 export async function MonthTotalProfitCard() {
   const { currentMonthProfit, salesDiffInPercent, expensesDiffInPercent } =
     await metricsService.getMonthTotalProfit();
