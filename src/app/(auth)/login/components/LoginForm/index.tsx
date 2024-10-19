@@ -2,8 +2,8 @@
 
 import { Label } from "@radix-ui/react-label";
 
+import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
-import { Button } from "@/components/ui/button";
 import { CardContent, CardFooter } from "@/components/ui/card";
 
 import { useLoginFormController } from "./useLoginFormController";
@@ -41,7 +41,7 @@ export function LoginForm() {
       </CardContent>
 
       <CardFooter className="mt-2">
-        <Button type="submit" disabled={isSubmitting} className="w-full">
+        <Button type="submit" isLoading={isSubmitting} className="w-full">
           Entrar
         </Button>
       </CardFooter>
