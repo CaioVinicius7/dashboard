@@ -14,7 +14,7 @@ export async function GET() {
 
     const monthHighestExpense = await prisma.expense.findFirst({
       where: {
-        dateOfOccurrence: {
+        occurredAt: {
           gte: startOfCurrentMonth,
           lte: endOfCurrentMonth
         }

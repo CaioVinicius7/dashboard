@@ -9,13 +9,13 @@ type RegisterExpenseParams = OmitTyped<
 
 export async function register({
   title,
-  dateOfOccurrence,
+  occurredAt,
   value
 }: RegisterExpenseParams) {
   await httpClient.post("expenses/register", {
     json: {
       title,
-      dateOfOccurrence,
+      occurredAt,
       value
     }
   });

@@ -42,7 +42,7 @@ model Sale {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
   customer        String
   value           Int
-  dateOfSale      DateTime @map("date_of_sale") @db.Date
+  occurredAt      DateTime @map("occurred_at") @db.Date
   saleReceiptUrls String[] @default([]) @map("sale_receipt_urls")
   createdAt       DateTime @default(now()) @map("created_at") @db.Timestamp
   updatedAt       DateTime @default(now()) @map("updated_at") @db.Timestamp
@@ -51,12 +51,12 @@ model Sale {
 }
 
 model Expense {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
-  title            String
-  value            Int
-  dateOfOccurrence DateTime @map("date_of_occurrence") @db.Date
-  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt        DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  value      Int
+  occurredAt DateTime @map("occurred_at") @db.Date
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamp
 
   @@map("expenses")
 }

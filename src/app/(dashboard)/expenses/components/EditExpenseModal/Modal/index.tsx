@@ -64,36 +64,36 @@ export function Modal({ isOpen, onClose, expense }: ModalProps) {
 
           <div className="flex flex-col gap-4 sm:flex-row">
             <div className="hidden space-y-2 sm:block sm:w-1/2">
-              <Label htmlFor="dateOfOccurrence">Data do ocorrido</Label>
+              <Label htmlFor="occurredAt">Data do ocorrido</Label>
 
               <Controller
                 control={control}
-                name="dateOfOccurrence"
+                name="occurredAt"
                 render={({ field: { value, onChange } }) => (
                   <DatePicker
                     value={value instanceof Date ? value : undefined}
                     onChange={onChange}
                     className={cn(
                       "w-full",
-                      !!errors.dateOfOccurrence?.message && "border-red-400"
+                      !!errors.occurredAt?.message && "border-red-400"
                     )}
                   />
                 )}
               />
 
-              {!!errors.dateOfOccurrence?.message && (
+              {!!errors.occurredAt?.message && (
                 <span className="text-xs text-red-400">
-                  {errors.dateOfOccurrence?.message}
+                  {errors.occurredAt?.message}
                 </span>
               )}
             </div>
 
             <div className="block space-y-2 sm:hidden sm:w-1/2">
-              <Label htmlFor="dateOfOccurrence">Data do ocorrido</Label>
+              <Label htmlFor="occurredAt">Data do ocorrido</Label>
 
               <Controller
                 control={control}
-                name="dateOfOccurrence"
+                name="occurredAt"
                 render={({ field: { value, onChange, onBlur } }) => (
                   <InputMask
                     id="entryDate"
@@ -102,7 +102,7 @@ export function Modal({ isOpen, onClose, expense }: ModalProps) {
                     value={typeof value == "string" ? value : undefined}
                     onChange={onChange}
                     onBlur={onBlur}
-                    error={errors.dateOfOccurrence?.message}
+                    error={errors.occurredAt?.message}
                   />
                 )}
               />

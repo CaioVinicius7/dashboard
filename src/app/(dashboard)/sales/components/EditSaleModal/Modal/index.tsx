@@ -72,36 +72,36 @@ export function Modal({ isOpen, onClose, sale }: ModalProps) {
 
           <div className="flex flex-col gap-4 sm:flex-row">
             <div className="hidden space-y-2 sm:block sm:w-1/2">
-              <Label htmlFor="dateOfSale">Data da venda</Label>
+              <Label htmlFor="occurredAt">Data da venda</Label>
 
               <Controller
                 control={control}
-                name="dateOfSale"
+                name="occurredAt"
                 render={({ field: { value, onChange } }) => (
                   <DatePicker
                     value={value instanceof Date ? value : undefined}
                     onChange={onChange}
                     className={cn(
                       "w-full",
-                      !!errors.dateOfSale?.message && "border-red-400"
+                      !!errors.occurredAt?.message && "border-red-400"
                     )}
                   />
                 )}
               />
 
-              {!!errors.dateOfSale?.message && (
+              {!!errors.occurredAt?.message && (
                 <span className="text-xs text-red-400">
-                  {errors.dateOfSale?.message}
+                  {errors.occurredAt?.message}
                 </span>
               )}
             </div>
 
             <div className="block space-y-2 sm:hidden sm:w-1/2">
-              <Label htmlFor="dateOfSale">Data da venda</Label>
+              <Label htmlFor="occurredAt">Data da venda</Label>
 
               <Controller
                 control={control}
-                name="dateOfSale"
+                name="occurredAt"
                 render={({ field: { value, onChange, onBlur } }) => (
                   <InputMask
                     id="entryDate"
@@ -110,7 +110,7 @@ export function Modal({ isOpen, onClose, sale }: ModalProps) {
                     value={typeof value == "string" ? value : undefined}
                     onChange={onChange}
                     onBlur={onBlur}
-                    error={errors.dateOfSale?.message}
+                    error={errors.occurredAt?.message}
                   />
                 )}
               />

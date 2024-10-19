@@ -22,7 +22,7 @@ const editSaleBodySchema = z.object({
     .string()
     .min(3, "O campo nome precisa ter no mínimo 3 caractere")
     .transform((value) => value.toLocaleLowerCase()),
-  dateOfSale: z.coerce.date({
+  occurredAt: z.coerce.date({
     required_error: "O campo é obrigatório"
   }),
   value: z.number({
@@ -57,13 +57,13 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
 
     const body = await req.json();
 
-    const { customer, dateOfSale, value, saleReceiptUrls } =
+    const { customer, occurredAt, value, saleReceiptUrls } =
       editSaleBodySchema.parse(body);
 
     const valueInCents = Math.round(value * 100);
 
     const isBeforeOrSameDate =
-      isBefore(dateOfSale, new Date()) || isSameDay(dateOfSale, new Date());
+      isBefore(occurredAt, new Date()) || isSameDay(occurredAt, new Date());
 
     if (!isBeforeOrSameDate) {
       return NextResponse.json(
@@ -82,7 +82,7 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
       },
       data: {
         customer,
-        dateOfSale,
+        occurredAt,
         value: valueInCents,
         saleReceiptUrls
       }

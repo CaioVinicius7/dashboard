@@ -6,14 +6,14 @@ type RegisterSaleParams = OmitTyped<Sale, "id" | "createdAt" | "updatedAt">;
 
 export async function register({
   customer,
-  dateOfSale,
+  occurredAt,
   value,
   saleReceiptUrls
 }: RegisterSaleParams) {
   await httpClient.post("sales/register", {
     json: {
       customer,
-      dateOfSale,
+      occurredAt,
       value,
       saleReceiptUrls
     }

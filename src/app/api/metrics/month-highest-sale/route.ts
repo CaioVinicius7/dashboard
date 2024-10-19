@@ -14,7 +14,7 @@ export async function GET() {
 
     const monthHighestSale = await prisma.sale.findFirst({
       where: {
-        dateOfSale: {
+        occurredAt: {
           gte: startOfCurrentMonth,
           lte: endOfCurrentMonth
         }

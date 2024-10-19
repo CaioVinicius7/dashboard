@@ -14,7 +14,7 @@ import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 
 const schema = z.object({
   customer: z.string().min(3, "Preencha o nome do cliente"),
-  dateOfSale: z
+  occurredAt: z
     .date({
       message: "Selecione a data da venda"
     })
@@ -134,10 +134,10 @@ export function useRegisterSaleModalController() {
     try {
       await registerSaleFn({
         ...data,
-        dateOfSale:
-          data.dateOfSale instanceof Date
-            ? data.dateOfSale.toISOString()
-            : parse(data.dateOfSale, "dd/MM/yyyy", new Date()).toISOString(),
+        occurredAt:
+          data.occurredAt instanceof Date
+            ? data.occurredAt.toISOString()
+            : parse(data.occurredAt, "dd/MM/yyyy", new Date()).toISOString(),
         value: currencyStringToNumber(data.value),
         saleReceiptUrls: data.saleReceiptUrls?.map(
           (saleReceiptUrl) => saleReceiptUrl.url
@@ -180,17 +180,17 @@ export function useRegisterSaleModalController() {
     control
   });
 
-  const dateOfSale = watchedValues.dateOfSale;
+  const occurredAt = watchedValues.occurredAt;
 
   useEffect(() => {
-    if (windowWidthIsSmOrAbove && typeof dateOfSale === "string") {
-      setValue("dateOfSale", parse(dateOfSale, "dd/MM/yyyy", new Date()));
+    if (windowWidthIsSmOrAbove && typeof occurredAt === "string") {
+      setValue("occurredAt", parse(occurredAt, "dd/MM/yyyy", new Date()));
     }
 
-    if (!windowWidthIsSmOrAbove && dateOfSale instanceof Date) {
-      setValue("dateOfSale", format(dateOfSale, "dd/MM/yyyy"));
+    if (!windowWidthIsSmOrAbove && occurredAt instanceof Date) {
+      setValue("occurredAt", format(occurredAt, "dd/MM/yyyy"));
     }
-  }, [windowWidthIsSmOrAbove, setValue, dateOfSale]);
+  }, [windowWidthIsSmOrAbove, setValue, occurredAt]);
 
   return {
     isOpen,

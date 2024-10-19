@@ -22,7 +22,7 @@ const editExpenseBodySchema = z.object({
     .string()
     .min(3, "O campo nome precisa ter no mínimo 3 caractere")
     .transform((value) => value?.toLocaleLowerCase()),
-  dateOfOccurrence: z.coerce.date({
+  occurredAt: z.coerce.date({
     required_error: "O campo é obrigatório"
   }),
   value: z.number({
@@ -54,14 +54,12 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
 
     const body = await req.json();
 
-    const { title, dateOfOccurrence, value } =
-      editExpenseBodySchema.parse(body);
+    const { title, occurredAt, value } = editExpenseBodySchema.parse(body);
 
     const valueInCents = Math.round(value * 100);
 
     const isBeforeOrSameDate =
-      isBefore(dateOfOccurrence, new Date()) ||
-      isSameDay(dateOfOccurrence, new Date());
+      isBefore(occurredAt, new Date()) || isSameDay(occurredAt, new Date());
 
     if (!isBeforeOrSameDate) {
       return NextResponse.json(
@@ -80,7 +78,7 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
       },
       data: {
         title,
-        dateOfOccurrence,
+        occurredAt,
         value: valueInCents
       }
     });

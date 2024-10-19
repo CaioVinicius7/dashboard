@@ -1,7 +1,7 @@
 export interface Sale {
   id: string;
   customer: string;
-  dateOfSale: string;
+  occurredAt: string;
   value: number;
   saleReceiptUrls?: string[];
   createdAt: string;

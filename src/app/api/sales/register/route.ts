@@ -9,7 +9,7 @@ const registerSaleBodySchema = z.object({
     .string()
     .min(3, "O campo nome precisa ter no mínimo 3 caractere")
     .transform((value) => value?.toLocaleLowerCase()),
-  dateOfSale: z.coerce.date({
+  occurredAt: z.coerce.date({
     required_error: "O campo é obrigatório"
   }),
   value: z.number({
@@ -25,13 +25,13 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const { customer, dateOfSale, value, saleReceiptUrls } =
+    const { customer, occurredAt, value, saleReceiptUrls } =
       registerSaleBodySchema.parse(body);
 
     const valueInCents = Math.round(value * 100);
 
     const isBeforeOrSameDate =
-      isBefore(dateOfSale, new Date()) || isSameDay(dateOfSale, new Date());
+      isBefore(occurredAt, new Date()) || isSameDay(occurredAt, new Date());
 
     if (!isBeforeOrSameDate) {
       return NextResponse.json(
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     await prisma.sale.create({
       data: {
         customer,
-        dateOfSale,
+        occurredAt,
         value: valueInCents,
         saleReceiptUrls
       }

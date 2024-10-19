@@ -9,13 +9,13 @@ interface EditExpenseParams {
 
 export async function edit({
   id,
-  data: { title, dateOfOccurrence, value }
+  data: { title, occurredAt, value }
 }: EditExpenseParams) {
   await httpClient.put(`expenses/edit/${id}`, {
     json: {
       title,
       value,
-      dateOfOccurrence
+      occurredAt
     }
   });
 }

@@ -28,7 +28,7 @@ export async function GET() {
           value: true
         },
         where: {
-          dateOfSale: {
+          occurredAt: {
             gte: startOfCurrentMonth,
             lte: endOfCurrentMonth
           }
@@ -39,7 +39,7 @@ export async function GET() {
           value: true
         },
         where: {
-          dateOfSale: {
+          occurredAt: {
             gte: startOfPreviousMonth,
             lte: endOfPreviousMonth
           }
@@ -50,7 +50,7 @@ export async function GET() {
           value: true
         },
         where: {
-          dateOfOccurrence: {
+          occurredAt: {
             gte: startOfCurrentMonth,
             lte: endOfCurrentMonth
           }
@@ -61,7 +61,7 @@ export async function GET() {
           value: true
         },
         where: {
-          dateOfOccurrence: {
+          occurredAt: {
             gte: startOfPreviousMonth,
             lte: endOfPreviousMonth
           }

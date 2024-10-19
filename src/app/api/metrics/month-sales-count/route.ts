@@ -21,7 +21,7 @@ export async function GET() {
       await prisma.$transaction([
         prisma.sale.count({
           where: {
-            dateOfSale: {
+            occurredAt: {
               gte: startOfCurrentMonth,
               lte: endOfCurrentMonth
             }
@@ -29,7 +29,7 @@ export async function GET() {
         }),
         prisma.sale.count({
           where: {
-            dateOfSale: {
+            occurredAt: {
               gte: startOfPreviousMonth,
               lte: endOfPreviousMonth
             }

@@ -23,24 +23,24 @@ export async function GET(request: NextRequest) {
     const parsedMonth = parse(`${year}-${month}-01`, "yyyy-MM-dd", new Date());
 
     const sales = await prisma.sale.groupBy({
-      by: ["dateOfSale"],
+      by: ["occurredAt"],
       _sum: {
         value: true
       },
       where: {
-        dateOfSale: {
+        occurredAt: {
           gte: startOfMonth(parsedMonth),
           lte: endOfMonth(parsedMonth)
         }
       },
       orderBy: {
-        dateOfSale: "asc"
+        occurredAt: "asc"
       }
     });
 
     const formattedSales = sales.map((sale) => ({
       receipt: (sale._sum.value ?? 0) / 100,
-      date: sale.dateOfSale
+      date: sale.occurredAt
     }));
 
     const response = NextResponse.json(

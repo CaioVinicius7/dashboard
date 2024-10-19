@@ -16,7 +16,7 @@ export function ExpenseRow({ expense }: ExpenseRowProps) {
     <TableRow key={expense.id}>
       <TableCell>{capitalizeFirstLetters(expense.title)}</TableCell>
       <TableCell>{formatCurrency(expense.value)}</TableCell>
-      <TableCell>{formatDate(expense.dateOfOccurrence)}</TableCell>
+      <TableCell>{formatDate(expense.occurredAt)}</TableCell>
       <TableCell>{formatDate(expense.createdAt)}</TableCell>
       <TableCell>{formatDate(expense.updatedAt)}</TableCell>
       <TableCell className="flex items-center gap-2">

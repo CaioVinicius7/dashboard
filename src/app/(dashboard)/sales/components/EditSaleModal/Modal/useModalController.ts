@@ -16,7 +16,7 @@ import type { OmitTyped } from "@/utils/typeUtils";
 
 const schema = z.object({
   customer: z.string().min(3, "Preencha o nome do cliente"),
-  dateOfSale: z
+  occurredAt: z
     .date({
       message: "Selecione a data da venda"
     })
@@ -113,9 +113,9 @@ export function useModalController({
     resolver: zodResolver(schema),
     defaultValues: {
       customer: sale.customer,
-      dateOfSale: windowWidthIsSmOrAbove
-        ? new Date(sale.dateOfSale)
-        : format(new Date(sale.dateOfSale), "dd/MM/yyyy"),
+      occurredAt: windowWidthIsSmOrAbove
+        ? new Date(sale.occurredAt)
+        : format(new Date(sale.occurredAt), "dd/MM/yyyy"),
       value: sale.value,
       saleReceiptUrls: sale.saleReceiptUrls?.map((url) => ({ url }))
     }
@@ -144,10 +144,10 @@ export function useModalController({
         id: sale.id,
         data: {
           ...data,
-          dateOfSale:
-            data.dateOfSale instanceof Date
-              ? data.dateOfSale.toISOString()
-              : parse(data.dateOfSale, "dd/MM/yyyy", new Date()).toISOString(),
+          occurredAt:
+            data.occurredAt instanceof Date
+              ? data.occurredAt.toISOString()
+              : parse(data.occurredAt, "dd/MM/yyyy", new Date()).toISOString(),
           value: currencyStringToNumber(data.value),
           saleReceiptUrls: data.saleReceiptUrls?.map(
             (saleReceiptUrl) => saleReceiptUrl.url
@@ -183,13 +183,13 @@ export function useModalController({
 
   useEffect(() => {
     if (windowWidthIsSmOrAbove) {
-      setValue("dateOfSale", new Date(sale.dateOfSale));
-      clearErrors("dateOfSale");
+      setValue("occurredAt", new Date(sale.occurredAt));
+      clearErrors("occurredAt");
     } else {
-      setValue("dateOfSale", format(new Date(sale.dateOfSale), "dd/MM/yyyy"));
-      clearErrors("dateOfSale");
+      setValue("occurredAt", format(new Date(sale.occurredAt), "dd/MM/yyyy"));
+      clearErrors("occurredAt");
     }
-  }, [windowWidthIsSmOrAbove, setValue, clearErrors, sale.dateOfSale]);
+  }, [windowWidthIsSmOrAbove, setValue, clearErrors, sale.occurredAt]);
 
   return {
     register,

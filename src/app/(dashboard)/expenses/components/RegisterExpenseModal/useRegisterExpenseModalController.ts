@@ -14,7 +14,7 @@ import { currencyStringToNumber } from "@/utils/currencyStringToNumber";
 
 const schema = z.object({
   title: z.string().min(3, "Preencha o título"),
-  dateOfOccurrence: z
+  occurredAt: z
     .date({
       message: "Selecione a data da despesa"
     })
@@ -109,14 +109,10 @@ export function useRegisterExpenseModalController() {
     try {
       await registerExpenseFn({
         ...data,
-        dateOfOccurrence:
-          data.dateOfOccurrence instanceof Date
-            ? data.dateOfOccurrence.toISOString()
-            : parse(
-                data.dateOfOccurrence,
-                "dd/MM/yyyy",
-                new Date()
-              ).toISOString(),
+        occurredAt:
+          data.occurredAt instanceof Date
+            ? data.occurredAt.toISOString()
+            : parse(data.occurredAt, "dd/MM/yyyy", new Date()).toISOString(),
         value: currencyStringToNumber(data.value)
       });
 
@@ -156,20 +152,17 @@ export function useRegisterExpenseModalController() {
     control
   });
 
-  const dateOfOccurrence = watchedValues.dateOfOccurrence;
+  const occurredAt = watchedValues.occurredAt;
 
   useEffect(() => {
-    if (windowWidthIsSmOrAbove && typeof dateOfOccurrence === "string") {
-      setValue(
-        "dateOfOccurrence",
-        parse(dateOfOccurrence, "dd/MM/yyyy", new Date())
-      );
+    if (windowWidthIsSmOrAbove && typeof occurredAt === "string") {
+      setValue("occurredAt", parse(occurredAt, "dd/MM/yyyy", new Date()));
     }
 
-    if (!windowWidthIsSmOrAbove && dateOfOccurrence instanceof Date) {
-      setValue("dateOfOccurrence", format(dateOfOccurrence, "dd/MM/yyyy"));
+    if (!windowWidthIsSmOrAbove && occurredAt instanceof Date) {
+      setValue("occurredAt", format(occurredAt, "dd/MM/yyyy"));
     }
-  }, [windowWidthIsSmOrAbove, setValue, dateOfOccurrence]);
+  }, [windowWidthIsSmOrAbove, setValue, occurredAt]);
 
   return {
     isOpen,

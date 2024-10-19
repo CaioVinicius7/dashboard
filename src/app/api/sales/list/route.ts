@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
           customer: {
             contains: customer
           },
-          dateOfSale: dateOfSaleFilter
+          occurredAt: dateOfSaleFilter
         },
         orderBy: {
           createdAt: "desc"
@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
           customer: {
             contains: customer
           },
-          dateOfSale: dateOfSaleFilter
+          occurredAt: dateOfSaleFilter
         }
       })
     ]);

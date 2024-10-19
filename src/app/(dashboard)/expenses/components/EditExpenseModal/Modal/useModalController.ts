@@ -19,7 +19,7 @@ const schema = z.object({
     .string()
     .min(3, "Preencha o título")
     .transform((value) => value.toLowerCase()),
-  dateOfOccurrence: z
+  occurredAt: z
     .date({
       message: "Selecione a data da despesa"
     })
@@ -111,9 +111,9 @@ export function useModalController({
     defaultValues: {
       title: expense.title,
       value: expense.value,
-      dateOfOccurrence: windowWidthIsSmOrAbove
-        ? new Date(expense.dateOfOccurrence)
-        : format(new Date(expense.dateOfOccurrence), "dd/MM/yyyy")
+      occurredAt: windowWidthIsSmOrAbove
+        ? new Date(expense.occurredAt)
+        : format(new Date(expense.occurredAt), "dd/MM/yyyy")
     }
   });
 
@@ -124,14 +124,10 @@ export function useModalController({
         data: {
           ...data,
           value: currencyStringToNumber(data.value),
-          dateOfOccurrence:
-            data.dateOfOccurrence instanceof Date
-              ? data.dateOfOccurrence.toISOString()
-              : parse(
-                  data.dateOfOccurrence,
-                  "dd/MM/yyyy",
-                  new Date()
-                ).toISOString()
+          occurredAt:
+            data.occurredAt instanceof Date
+              ? data.occurredAt.toISOString()
+              : parse(data.occurredAt, "dd/MM/yyyy", new Date()).toISOString()
         }
       });
 
@@ -165,18 +161,18 @@ export function useModalController({
 
   useEffect(() => {
     if (windowWidthIsSmOrAbove) {
-      setValue("dateOfOccurrence", new Date(expense.dateOfOccurrence));
+      setValue("occurredAt", new Date(expense.occurredAt));
 
-      clearErrors("dateOfOccurrence");
+      clearErrors("occurredAt");
     } else {
       setValue(
-        "dateOfOccurrence",
-        format(new Date(expense.dateOfOccurrence), "dd/MM/yyyy")
+        "occurredAt",
+        format(new Date(expense.occurredAt), "dd/MM/yyyy")
       );
 
-      clearErrors("dateOfOccurrence");
+      clearErrors("occurredAt");
     }
-  }, [windowWidthIsSmOrAbove, setValue, clearErrors, expense.dateOfOccurrence]);
+  }, [windowWidthIsSmOrAbove, setValue, clearErrors, expense.occurredAt]);
 
   return {
     register,

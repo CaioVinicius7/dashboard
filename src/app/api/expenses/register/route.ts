@@ -9,7 +9,7 @@ const registerExpenseBodySchema = z.object({
     .string()
     .min(3, "O campo nome precisa ter no mínimo 3 caractere")
     .transform((value) => value?.toLocaleLowerCase()),
-  dateOfOccurrence: z.coerce.date({
+  occurredAt: z.coerce.date({
     required_error: "O campo é obrigatório"
   }),
   value: z.number({
@@ -22,14 +22,12 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const { title, dateOfOccurrence, value } =
-      registerExpenseBodySchema.parse(body);
+    const { title, occurredAt, value } = registerExpenseBodySchema.parse(body);
 
     const valueInCents = Math.round(value * 100);
 
     const isBeforeOrSameDate =
-      isBefore(dateOfOccurrence, new Date()) ||
-      isSameDay(dateOfOccurrence, new Date());
+      isBefore(occurredAt, new Date()) || isSameDay(occurredAt, new Date());
 
     if (!isBeforeOrSameDate) {
       return NextResponse.json(
@@ -45,7 +43,7 @@ export async function POST(request: NextRequest) {
     await prisma.expense.create({
       data: {
         title,
-        dateOfOccurrence,
+        occurredAt,
         value: valueInCents
       }
     });

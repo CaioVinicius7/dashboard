@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
           title: {
             contains: title
           },
-          dateOfOccurrence: dateOfOccurrenceFilter
+          occurredAt: dateOfOccurrenceFilter
         },
         orderBy: {
           createdAt: "desc"
@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
           title: {
             contains: title
           },
-          dateOfOccurrence: dateOfOccurrenceFilter
+          occurredAt: dateOfOccurrenceFilter
         }
       })
     ]);
