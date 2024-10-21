@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
           occurredAt: dateOfSaleFilter
         },
         orderBy: {
-          createdAt: "desc"
+          occurredAt: "desc"
         }
       }),
       prisma.sale.count({
