@@ -159,7 +159,7 @@ export function RegisterSaleModal() {
             </div>
           )}
 
-          {saleReceiptUrlsFields.length < 3 && (
+          {saleReceiptUrlsFields.length < 2 && (
             <Button
               variant="ghost"
               size="sm"
