@@ -41,6 +41,7 @@ model Employee {
 model Sale {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
   customer        String
+  customerContact String?  @map("customer_contact")
   value           Int
   occurredAt      DateTime @map("occurred_at") @db.Date
   saleReceiptUrls String[] @default([]) @map("sale_receipt_urls")

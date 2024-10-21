@@ -34,10 +34,9 @@ export default function Loading() {
           <TableHeader>
             <TableRow>
               <TableHead>Cliente</TableHead>
-              <TableHead className="w-[175px]">valor</TableHead>
+              <TableHead className="w-[175px]">Valor</TableHead>
               <TableHead className="w-[175px]">Data da venda</TableHead>
-              <TableHead className="w-[175px]">Data da registro</TableHead>
-              <TableHead className="w-[175px]">Data da atualização</TableHead>
+              <TableHead className="w-[175px]">Telefone do cliente</TableHead>
               <TableHead className="w-[150px]" />
               <TableHead className="w-[150px]" />
             </TableRow>
@@ -54,9 +53,6 @@ export default function Loading() {
                 </TableCell>
                 <TableCell>
                   <Skeleton className="h-5 w-28" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton className="h-5 w-20" />
                 </TableCell>
                 <TableCell>
                   <Skeleton className="h-5 w-20" />

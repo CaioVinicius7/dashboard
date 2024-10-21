@@ -22,6 +22,10 @@ const editSaleBodySchema = z.object({
     .string()
     .min(3, "O campo nome precisa ter no mínimo 3 caractere")
     .transform((value) => value.toLocaleLowerCase()),
+  customerContact: z
+    .string()
+    .min(16, "O campo telefone do cliente precisa ser preenchido corretamente")
+    .optional(),
   occurredAt: z.coerce.date({
     required_error: "O campo é obrigatório"
   }),
@@ -57,7 +61,7 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
 
     const body = await req.json();
 
-    const { customer, occurredAt, value, saleReceiptUrls } =
+    const { customer, customerContact, occurredAt, value, saleReceiptUrls } =
       editSaleBodySchema.parse(body);
 
     const valueInCents = Math.round(value * 100);
@@ -82,6 +86,7 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
       },
       data: {
         customer,
+        customerContact,
         occurredAt,
         value: valueInCents,
         saleReceiptUrls

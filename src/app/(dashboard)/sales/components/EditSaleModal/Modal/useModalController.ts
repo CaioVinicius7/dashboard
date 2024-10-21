@@ -16,6 +16,10 @@ import type { OmitTyped } from "@/utils/typeUtils";
 
 const schema = z.object({
   customer: z.string().min(3, "Preencha o nome do cliente"),
+  customerContact: z
+    .string()
+    .min(16, "Preencha o telefone corretamente")
+    .optional(),
   occurredAt: z
     .date({
       message: "Selecione a data da venda"
@@ -113,6 +117,7 @@ export function useModalController({
     resolver: zodResolver(schema),
     defaultValues: {
       customer: sale.customer,
+      customerContact: sale.customerContact,
       occurredAt: windowWidthIsSmOrAbove
         ? new Date(sale.occurredAt)
         : format(new Date(sale.occurredAt), "dd/MM/yyyy"),

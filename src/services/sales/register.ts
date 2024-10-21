@@ -6,6 +6,7 @@ type RegisterSaleParams = OmitTyped<Sale, "id" | "createdAt" | "updatedAt">;
 
 export async function register({
   customer,
+  customerContact,
   occurredAt,
   value,
   saleReceiptUrls
@@ -13,6 +14,7 @@ export async function register({
   await httpClient.post("sales/register", {
     json: {
       customer,
+      customerContact,
       occurredAt,
       value,
       saleReceiptUrls

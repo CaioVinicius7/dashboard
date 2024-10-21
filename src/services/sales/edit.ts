@@ -9,11 +9,12 @@ interface EditSaleParams {
 
 export async function edit({
   id,
-  data: { customer, occurredAt, value, saleReceiptUrls }
+  data: { customer, customerContact, occurredAt, value, saleReceiptUrls }
 }: EditSaleParams) {
   await httpClient.put(`sales/edit/${id}`, {
     json: {
       customer,
+      customerContact,
       occurredAt,
       value,
       saleReceiptUrls

@@ -60,14 +60,35 @@ export function RegisterSaleModal() {
           onSubmit={handleSubmit}
           className="mt-4 space-y-6"
         >
-          <div className="space-y-2">
-            <Label htmlFor="customer">Cliente</Label>
-            <Input
-              id="customer"
-              autoComplete="off"
-              error={errors.customer?.message}
-              {...register("customer")}
-            />
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="space-y-2 sm:w-1/2">
+              <Label htmlFor="customer">Cliente</Label>
+              <Input
+                id="customer"
+                autoComplete="off"
+                error={errors.customer?.message}
+                {...register("customer")}
+              />
+            </div>
+
+            <div className="space-y-2 sm:w-1/2">
+              <Label htmlFor="customerContact">Telefone do cliente</Label>
+
+              <Controller
+                control={control}
+                name="customerContact"
+                render={({ field: { value, onChange, onBlur } }) => (
+                  <InputMask
+                    id="phone"
+                    mask="(99) 9 9999-9999"
+                    value={value}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    error={errors.customerContact?.message}
+                  />
+                )}
+              />
+            </div>
           </div>
 
           <div className="flex flex-col gap-4 sm:flex-row">
@@ -104,7 +125,7 @@ export function RegisterSaleModal() {
                 name="occurredAt"
                 render={({ field: { value, onChange, onBlur } }) => (
                   <InputMask
-                    id="entryDate"
+                    id="occurredAt"
                     mask="99/99/9999"
                     placeholder={format(new Date(), "dd/LL/y")}
                     value={typeof value == "string" ? value : undefined}

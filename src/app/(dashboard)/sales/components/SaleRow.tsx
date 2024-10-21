@@ -20,8 +20,11 @@ export function SaleRow({ sale }: SaleRowProps) {
       </TableCell>
       <TableCell>{formatCurrency(sale.value)}</TableCell>
       <TableCell>{formatDate(sale.occurredAt)}</TableCell>
-      <TableCell>{formatDate(sale.createdAt)}</TableCell>
-      <TableCell>{formatDate(sale.updatedAt)}</TableCell>
+      <TableCell>
+        {sale.customerContact ?? (
+          <span className="text-xs text-muted-foreground">Não informado</span>
+        )}
+      </TableCell>
 
       <TableCell>
         <SaleReceiptsModal saleReceiptsUrl={sale.saleReceiptUrls} />
@@ -32,6 +35,7 @@ export function SaleRow({ sale }: SaleRowProps) {
           sale={{
             id: sale.id,
             customer: sale.customer,
+            customerContact: sale.customerContact,
             occurredAt: sale.occurredAt,
             value: sale.value,
             saleReceiptUrls: sale.saleReceiptUrls

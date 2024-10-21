@@ -74,12 +74,12 @@ export default async function SalesPage({ searchParams }: SearchProps) {
               <TableHeader>
                 <TableRow>
                   <TableHead className="min-w-[175px]">Cliente</TableHead>
-                  <TableHead className="w-[175px]">valor</TableHead>
+                  <TableHead className="w-[175px]">Valor</TableHead>
                   <TableHead className="w-[175px]">Data da venda</TableHead>
-                  <TableHead className="w-[175px]">Data da registro</TableHead>
                   <TableHead className="w-[175px]">
-                    Data de atualização
+                    Telefone do cliente
                   </TableHead>
+
                   <TableHead className="w-[150px]" />
                   <TableHead className="w-[150px]" />
                 </TableRow>

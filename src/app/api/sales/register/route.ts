@@ -9,6 +9,10 @@ const registerSaleBodySchema = z.object({
     .string()
     .min(3, "O campo nome precisa ter no mínimo 3 caractere")
     .transform((value) => value?.toLocaleLowerCase()),
+  customerContact: z
+    .string()
+    .min(16, "O campo telefone do cliente precisa ser preenchido corretamente")
+    .optional(),
   occurredAt: z.coerce.date({
     required_error: "O campo é obrigatório"
   }),
@@ -25,7 +29,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const { customer, occurredAt, value, saleReceiptUrls } =
+    const { customer, customerContact, occurredAt, value, saleReceiptUrls } =
       registerSaleBodySchema.parse(body);
 
     const valueInCents = Math.round(value * 100);
@@ -47,6 +51,7 @@ export async function POST(request: NextRequest) {
     await prisma.sale.create({
       data: {
         customer,
+        customerContact,
         occurredAt,
         value: valueInCents,
         saleReceiptUrls
