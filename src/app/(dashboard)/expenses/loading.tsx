@@ -34,7 +34,7 @@ export default function Loading() {
           <TableHeader>
             <TableRow>
               <TableHead className="min-w-[175px]">Título</TableHead>
-              <TableHead className="w-[175px]">valor</TableHead>
+              <TableHead className="w-[175px]">Valor</TableHead>
               <TableHead className="w-[175px]">Data do ocorrido</TableHead>
               <TableHead className="w-[175px]">Data de registro</TableHead>
               <TableHead className="w-[175px]">Data de atualização</TableHead>
