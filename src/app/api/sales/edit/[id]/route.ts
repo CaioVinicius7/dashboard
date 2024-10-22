@@ -24,8 +24,12 @@ const editSaleBodySchema = z.object({
     .transform((value) => value.toLocaleLowerCase()),
   customerContact: z
     .string()
-    .min(16, "O campo telefone do cliente precisa ser preenchido corretamente")
-    .optional(),
+    .nullable()
+    .optional()
+    .refine((value) => !value || value.length === 16, {
+      message: "O campo telefone do cliente precisa ser preenchido corretamente"
+    })
+    .transform((value) => (value === "" ? null : value)),
   occurredAt: z.coerce.date({
     required_error: "O campo é obrigatório"
   }),

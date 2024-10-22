@@ -18,8 +18,11 @@ const schema = z.object({
   customer: z.string().min(3, "Preencha o nome do cliente"),
   customerContact: z
     .string()
-    .min(16, "Preencha o telefone corretamente")
-    .optional(),
+    .optional()
+    .refine((value) => !value || value.length === 16, {
+      message: "Preencha o telefone corretamente"
+    })
+    .transform((value) => (value === "" ? null : value)),
   occurredAt: z
     .date({
       message: "Selecione a data da venda"
