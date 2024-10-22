@@ -81,7 +81,7 @@ export function RegisterSaleModal() {
                   <InputMask
                     id="phone"
                     mask="(99) 9 9999-9999"
-                    value={value}
+                    value={value ?? undefined}
                     onChange={onChange}
                     onBlur={onBlur}
                     error={errors.customerContact?.message}
