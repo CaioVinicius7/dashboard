@@ -79,6 +79,9 @@ export default async function SalesPage({ searchParams }: SearchProps) {
                   <TableHead className="w-[175px]">
                     Telefone do cliente
                   </TableHead>
+                  <TableHead className="w-[175px]">
+                    Status do pagamento
+                  </TableHead>
 
                   <TableHead className="w-[150px]" />
                   <TableHead className="w-[150px]" />

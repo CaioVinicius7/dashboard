@@ -1,6 +1,6 @@
 import { isBefore, isSameDay } from "date-fns";
 import { type NextRequest, NextResponse } from "next/server";
-import { z, ZodError } from "zod";
+import { boolean, z, ZodError } from "zod";
 
 import { prisma } from "@/lib/prisma";
 
@@ -24,6 +24,7 @@ const registerSaleBodySchema = z.object({
     required_error: "O campo valor precisa ser informado",
     invalid_type_error: "O campo valor precisa ser do tipo numérico"
   }),
+  paymentIsComplete: z.boolean().default(false),
   saleReceiptUrls: z
     .array(z.string().url("Preencha com uma URL válida"))
     .optional()
@@ -33,8 +34,14 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const { customer, customerContact, occurredAt, value, saleReceiptUrls } =
-      registerSaleBodySchema.parse(body);
+    const {
+      customer,
+      customerContact,
+      occurredAt,
+      value,
+      paymentIsComplete,
+      saleReceiptUrls
+    } = registerSaleBodySchema.parse(body);
 
     const valueInCents = Math.round(value * 100);
 
@@ -58,6 +65,7 @@ export async function POST(request: NextRequest) {
         customerContact,
         occurredAt,
         value: valueInCents,
+        paymentIsComplete,
         saleReceiptUrls
       }
     });

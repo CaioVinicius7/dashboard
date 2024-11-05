@@ -1,3 +1,5 @@
+import { CircleCheck, CircleDashed } from "lucide-react";
+
 import { TableCell, TableRow } from "@/components/ui/table";
 import type { Sale } from "@/entities/Sale";
 import { capitalizeFirstLetters } from "@/utils/capitalizeFirstLetters";
@@ -25,6 +27,19 @@ export function SaleRow({ sale }: SaleRowProps) {
           <span className="text-xs text-muted-foreground">Não informado</span>
         )}
       </TableCell>
+      <TableCell className="flex items-center gap-2">
+        {sale.paymentIsComplete ? (
+          <>
+            <CircleCheck className="size-4 text-emerald-500" />
+            <span>Concluído</span>
+          </>
+        ) : (
+          <>
+            <CircleDashed className="size-4 text-amber-400" />
+            <span>Pendente</span>
+          </>
+        )}
+      </TableCell>
 
       <TableCell>
         <SaleReceiptsModal saleReceiptsUrl={sale.saleReceiptUrls} />
@@ -38,6 +53,7 @@ export function SaleRow({ sale }: SaleRowProps) {
             customerContact: sale.customerContact,
             occurredAt: sale.occurredAt,
             value: sale.value,
+            paymentIsComplete: sale.paymentIsComplete,
             saleReceiptUrls: sale.saleReceiptUrls
           }}
         />

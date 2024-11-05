@@ -9,6 +9,7 @@ import { DatePicker } from "@/components/DatePicker";
 import { Input } from "@/components/Input";
 import { InputCurrency } from "@/components/InputCurrency";
 import { InputMask } from "@/components/InputMask";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogClose,
@@ -35,6 +36,7 @@ export function RegisterSaleModal() {
     saleReceiptUrlsFields,
     appendSaleReceiptField,
     removeSaleReceiptField,
+    hasSalesReceiptFilledIn,
     isLoading
   } = useRegisterSaleModalController();
 
@@ -153,6 +155,28 @@ export function RegisterSaleModal() {
                 )}
               />
             </div>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Controller
+              control={control}
+              name="paymentIsComplete"
+              render={({ field: { value, onChange } }) => (
+                <Checkbox
+                  id="paymentIsComplete"
+                  checked={value || hasSalesReceiptFilledIn}
+                  onCheckedChange={onChange}
+                  defaultChecked={false}
+                />
+              )}
+            />
+
+            <label
+              htmlFor="paymentIsComplete"
+              className="text-sm font-medium leading-none"
+            >
+              O pagamento ja foi realizado
+            </label>
           </div>
 
           {hasSaleReceiptUrls && (

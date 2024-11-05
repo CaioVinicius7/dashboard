@@ -39,14 +39,15 @@ model Employee {
 }
 
 model Sale {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  customer        String
-  customerContact String?  @map("customer_contact")
-  value           Int
-  occurredAt      DateTime @map("occurred_at") @db.Date
-  saleReceiptUrls String[] @default([]) @map("sale_receipt_urls")
-  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt       DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  customer          String
+  customerContact   String?  @map("customer_contact")
+  value             Int
+  occurredAt        DateTime @map("occurred_at") @db.Date
+  paymentIsComplete Boolean  @default(false) @map("payment_is_complete")
+  saleReceiptUrls   String[] @default([]) @map("sale_receipt_urls")
+  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt         DateTime @default(now()) @map("updated_at") @db.Timestamp
 
   @@map("sales")
 }

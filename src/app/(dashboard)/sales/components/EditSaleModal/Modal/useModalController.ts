@@ -77,6 +77,10 @@ const schema = z.object({
         message: "O valor mínimo é R$1"
       }
     ),
+  paymentIsComplete: z
+    .union([z.literal("on"), z.literal("off"), z.boolean()])
+    .transform((value) => value === true || value === "on")
+    .default(false),
   saleReceiptUrls: z
     .array(
       z.object({
@@ -115,7 +119,8 @@ export function useModalController({
     setValue,
     clearErrors,
     formState: { errors, isSubmitting },
-    control
+    control,
+    watch
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -125,7 +130,8 @@ export function useModalController({
         ? new Date(sale.occurredAt)
         : format(new Date(sale.occurredAt), "dd/MM/yyyy"),
       value: sale.value,
-      saleReceiptUrls: sale.saleReceiptUrls?.map((url) => ({ url }))
+      saleReceiptUrls: sale.saleReceiptUrls?.map((url) => ({ url })),
+      paymentIsComplete: sale.paymentIsComplete
     }
   });
 
@@ -139,6 +145,11 @@ export function useModalController({
   });
 
   const hasSaleReceiptUrls = saleReceiptUrlsFields.length >= 1;
+
+  const saleReceiptUrls = watch("saleReceiptUrls");
+  const hasSalesReceiptFilledIn =
+    hasSaleReceiptUrls &&
+    saleReceiptUrls?.every((saleReceiptUrl) => saleReceiptUrl.url);
 
   function appendSaleReceiptField() {
     append({
@@ -208,6 +219,7 @@ export function useModalController({
     saleReceiptUrlsFields,
     appendSaleReceiptField,
     removeSaleReceiptField,
+    hasSalesReceiptFilledIn,
     isLoading: isPending && isSubmitting
   };
 }

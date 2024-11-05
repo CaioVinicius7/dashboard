@@ -4,6 +4,7 @@ export interface Sale {
   customerContact?: string | null;
   occurredAt: string;
   value: number;
+  paymentIsComplete: boolean;
   saleReceiptUrls?: string[];
   createdAt: string;
   updatedAt: string;

@@ -37,6 +37,7 @@ const editSaleBodySchema = z.object({
     required_error: "O campo salário precisa ser informado",
     invalid_type_error: "O campo salário precisa ser do tipo numérico"
   }),
+  paymentIsComplete: z.boolean().default(false),
   saleReceiptUrls: z
     .array(z.string().url("Preencha com uma URL válida"))
     .optional()
@@ -65,8 +66,14 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
 
     const body = await req.json();
 
-    const { customer, customerContact, occurredAt, value, saleReceiptUrls } =
-      editSaleBodySchema.parse(body);
+    const {
+      customer,
+      customerContact,
+      occurredAt,
+      value,
+      paymentIsComplete,
+      saleReceiptUrls
+    } = editSaleBodySchema.parse(body);
 
     const valueInCents = Math.round(value * 100);
 
@@ -93,6 +100,7 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
         customerContact,
         occurredAt,
         value: valueInCents,
+        paymentIsComplete,
         saleReceiptUrls
       }
     });

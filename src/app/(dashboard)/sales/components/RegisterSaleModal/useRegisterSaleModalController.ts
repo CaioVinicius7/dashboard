@@ -77,6 +77,10 @@ const schema = z.object({
         message: "O valor mínimo é R$1"
       }
     ),
+  paymentIsComplete: z
+    .union([z.literal("on"), z.literal("off"), z.boolean()])
+    .transform((value) => value === true || value === "on")
+    .default(false),
   saleReceiptUrls: z
     .array(
       z.object({
@@ -115,7 +119,8 @@ export function useRegisterSaleModalController() {
     formState: { errors, isSubmitting },
     control,
     setValue,
-    reset
+    reset,
+    watch
   } = useForm<FormData>({
     resolver: zodResolver(schema)
   });
@@ -136,6 +141,11 @@ export function useRegisterSaleModalController() {
   }
 
   const hasSaleReceiptUrls = saleReceiptUrlsFields.length >= 1;
+
+  const saleReceiptUrls = watch("saleReceiptUrls");
+  const hasSalesReceiptFilledIn =
+    hasSaleReceiptUrls &&
+    saleReceiptUrls?.every((saleReceiptUrl) => saleReceiptUrl.url);
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
@@ -210,6 +220,7 @@ export function useRegisterSaleModalController() {
     saleReceiptUrlsFields,
     appendSaleReceiptField,
     removeSaleReceiptField,
+    hasSalesReceiptFilledIn,
     isLoading: isPending && isSubmitting
   };
 }

@@ -9,6 +9,7 @@ export async function register({
   customerContact,
   occurredAt,
   value,
+  paymentIsComplete,
   saleReceiptUrls
 }: RegisterSaleParams) {
   await httpClient.post("sales/register", {
@@ -17,6 +18,7 @@ export async function register({
       customerContact,
       occurredAt,
       value,
+      paymentIsComplete,
       saleReceiptUrls
     }
   });
