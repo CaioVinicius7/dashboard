@@ -7,7 +7,7 @@ import { CURRENT_YEAR } from "@/utils/constants";
 import { MonthExpensesAmountCard } from "./components/MonthExpensesAmountCard";
 import { MonthExpensesCountCard } from "./components/MonthExpensesCountCard";
 import { MonthHighestExpenseCard } from "./components/MonthHighestExpenseCard";
-import { MonthHighestSaleCard } from "./components/MonthHighestSaleCard";
+import { MonthPendingPaymentsCard } from "./components/MonthPendingPaymentsCard";
 import { MonthSalesAmountCard } from "./components/MonthSalesAmountCard";
 import { MonthSalesCountCard } from "./components/MonthSalesCountCard ";
 import { MonthTotalProfitCard } from "./components/MonthTotalProfitCard";
@@ -33,7 +33,7 @@ export default async function HomePage() {
 
               <MonthSalesAmountCard />
 
-              <MonthHighestSaleCard />
+              <MonthPendingPaymentsCard />
 
               <MonthExpensesCountCard />
 
