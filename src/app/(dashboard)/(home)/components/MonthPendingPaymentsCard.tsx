@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { metricsService } from "@/services/metrics";
-import { CURRENT_YEAR } from "@/utils/constants";
+import { CURRENT_MONTH, CURRENT_YEAR } from "@/utils/constants";
 import { formatCurrency } from "@/utils/formatCurrency";
 
 export const revalidate = 10; // 10 seg
@@ -11,8 +11,6 @@ export const revalidate = 10; // 10 seg
 export async function MonthPendingPaymentsCard() {
   const { totalPendingPayments, salesWithPendingPaymentsCount } =
     await metricsService.getMonthPendingPayments();
-
-  const currentMonth = new Date().getMonth() + 1;
 
   return (
     <Card>
@@ -32,7 +30,7 @@ export async function MonthPendingPaymentsCard() {
         <p className="text-xs text-muted-foreground">
           Este valor é referente á{" "}
           <Link
-            href={`/sales?paymentStatus=pending&year=${CURRENT_YEAR}&month=${currentMonth}&page=1`}
+            href={`/sales?paymentStatus=pending&year=${CURRENT_YEAR}&month=${CURRENT_MONTH}&page=1`}
             className="bold hover:underline"
           >
             {salesWithPendingPaymentsCount} vendas
