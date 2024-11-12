@@ -35,8 +35,7 @@ export async function MonthHighestSaleCard() {
             </span>
 
             <p className="truncate text-xs text-muted-foreground">
-              Venda realizada para{" "}
-              <span className="font-bold">{monthHighestSale.customer}</span>
+              Venda realizada para <strong>{monthHighestSale.customer}</strong>
             </p>
           </>
         )}
