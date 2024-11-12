@@ -28,6 +28,7 @@ interface SearchProps {
     page?: string;
     perPage?: string;
     customer?: string;
+    paymentStatus?: string;
     year?: string;
     month?: string;
   };
@@ -37,18 +38,20 @@ const searchParamsSchema = z.object({
   page: z.coerce.number().default(1),
   perPage: z.coerce.number().optional(),
   customer: z.string().optional(),
+  paymentStatus: z.enum(["all", "complete", "pending"]).default("all"),
   year: z.coerce.number().optional(),
   month: z.coerce.number().optional()
 });
 
 export default async function SalesPage({ searchParams }: SearchProps) {
-  const { page, perPage, customer, year, month } =
+  const { page, perPage, customer, paymentStatus, year, month } =
     searchParamsSchema.parse(searchParams);
 
   const { sales, meta } = await salesService.list({
     page,
     perPage,
     customer,
+    paymentStatus,
     year,
     month
   });

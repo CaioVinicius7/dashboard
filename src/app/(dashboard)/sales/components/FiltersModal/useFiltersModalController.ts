@@ -12,6 +12,7 @@ const schema = z.object({
     .string()
     .min(3, "O campo precisa ter pelo menos 3 caracteres.")
     .or(z.string().length(0)),
+  paymentStatus: z.enum(["all", "complete", "pending"]).default("all"),
   year: z
     .number()
     .max(CURRENT_YEAR, "O ano não pode ser maior do que o ano atual."),
@@ -45,6 +46,9 @@ export function useFiltersModalController() {
     resolver: zodResolver(schema),
     defaultValues: {
       customer: searchParams.get("customer") ?? undefined,
+      paymentStatus:
+        (searchParams.get("paymentStatus") as FormData["paymentStatus"]) ??
+        "all",
       year: searchParams.get("year")
         ? Number(searchParams.get("year"))
         : CURRENT_YEAR,
@@ -63,6 +67,10 @@ export function useFiltersModalController() {
 
     if (!!data.customer) {
       newSearchParams.set("customer", data.customer);
+    }
+
+    if (!!data.paymentStatus) {
+      newSearchParams.set("paymentStatus", data.paymentStatus);
     }
 
     if (!!data.year) {
