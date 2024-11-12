@@ -28,7 +28,7 @@ export async function MonthPendingPaymentsCard() {
         </span>
 
         <p className="text-xs text-muted-foreground">
-          Este valor é referente á{" "}
+          Este valor é referente a{" "}
           <Link
             href={`/sales?paymentStatus=pending&year=${CURRENT_YEAR}&month=${CURRENT_MONTH}&page=1`}
             className="bold hover:underline"
