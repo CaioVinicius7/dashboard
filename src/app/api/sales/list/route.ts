@@ -26,6 +26,7 @@ const getSalesSearchParamsSchema = z.object({
     .string()
     .optional()
     .transform((value) => value?.toLocaleLowerCase()),
+  paymentStatus: z.enum(["all", "complete", "pending"]).default("all"),
   year: z.coerce
     .number()
     .max(CURRENT_YEAR, "O ano não pode ser maior do que o ano atual.")
@@ -37,7 +38,7 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = request.nextUrl;
 
-    const { page, perPage, customer, year, month } =
+    const { page, perPage, customer, paymentStatus, year, month } =
       getSalesSearchParamsSchema.parse(
         Object.fromEntries(searchParams.entries())
       );
@@ -59,6 +60,12 @@ export async function GET(request: NextRequest) {
             lte: endOfYear(parsedDate)
           };
 
+    const paymentStatusFilter = {
+      all: undefined,
+      complete: true,
+      pending: false
+    }[paymentStatus];
+
     const [sales, totalCount] = await prisma.$transaction([
       prisma.sale.findMany({
         skip: (page - 1) * perPage,
@@ -67,6 +74,7 @@ export async function GET(request: NextRequest) {
           customer: {
             contains: customer
           },
+          paymentIsComplete: paymentStatusFilter,
           occurredAt: dateOfSaleFilter
         },
         orderBy: {
@@ -78,6 +86,7 @@ export async function GET(request: NextRequest) {
           customer: {
             contains: customer
           },
+          paymentIsComplete: paymentStatusFilter,
           occurredAt: dateOfSaleFilter
         }
       })

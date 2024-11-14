@@ -105,7 +105,7 @@ export function FiltersModal() {
             </div>
 
             <div className="space-y-2">
-              <Label>Mês</Label>
+              <Label htmlFor="month">Mês</Label>
 
               <div className="w-full space-y-2">
                 <Controller
@@ -117,7 +117,7 @@ export function FiltersModal() {
                       onValueChange={onChange}
                     >
                       <SelectTrigger
-                        id="role"
+                        id="month"
                         className={cn(
                           "w-full",
                           !!errors.month?.message && "border-red-400"

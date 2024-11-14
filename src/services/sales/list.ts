@@ -5,6 +5,7 @@ interface ListSalesParams {
   page?: number;
   perPage?: number;
   customer?: string;
+  paymentStatus?: "all" | "complete" | "pending";
   year?: number;
   month?: number;
 }
@@ -22,6 +23,7 @@ export async function list({
   page = 1,
   perPage = 8,
   customer,
+  paymentStatus,
   year,
   month
 }: ListSalesParams) {
@@ -32,6 +34,10 @@ export async function list({
 
   if (!!customer) {
     searchParams.set("customer", customer);
+  }
+
+  if (!!paymentStatus) {
+    searchParams.set("paymentStatus", paymentStatus);
   }
 
   if (!!year) {

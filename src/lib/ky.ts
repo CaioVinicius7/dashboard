@@ -18,6 +18,7 @@ export const httpClient = ky.create({
 
           cookieStore = serverCookies;
         }
+
         const token = getCookie(
           process.env.NODE_ENV === "production"
             ? "__Secure-next-auth.session-token"

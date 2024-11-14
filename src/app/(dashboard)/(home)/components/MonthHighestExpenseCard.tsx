@@ -45,9 +45,7 @@ export async function MonthHighestExpenseCard() {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <span className="font-bold">
-                      {monthHighestExpense.title}
-                    </span>
+                    <strong>{monthHighestExpense.title}</strong>
                   </TooltipTrigger>
 
                   <TooltipContent>

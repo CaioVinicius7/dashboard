@@ -63,18 +63,56 @@ export function FiltersModal() {
           onSubmit={handleSubmit}
           className="mt-4 space-y-6"
         >
-          <div className="space-y-2">
-            <Label htmlFor="customer">Cliente</Label>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="customer">Cliente</Label>
 
-            <Input
-              id="customer"
-              autoComplete="off"
-              error={errors.customer?.message}
-              {...register("customer")}
-            />
+              <Input
+                id="customer"
+                autoComplete="off"
+                error={errors.customer?.message}
+                {...register("customer")}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="paymentStatus">Status do pagamento</Label>
+
+              <div className="w-full space-y-2">
+                <Controller
+                  control={control}
+                  name="paymentStatus"
+                  render={({ field: { value, onChange } }) => (
+                    <Select defaultValue={value} onValueChange={onChange}>
+                      <SelectTrigger
+                        id="paymentStatus"
+                        className={cn(
+                          "w-full",
+                          !!errors.paymentStatus?.message && "border-red-400"
+                        )}
+                      >
+                        <SelectValue />
+                      </SelectTrigger>
+
+                      <SelectContent>
+                        <SelectItem value="all">Todos</SelectItem>
+                        <SelectItem value="complete">Concluído</SelectItem>
+                        <SelectItem value="pending">Pendente</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+
+                {!!errors.paymentStatus?.message && (
+                  <span className="text-xs text-red-400">
+                    {errors.month?.message}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
 
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-0">
+          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <Label>Ano</Label>
 
@@ -105,7 +143,7 @@ export function FiltersModal() {
             </div>
 
             <div className="space-y-2">
-              <Label>Mês</Label>
+              <Label htmlFor="month">Mês</Label>
 
               <div className="w-full space-y-2">
                 <Controller
@@ -117,7 +155,7 @@ export function FiltersModal() {
                       onValueChange={onChange}
                     >
                       <SelectTrigger
-                        id="role"
+                        id="month"
                         className={cn(
                           "w-full",
                           !!errors.month?.message && "border-red-400"

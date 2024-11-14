@@ -2,12 +2,12 @@ import { Home } from "lucide-react";
 
 import { Header } from "@/components/Header";
 import { metricsService } from "@/services/metrics";
-import { CURRENT_YEAR } from "@/utils/constants";
+import { CURRENT_MONTH, CURRENT_YEAR } from "@/utils/constants";
 
 import { MonthExpensesAmountCard } from "./components/MonthExpensesAmountCard";
 import { MonthExpensesCountCard } from "./components/MonthExpensesCountCard";
 import { MonthHighestExpenseCard } from "./components/MonthHighestExpenseCard";
-import { MonthHighestSaleCard } from "./components/MonthHighestSaleCard";
+import { MonthPendingPaymentsCard } from "./components/MonthPendingPaymentsCard";
 import { MonthSalesAmountCard } from "./components/MonthSalesAmountCard";
 import { MonthSalesCountCard } from "./components/MonthSalesCountCard ";
 import { MonthTotalProfitCard } from "./components/MonthTotalProfitCard";
@@ -17,7 +17,7 @@ export const revalidate = 10; // 10 seg
 
 export default async function HomePage() {
   const { data: chartData } = await metricsService.getDailyReceiptInPeriod({
-    month: new Date().getMonth() + 1,
+    month: CURRENT_MONTH,
     year: CURRENT_YEAR
   });
 
@@ -33,7 +33,7 @@ export default async function HomePage() {
 
               <MonthSalesAmountCard />
 
-              <MonthHighestSaleCard />
+              <MonthPendingPaymentsCard />
 
               <MonthExpensesCountCard />
 
