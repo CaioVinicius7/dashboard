@@ -74,13 +74,15 @@ export function Pagination({
               />
             </PaginationItem>
 
-            <PaginationLink
-              href={`${pageName}?${searchParamsWithoutPage}&page=${pages}`}
-              disabled={page >= pages}
-            >
-              <ChevronsRight className="size-4" />
-              <span className="sr-only">Ultima página</span>
-            </PaginationLink>
+            <PaginationItem>
+              <PaginationLink
+                href={`${pageName}?${searchParamsWithoutPage}&page=${pages}`}
+                disabled={page >= pages}
+              >
+                <ChevronsRight className="size-4" />
+                <span className="sr-only">Ultima página</span>
+              </PaginationLink>
+            </PaginationItem>
           </PaginationContent>
         </PaginationRoot>
       </div>
